@@ -99,7 +99,7 @@ Cuberoid.components = (function(){
 
     return {
         // Put he objects that map to functions
-        //Constants : Constants
+        Constants : Constants,
     }
 
 })();

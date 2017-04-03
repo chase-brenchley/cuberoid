@@ -4,10 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Cuberoid</title>
+
+	<style>
+		body {
+			background-color: #051738;
+			color: #7789AA;
+		}
+		div.tab {
+			overflow: hidden;
+			background-color: #152C55;
+		}
+		button.tablinks {
+			background-color: inherit;
+			text-align: center;
+			height: 60px;
+			border: none;
+			font-size: 40px;
+			margin: none;
+			color: #7789AA;
+			outline: none;
+			cursor: pointer;
+			transition: .15s;
+		}
+		button.tablinks:hover {
+			background-color: #2D4571;
+			font-size: 42px;
+		}
+		button.active{
+			background-color: #4D648D;
+			color: #051738;
+		}
+		div.tabcontent {
+			width: 100%;
+			height: 80%;
+			background-color: #4D648D;
+			position: fixed;
+		}
+	</style>
 </head>
 
 <body onload="Cuberoid.screens.initialize()">
+    <div id="game">
+        <div id = "page-mainmenu" class = "screen">
+            <h1 style="text-align: center;">Cuberoid</h1>
+            <div class="tab">
+                <button class="tablinks active" style="width: 24.75%;">Play</button>
+                <button class="tablinks" style="width: 24.75%;">Options</button>            
+                <button class="tablinks" style="width: 24.75%;">Help</button>
+                <button class="tablinks" style="width: 24.75%;">About</button>                
+            </div>
 
+            <div class="tabcontent">
+                <!--Place stuff here-->
+				<span>
+					HI
+				</span>
+            </div>
+
+			<!--<ul class = "menu">
+				<li><button id = "id-new-game">New&nbsp;Game</button></li>
+				<li><button id = "id-high-scores">High&nbsp;Scores</button></li>
+				<li><button id = "id-help">Help</button></li>
+				<li><button id = "id-about">About</button></li>
+			</ul>-->
+    </div>
 
     <!--This is what Dean did-->
 	<script>
