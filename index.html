@@ -5,7 +5,14 @@
     <meta charset="UTF-8">
     <title>Cuberoid</title>
 
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css"/>
+
 	<style>
+		* {
+			font-family: '8BITWONDERNominal'; 
+   			font-weight: normal; 
+   			font-style: normal;
+		}
 		body {
 			background-color: #051738;
 			color: #7789AA;
@@ -19,7 +26,7 @@
 			text-align: center;
 			height: 60px;
 			border: none;
-			font-size: 40px;
+			font-size: 30px;
 			margin: none;
 			color: #7789AA;
 			outline: none;
@@ -28,7 +35,7 @@
 		}
 		button.tablinks:hover {
 			background-color: #2D4571;
-			font-size: 42px;
+			font-size: 31px;
 		}
 		button.active{
 			background-color: #4D648D;
@@ -56,12 +63,12 @@
 			background-size: 100%;
 			opacity: .1; 
 		}
-		div.play-tab div.play-text {
+		.tab-text {
 			max-width: 500px;
 			margin: 0 auto;
 			opacity: 1;
 			/*color: #051738;	*/
-			color: black;		
+			color: black;	
 		}
 
 	</style>
@@ -72,22 +79,22 @@
         <div id = "page-mainmenu" class = "screen">
             <h1 style="text-align: center;">Cuberoid</h1>
             <div class="tab">
-                <button class="tablinks active" style="width: 24.75%;">Play</button>
-                <button class="tablinks" style="width: 24.75%;">Options</button>            
-                <button class="tablinks" style="width: 24.75%;">High Scores</button>
-                <button class="tablinks" style="width: 24.75%;">About</button>                
+                <button class="tablinks active" style="width: 24.5%;">Play</button>
+                <button class="tablinks" style="width: 24.5%;">Options</button>            
+                <button class="tablinks" style="width: 24.5%;">High Scores</button>
+                <button class="tablinks" style="width: 24.5%;">About</button>                
             </div>
 
             <div class="tabcontent">
                 <!--Place stuff here-->
 				<div class="play-tab">
 					<div class="play-background"></div>
-					<div class="play-text">
+					<div class="tab-text">
 						 Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions 
 					</div>
 				</div>
 				<div class="options-tab">
-
+					<h1>Controls</h1>
 				</div>
 				<div class="highscores-tab">
 					<ol class="highscores-list">
