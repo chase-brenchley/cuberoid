@@ -1,0 +1,3 @@
+Game.graphics = function(){
+    
+}()
