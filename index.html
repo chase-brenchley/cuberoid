@@ -44,11 +44,21 @@
 			height: 98%;
 			width: 98%;
 			margin: 1%;
+			position: relative;
+			z-index: 1;
+		}
+		div.play-background {
+			z-index: -1;
+			position: absolute;
+			height: 100%;
+			width: 100%;
 			background-image: url('https://68.media.tumblr.com/12b7d2136f97bd510fb7cd4fbc397e41/tumblr_o2cc1yQvxw1qd4q8ao1_500.gif');
 			background-size: 100%;
 			opacity: .1; 
 		}
-		span.play-text {
+		div.play-tab div.play-text {
+			width: 500px;
+			margin: 0 auto;
 			opacity: 1;
 			/*color: #051738;	*/
 			color: black;		
@@ -71,9 +81,10 @@
             <div class="tabcontent">
                 <!--Place stuff here-->
 				<div class="play-tab">
-					<span class="play-text">
-						Hi
-					</span>
+					<div class="play-background"></div>
+					<div class="play-text">
+						 Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions 
+					</div>
 				</div>
 				<div class="options-tab">
 
