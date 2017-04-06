@@ -97,7 +97,7 @@
 <body onload="Cuberoid.screens.initialize()">
     <div id="game">
         <div id = "page-mainmenu" class = "screen">
-            <h1 style="text-align: center;">Cuberoid</h1>
+            <h1 style="text-align: center; cursor: pointer;" onclick="location.reload();">Cuberoid</h1>
             <div class="tab">
                 <button class="tablinks" style="width: 24.5%;" onclick="openTab(event, 'play-tab');">Play</button>
                 <button class="tablinks" style="width: 24.5%;" onclick="openTab(event, 'options-tab');">Options</button>            
@@ -107,6 +107,11 @@
 
             <div class="tabcontent">
 				<div class="play-background"></div>
+				<div id="default-tab" class="tabcontents" style="display: block; max-width: 500px; margin: 0 auto;">
+					<p>Welcome to our game!</p>
+					<p>You can set up controls in the "Options" tab or </p>
+					<p>start up the game by clicking "Play".</p>
+				</div>
 				<div id="play-tab" class="tabcontents">
 					<div class="tab-text">
 						 Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions 
@@ -137,7 +142,7 @@
         </div>
 
 		<div>
-			<canvas id = "canvas-main" width = "800" height = "600"></canvas>
+			<canvas id = "canvas-main"></canvas>
 		</div>
 	
 	
@@ -165,6 +170,9 @@
 			// Make page-mainmenu be gone and display canvas
 			document.getElementById('page-mainmenu').style.display = "none";
 			document.getElementById('canvas-main').style.display = "block";
+			canvas = document.getElementById("canvas-main");
+    		canvas.width = window.innerWidth-20; //document.width is obsolete
+    		canvas.height = window.innerHeight-20; //document.height is obsolete
 		}
 		var Cuberoid = {
 			pages : {}
