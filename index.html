@@ -44,10 +44,13 @@
 		div.tabcontent {
 			width: 98.8%;
 			height: 80%;
-			background-color: #4D648D;
+			background-color: #051738;
 			position: fixed;
 		}
-		div.play-tab {
+		.tabcontents {
+			display: none;
+		}
+		#play-tab {
 			height: 98%;
 			width: 98%;
 			margin: 1%;
@@ -67,8 +70,22 @@
 			max-width: 500px;
 			margin: 0 auto;
 			opacity: 1;
-			/*color: #051738;	*/
-			color: black;	
+			color: #4D648D;	
+			/*color: black;	*/
+		}
+		/*.screen{
+			display: none;
+		}*/
+		canvas {
+			background: #eee;
+			display: none;
+			margin: 0 auto;
+		}
+		#highscores-list {
+			font-size: 40px;
+		}
+		#about-tab {
+			font-size: 25px;
 		}
 
 	</style>
@@ -79,43 +96,67 @@
         <div id = "page-mainmenu" class = "screen">
             <h1 style="text-align: center;">Cuberoid</h1>
             <div class="tab">
-                <button class="tablinks active" style="width: 24.5%;">Play</button>
-                <button class="tablinks" style="width: 24.5%;">Options</button>            
-                <button class="tablinks" style="width: 24.5%;">High Scores</button>
-                <button class="tablinks" style="width: 24.5%;">About</button>                
+                <button class="tablinks" style="width: 24.5%;" onclick="openTab(event, 'play-tab');">Play</button>
+                <button class="tablinks" style="width: 24.5%;" onclick="openTab(event, 'options-tab');">Options</button>            
+                <button class="tablinks" style="width: 24.5%;" onclick="openTab(event, 'highscores-tab');">High Scores</button>
+                <button class="tablinks" style="width: 24.5%;" onclick="openTab(event, 'about-tab');">About</button>                
             </div>
 
             <div class="tabcontent">
-                <!--Place stuff here-->
-				<div class="play-tab">
-					<div class="play-background"></div>
+				<div class="play-background"></div>
+				<div id="play-tab" class="tabcontents">
 					<div class="tab-text">
 						 Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions 
+						 <button>Play</button>
 					</div>
 				</div>
-				<div class="options-tab">
+				<div id="options-tab" class="tabcontents">
 					<h1>Controls</h1>
 				</div>
-				<div class="highscores-tab">
-					<ol class="highscores-list">
-
-					</ol>
+				<div id="highscores-tab" class="tabcontents">
+					<div class="tab-text">
+						<ol id="highscores-list">
+							<li>Chase: 1000</li>
+							<li>Ben: 2 </li>
+						</ol>
+					</div>
 				</div>
-				<div class="about-tab">
-
+				<div id="about-tab" class="tabcontents">
+					<div class="tab-text">
+						<h1>Made By:</h1>
+						<p>Chase Brenchley and</p>
+						<p>Ben Phillips</p>
+						<h1>Thanks to:</h1>
+						<p>Dean Mathias</p>
+					</div>
 				</div>
             </div>
+        </div>
 
-			<!--<ul class = "menu">
-				<li><button id = "id-new-game">New&nbsp;Game</button></li>
-				<li><button id = "id-high-scores">High&nbsp;Scores</button></li>
-				<li><button id = "id-help">Help</button></li>
-				<li><button id = "id-about">About</button></li>
-			</ul>-->
-    </div>
+		<div>
+			<canvas id = "canvas-main" width = "800" height = "600"></canvas>
+		</div>
+	
+	
+	</div>
 
     <!--This is what Dean did-->
 	<script>
+		function openTab(event, id) {
+			// Make the play button "active", make any other buttons not "active"
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+			event.currentTarget.className += " active";
+			// Display play tabcontent and don't display other tab content
+			tabcontent = document.getElementsByClassName("tabcontents");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			document.getElementById(id).style.display = "block";
+
+		}
 		var Cuberoid = {
 			pages : {}
 		};
