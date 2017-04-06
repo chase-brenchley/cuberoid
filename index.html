@@ -87,6 +87,9 @@
 		#about-tab {
 			font-size: 25px;
 		}
+		#page-mainmenu {
+			display: block;
+		}
 
 	</style>
 </head>
@@ -107,7 +110,7 @@
 				<div id="play-tab" class="tabcontents">
 					<div class="tab-text">
 						 Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions 
-						 <button>Play</button>
+						 <button onclick="displayGame();">Play</button>
 					</div>
 				</div>
 				<div id="options-tab" class="tabcontents">
@@ -156,6 +159,12 @@
 			}
 			document.getElementById(id).style.display = "block";
 
+		}
+
+		function displayGame() {
+			// Make page-mainmenu be gone and display canvas
+			document.getElementById('page-mainmenu').style.display = "none";
+			document.getElementById('canvas-main').style.display = "block";
 		}
 		var Cuberoid = {
 			pages : {}
