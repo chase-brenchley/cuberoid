@@ -14,10 +14,10 @@
         <div id = "page-mainmenu" class = "screen">
             <h1 style="text-align: center; cursor: pointer;" onclick="location.reload();">Cuberoid</h1>
             <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'play-tab');">Play</button>
-                <button class="tablinks" onclick="openTab(event, 'options-tab');">Options</button>            
-                <button class="tablinks" onclick="openTab(event, 'highscores-tab');">High Scores</button>
-                <button class="tablinks" onclick="openTab(event, 'about-tab');">About</button>                
+                <button class="tablinks" onmouseout="leaveHover(event, 'play-tab');" onmouseover="hoverTab(event, 'play-tab');" onclick="openTab(event, 'play-tab');">Play</button>
+                <button class="tablinks" onmouseout="leaveHover(event, 'options-tab');" onmouseover="hoverTab(event, 'options-tab');" onclick="openTab(event, 'options-tab');">Options</button>            
+                <button class="tablinks" onmouseout="leaveHover(event, 'highscores-tab');" onmouseover="hoverTab(event, 'highscores-tab');" onclick="openTab(event, 'highscores-tab');">High Scores</button>
+                <button class="tablinks" onmouseout="leaveHover(event, 'about-tab');" onmouseover="hoverTab(event, 'about-tab');" onclick="openTab(event, 'about-tab');">About</button>                
             </div>
 
             <div class="tabcontent">
@@ -29,8 +29,8 @@
 				</div>
 				<div id="play-tab" class="tabcontents">
 					<div class="tab-text">
-						 Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions 
 						 <button onclick="displayGame();">Play</button>
+						 <button >New Game </button>
 					</div>
 				</div>
 				<div id="options-tab" class="tabcontents">

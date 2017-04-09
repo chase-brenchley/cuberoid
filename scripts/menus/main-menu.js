@@ -5,13 +5,48 @@ function openTab(event, id) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
     event.currentTarget.className += " active";
+
+    // noDisplay();    
+
+    tabcontents = document.getElementsByClassName("tabcontents");
+    for (i = 0; i < tabcontents.length; i++){
+        tabcontents[i].className = tabcontents[i].className.replace(" active", "");
+    }
+
+
+    element = document.getElementById(id);
+    element.className += " active";
+    // element.style.display = "block";
+    element.style.opacity = "1";
+}
+
+function noDisplay(){
     // Display play tabcontent and don't display other tab content
     tabcontent = document.getElementsByClassName("tabcontents");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    document.getElementById(id).style.display = "block";
+}
 
+function hoverTab(event, id) {
+    // If the tab is different than the active tab, display the new tab at a decreased opacity, otherwise break
+    if (document.getElementById(id).className == "tabcontents active"){
+        return;
+    }
+    noDisplay();
+    document.getElementById(id).style.display = "block";
+    document.getElementById(id).style.opacity = ".3";
+}
+
+function leaveHover(event, id) {
+    noDisplay();
+    if(document.getElementsByClassName("tablinks active").length == 0) {
+        defaultTab = document.getElementById('default-tab');
+        defaultTab.style.display = "block";
+        return;
+    }
+    document.getElementById(document.getElementsByClassName("tabcontents active")[0].id).style.opacity = "1";
+    document.getElementById(document.getElementsByClassName("tabcontents active")[0].id).style.display = "block";
 }
 
 function displayGame() {

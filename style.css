@@ -95,3 +95,8 @@ td {
 tr {
     height: 50px;
 }
+
+.tabcontents.active {
+    display: block;
+    opacity: 1;
+}
