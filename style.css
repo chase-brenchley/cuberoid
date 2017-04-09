@@ -28,6 +28,7 @@ button.tablinks {
     cursor: pointer;
     transition: .15s;
     width: 24.5%;
+    /*padding: none;*/
 }
 button.tablinks:hover {
     background-color: #2D4571;
@@ -107,17 +108,20 @@ tr {
 }
 .playButtons {
     height: 50%;
-    width: 100%;
+    width: 95%;
     font-size: 200%;
     margin: 8px;
     background-color: #2D4571;
-    background: radial-gradient(#2D4571, #4D648D)
+    background: radial-gradient(#4D648D,#152C55);
+    /*border: none;*/
+    border-color: #7789AA;
 }
 .playButtons:hover{
-    box-shadow: 10px 10px;
+    box-shadow: 5px 5px ;
     font-size: 210%;
-    width: 95%;
+    width: 100%;
     background-color: #4D648D;
     background: linear-gradient(#152C55,#051738);
     color: #7789AA;
+    cursor: pointer;
 }
