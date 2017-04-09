@@ -1,3 +1,6 @@
+var buttonSnd = new Audio("assets\\sound\\button.wav");
+var gameStartSnd = new Audio("assets\\sound\\gamestart.wav");
+
 function openTab(event, id) {
     // Make the play button "active", make any other buttons not "active"
     tablinks = document.getElementsByClassName("tablinks");
@@ -31,11 +34,13 @@ function noDisplay(){
 function hoverTab(event, id) {
     // If the tab is different than the active tab, display the new tab at a decreased opacity, otherwise break
     if (document.getElementById(id).className == "tabcontents active"){
+        buttonSnd.play();
         return;
     }
     noDisplay();
     document.getElementById(id).style.display = "block";
     document.getElementById(id).style.opacity = ".3";
+    buttonSnd.play();
 }
 
 function leaveHover(event, id) {
@@ -50,6 +55,7 @@ function leaveHover(event, id) {
 }
 
 function displayGame() {
+    gameStartSnd.play();
     // Make page-mainmenu be gone and display canvas
     document.getElementById('page-mainmenu').style.display = "none";
     document.getElementById('canvas-main').style.display = "block";
