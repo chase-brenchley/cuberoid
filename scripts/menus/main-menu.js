@@ -1,7 +1,9 @@
 var buttonSnd = new Audio("assets\\sound\\button.wav");
 var gameStartSnd = new Audio("assets\\sound\\gamestart.wav");
+var clickSnd = new Audio("assets\\sound\\buttonclick.wav");
 
 function openTab(event, id) {
+    playSound(clickSnd);
     // Make the play button "active", make any other buttons not "active"
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
@@ -40,7 +42,7 @@ function hoverTab(event, id) {
     noDisplay();
     document.getElementById(id).style.display = "block";
     document.getElementById(id).style.opacity = ".3";
-    buttonSnd.play();
+    playSound(buttonSnd);
 }
 
 function leaveHover(event, id) {
@@ -55,11 +57,17 @@ function leaveHover(event, id) {
 }
 
 function displayGame() {
-    gameStartSnd.play();
+    playSound(gameStartSnd);
     // Make page-mainmenu be gone and display canvas
     document.getElementById('page-mainmenu').style.display = "none";
     document.getElementById('canvas-main').style.display = "block";
     canvas = document.getElementById("canvas-main");
     canvas.width = window.innerWidth-20; //document.width is obsolete
     canvas.height = window.innerHeight-20; //document.height is obsolete
+}
+
+function playSound(sound){
+    sound.pause();
+    sound.currentTime = 0;
+    sound.play();
 }
