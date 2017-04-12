@@ -13,6 +13,10 @@ Game.graphics = function(){
       context.restore();
     }
 
+    function drawFloor(params) {
+        
+    }
+
     return{
         drawRect: drawRect
     }
