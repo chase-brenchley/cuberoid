@@ -7,9 +7,14 @@ Game.screens = {
 Game.game = function(){
     var floor = document.getElementById('canvas-main').height - 20;
     var curTime, prevTime;
+    var seamus, graphics;
 
     function init(){
         curTime = prevTime = performance.now();
+        seamus = Game.seamus; 
+        graphics = Game.graphics;
+        graphics.init();
+        seamus.init();
         requestAnimationFrame(gameLoop);
     }
 
@@ -24,11 +29,12 @@ Game.game = function(){
     }
 
     function update(elapsedTime){
-
+        seamus.update(elapsedTime)
     }
 
     function render(){
-        Game.samus.draw();
+        graphics.clear();
+        seamus.draw();
     }
 
     return{
