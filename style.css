@@ -74,8 +74,10 @@ div.play-background {
     display: none;
 }*/
 canvas {
+    /*width: 1200;*/
     background: #eee;
-    display: none;
+    /*display: none;*/
+    display: block;
     margin: 0 auto;
 }
 #highscores-list {
@@ -87,7 +89,7 @@ canvas {
     text-align: center;
 }
 #page-mainmenu {
-    display: block;
+    display: none;
 }
 table {
     margin: 0 auto;
