@@ -1,3 +1,4 @@
+Game = {};
 Game.screens = {
 
 }
@@ -5,13 +6,17 @@ Game.screens = {
 // game contains gameloop, update, and render. Runs the heart of the game.
 Game.game = function(){
     var floor = document.getElementById('canvas-main').height - 20;
-    var cubey = new object({height: 3, width: 3, x: 5, y: 5})
-    
+    var curTime, prevTime;
+
     function init(){
-        
+        curTime = prevTime = performance.now();
+        requestAnimationFrame(gameLoop);
     }
 
-    function gameLoop(elapsedTime){
+    function gameLoop(){
+        prevTime = curTime;
+	    curTime = performance.now();
+        var elapsedTime = curTime - prevTime;
         update(elapsedTime);
         render();
 
@@ -23,6 +28,10 @@ Game.game = function(){
     }
 
     function render(){
+        Game.samus.draw();
+    }
 
+    return{
+        init: init
     }
 }()
