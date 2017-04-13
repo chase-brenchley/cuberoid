@@ -4,7 +4,7 @@ Game.screens = {
 }
 
 // game contains gameloop, update, and render. Runs the heart of the game.
-Game.game = function(){
+Game.game = (function(controls){
     var floor = document.getElementById('canvas-main').height - 20;
     var curTime, prevTime;
     var seamus, graphics;
@@ -14,7 +14,8 @@ Game.game = function(){
         seamus = Game.seamus; 
         graphics = Game.graphics;
         graphics.init();
-        seamus.init();
+        Game.controls.init();
+        seamus.init(Game.contorls.controls);
         requestAnimationFrame(gameLoop);
     }
 
@@ -40,4 +41,4 @@ Game.game = function(){
     return{
         init: init
     }
-}()
+}(Game.controls));
