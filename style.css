@@ -89,7 +89,8 @@ canvas {
     text-align: center;
 }
 #page-mainmenu {
-    display: none;
+    /*display: none;*/
+    display: block;
 }
 table {
     margin: 0 auto;

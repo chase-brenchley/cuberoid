@@ -1,4 +1,4 @@
-Gamepad.stage1 = function() {
+Game.stage1 = function() {
     // Spawn area. There's only a floor and a door to exit
     var width, height
 
