@@ -3,7 +3,7 @@ Game.seamus = function(){
     var jumpTime, jumping;
     var health; // seamus stats
     var texture, x, y, width, height;   // drawing info
-    var gravity = 10;
+    var gravity; //units per second
 
     // Controls
     var jump, moveLeft, moveRight, fire;
@@ -27,16 +27,20 @@ Game.seamus = function(){
         height = 100;
         x = 0 + width/2;
         y = 0 + height/2;
+        gravity = document.getElementById('canvas-main').height
+        jump = 32
     }
 
     function update(elapsedTime){
-        y += gravity*elapsedTime/100;
         if(jumping == true){
             jumpTime -= elapsedTime;
-            
+            y -= gravity*elapsedTime/1000
             if(jumpTime <= 0){
                 jumping = false;
             }
+        }
+        else{
+            y += gravity*elapsedTime/1000;      
         }
 
     }
