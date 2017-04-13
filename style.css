@@ -128,4 +128,10 @@ tr {
     background: linear-gradient(#152C55,#051738);
     color: #7789AA;
     cursor: pointer;
+} #reset-defaults {
+    align-content: center;
+    width: 50%;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
 }
