@@ -74,26 +74,3 @@ function playSound(sound){
     sound.play();
 }
 
-function changeControls(control){
-    // prompt user to choose a new button or press esc to cancel
-    button = document.getElementById(control);
-    document.getElementById('page-mainmenu').focus(); // Removes focus from button so space can be set as a control
-    button.blur(); // Look above
-    current = button.innerText;
-    button.innerText = "Press any key..."
-    var keynum;
-
-    document.onkeydown = function(evt) {
-        evt = evt || window.event;
-        var charCode = evt.keyCode || evt.which;
-        if (27 == charCode) {
-            button.innerText = current;
-            return;
-        }
-        var charStr = String.fromCharCode(charCode);
-        button.innerText = charStr;
-        // alert(charStr);
-    };
-    // update control dictionary
-    controls[control] = button.innerText;
-}

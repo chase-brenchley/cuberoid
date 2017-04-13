@@ -14,8 +14,8 @@ Game.game = (function(controls){
         seamus = Game.seamus; 
         graphics = Game.graphics;
         graphics.init();
-        seamus.init();
         Game.controls.init();
+        seamus.init(Game.contorls.controls);
         requestAnimationFrame(gameLoop);
     }
 
