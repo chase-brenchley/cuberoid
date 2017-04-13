@@ -15,7 +15,7 @@ Game.game = (function(controls){
         graphics = Game.graphics;
         graphics.init();
         Game.controls.init();
-        seamus.init(Game.contorls.controls);
+        seamus.init(Game.controls.controls);
         requestAnimationFrame(gameLoop);
     }
 
@@ -36,6 +36,7 @@ Game.game = (function(controls){
     function render(){
         graphics.clear();
         seamus.draw();
+        graphics.drawFloor();        
     }
 
     return{

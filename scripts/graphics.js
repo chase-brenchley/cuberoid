@@ -24,12 +24,19 @@ Game.graphics = function(){
     }
 
     function drawFloor(params) {
-        
+        drawRect({
+            x: canvas.width/2, 
+            y: canvas.height -10,
+            width: canvas.width,
+            height: 50,
+            color: "grey",
+        })
     }
 
     return{
         init: init,
         clear: clear,
-        drawRect: drawRect
+        drawRect: drawRect,
+        drawFloor: drawFloor,
     }
 }()

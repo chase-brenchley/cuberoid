@@ -23,7 +23,7 @@ Game.seamus = function(){
 
     function init(controls){
         jump = controls['jump'];
-        moveLeft = contorls['left'];
+        moveLeft = controls['left'];
         moveRight = controls['right'];
         fire = controls['shoot'];
         health = 100;

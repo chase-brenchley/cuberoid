@@ -20,9 +20,9 @@ Game.controls = function(){
             var charStr = String.fromCharCode(charCode);
             button.innerText = charStr;
             // alert(charStr);
+            controls[control] = button.innerText;
+            localStorage.setItem('controls', JSON.stringify(controls)); 
         };
-        // update control dictionary
-        controls[control] = button.innerText;
     }   
 
     function reset(){
@@ -40,6 +40,7 @@ Game.controls = function(){
             var element = controlButtons[i];
 			controls[element.id] = element.innerText;            
         }
+        localStorage.setItem('controls', JSON.stringify(controls));
     }
 
     function init(){
@@ -48,6 +49,24 @@ Game.controls = function(){
             var element = controlButtons[i];
 			controls[element.id] = element.innerText;            
         }
+        localStorage.setItem('controls', JSON.stringify(controls));        
+    }
+
+    function restore(){
+        controlButtons = document.getElementsByClassName("control-button");
+        for (var i = 0; i < controlButtons.length; i++) {
+            var element = controlButtons[i];
+			controls[element.id] = element.innerText;            
+        }
+        if(localStorage.getItem('controls') != null){
+            var previousControls = JSON.parse(localStorage.getItem('controls'))
+            document.getElementById('jump').innerHTML = previousControls['jump']
+            document.getElementById('shoot').innerHTML = previousControls['shoot']
+            document.getElementById('left').innerHTML = previousControls['left']
+            document.getElementById('right').innerHTML = previousControls['right']
+            document.getElementById('up').innerHTML = previousControls['up']
+            document.getElementById('down').innerHTML = previousControls['down']
+        }
     }
 
     return {
@@ -55,5 +74,6 @@ Game.controls = function(){
         controls:controls,
         changeControls:changeControls,
         reset: reset,
+        restore:restore,
     }
 }();
