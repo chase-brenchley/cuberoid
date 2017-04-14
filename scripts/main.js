@@ -16,9 +16,12 @@ Game.game = (function(controls){
         seamus = Game.seamus.generateSeamus(); 
         graphics = Game.graphics;
         physics = Game.physics;
+        
+        physics.init();
         graphics.init();
         Game.controls.init();
         seamus.init(Game.controls.controls);
+        
         Game.game.paused = false;
         requestAnimationFrame(gameLoop);
     }
@@ -37,7 +40,7 @@ Game.game = (function(controls){
     function update(elapsedTime){
         seamus.update(elapsedTime)
         if(physics.collision(seamus, {x: 0, y: 400, width: 1000, height: 50, color: 'blue'})){
-            console.log("you did it!")
+            seamus.yVelocity = 0;
         }
     }
 

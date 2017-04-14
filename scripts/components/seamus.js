@@ -1,64 +1,130 @@
 Game.seamus = function(){    
+    'use strict'
 
 
     function generateSeamus(){
-        'use strict'
         var that = {};  
-
-        // Controls
-        var jump, moveLeft, moveRight, fire;
         
-        that.keyDownJumpListener = window.addEventListener('keydown', function(event){
-            if(event.keyCode == that.jump){
-                that.jumpTime = that.MAX_JUMP_TIME;
+        that.keyDown = window.addEventListener('keydown', function(event){
+            if(event.key == that.jumpKey){
                 that.jumping = true;
+                that.yVelocity = -5;
+            }
+
+            if(event.key == that.leftKey){
+                that.left = true;
+            }
+
+            if(event.key == that.rightKey){
+                that.right = true;
+            }
+
+            if(event.key == that.upKey){
+                
+            }
+
+            if(event.key == that.downKey){
+
+            }
+
+            if(event.key == that.shoot){
+
             }
         }) 
 
-        that.keyUpJumpListener = window.addEventListener('keyup', function(event){
-            if(event.keyCode == that.jump){
+        that.keyUp = window.addEventListener('keyup', function(event){
+            if(event.key == that.jumpKey){
                 that.jumping = false;
+                if(that.yVelocity < 0){
+                    that.yVelocity = 0;
+                }
+            }
+
+            if(event.key == that.leftKey){
+                that.left = false;
+            }
+
+            if(event.key == that.rightKey){
+                that.right = false;
+            }
+
+            if(event.key == that.upKey){
+                
+            }
+
+            if(event.key == that.downKey){
+
+            }
+
+            if(event.key == that.shootKey){
+
             }
         })
 
-        that.init = function(){
+        that.init = function(controls){
             that.health = 100;
+
+            // Position/Dimension
             that.width = 50;
             that.height = 100;
             that.x = 0 + that.width/2;
             that.y = 0 + that.height/2;
-            that.gravity = document.getElementById('canvas-main').height
-            that.jump = 32
-            that.xVelocity = 0; 
+
+            // Set controls
+            that.upKey    = controls['up'];
+            that.downKey  = controls['down']
+            that.leftKey  = controls['left'];
+            that.rightKey = controls['right'];
+            that.jumpKey  = controls['jump'];
+            that.shootKey = controls['shoot'];
+
+            // Set active values for actions
+            that.up = false;
+            that.down = false;
+            that.left = false;
+            that.right = false;
+            that.jump = false;
+            that.shoot = false;
+
+            // Motion relavent variables
+            that.xVelocity = 5; 
             that.yVelocity = 0;
-            that.MAX_JUMP_TIME = 500; // max jump time in ms
-            that.MAX_Y_VELOCITY = document.getElementById('canvas-main').height * 1.5;
-            that.jumping = false;
-            that.jumpTime = 0;
+            that.MAX_JUMP_TIME = 1000; // max jump time in ms
+            that.MAX_Y_VELOCITY = document.getElementById('canvas-main').height;
             that.MAX_JUMP_TIME = 200;
-            jump = controls['jump'];
-            moveLeft = controls['left'];
-            moveRight = controls['right'];
-            fire = controls['shoot'];
         }
 
 
         that.update = function(elapsedTime){
-            that.yVelocity += that.gravity;
-
+            'use strict'
+            // Update yVelocity and y position
+            that.yVelocity += Game.physics.getGravity() * elapsedTime/1000;
             if(that.yVelocity > that.MAX_Y_VELOCITY){
                 that.yVelocity = that.MAX_Y_VELOCITY;
             }
+
+            // Update for jumping 
             if(that.jumping == true){
                 that.jumpTime -= elapsedTime;
-                that.y -= that.gravity*elapsedTime/1000
+                //that.y -= Game.physics.getGravity()*elapsedTime/1000
                 if(that.jumpTime <= 0){
                     that.jumping = false;
                 }
             }
-            else{
-                that.y += that.gravity*elapsedTime/1000;      
+
+            that.y += that.yVelocity;
+            // else{
+            //     that.y += Game.physics.getGravity()*elapsedTime/1000;      
+            // }
+
+            // Update horizontal motion
+            if(that.left){
+                that.x -= that.xVelocity;
             }
+            if(that.right){
+                that.x += that.xVelocity;
+            }
+
         }
 
         // for now just draw a colored rectangle, later do sprite animation.

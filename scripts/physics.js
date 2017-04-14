@@ -1,4 +1,12 @@
 Game.physics = function(){
+    'use strict'
+    
+    var gravity;
+
+    function init(){
+        gravity = 5;
+    }
+
     // Takes two objects and detects if they are colliding. Assumes the first parameter is a moving object, and the other is 
     // treated as being stationary, so when position is corrected to make sure they are not superimposed on each other the 
     // moving object's position will be changed. Returns true if they are colliding, else returns false.
@@ -12,6 +20,8 @@ Game.physics = function(){
         var stationaryTop = obj.y - .5 * obj.height, stationaryBottom = obj.y + .5 * obj.height;
 
         var collisionOverlap;
+
+        var count = 0;
 
         // keeps track of overlap relative to the moving object's corresponding side.
         // the minimum overlap will decide which direction to push the moving object out of the 
@@ -32,6 +42,7 @@ Game.physics = function(){
             // }
             right = true;
             rightOverlap = movingRightSide - stationaryLeftside;
+            count += 1;
         }
 
         // Detect case where the left side of the moving obj intersects stationary obj
@@ -43,18 +54,37 @@ Game.physics = function(){
             // }
             left = true;
             leftOverlap = stationaryRightSide - movingLeftSide;
+            count += 1;
         }
 
         // Detect case where the top side of the moving obj intersects stationary obj
         if(movingTop < stationaryBottom && movingTop > stationaryTop){
             top = true;
             topOverlap = stationaryBottom - movingTop;
+            count += 1;
         }
         
         // Detect case where the bottom side of the moving obj intersects stationary obj        
         if(movingBottom < stationaryBottom && movingBottom > stationaryTop){
             bottom  = true;
             bottomOverlap = movingBottom - stationaryTop;
+            count += 1;
+        }
+
+        // Check some corner cases where only one side of moving obj intersects stationary obj 
+        if(count <= 1){
+            // If its a side overlap but they aren't vertically aligned, there's no collision
+            if(left || right){
+                if(stationaryTop < movingTop || stationaryTop > movingBottom){
+                   return false;
+                }
+            }
+            else if(top || bottom){
+                if(stationaryLeftside > movingRightSide || stationaryLeftside < movingLeftSide){
+                    return false;
+                }
+            }
+            
         }
 
         // If both top and bottom are intersecting it must have been a side collision
@@ -90,6 +120,10 @@ Game.physics = function(){
         }
     }
 
+    function getGravity(){
+        return gravity;
+    }
+
     // function horizontalOverlap(obj, obj2){
     //     var objRight = obj.x + .5 * obj.width, objLeft = obj.x + .5 * obj.width;
     //     var obj2Right = obj2.x + .5 * obj2.width, obj2Left = obj2.x + .5 * obj2.width
@@ -118,6 +152,8 @@ Game.physics = function(){
     //     }
     // }
     return{
+        init: init,
         collision: collision,
+        getGravity: getGravity
     }
 }();
