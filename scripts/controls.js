@@ -22,8 +22,10 @@ Game.controls = function(){
             // alert(charStr);
             controls[control] = button.innerText;
             localStorage.setItem('controls', JSON.stringify(controls)); 
+            // break;
         };
-    }   
+        return;
+    }; 
 
     function reset(){
         // Reset controls to default
