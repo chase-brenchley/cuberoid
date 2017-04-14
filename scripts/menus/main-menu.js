@@ -3,6 +3,7 @@ var gameStartSnd = new Audio("assets\\sound\\gamestart.wav");
 var clickSnd = new Audio("assets\\sound\\buttonclick.wav");
 let gameInProgress = false;
 var errorSnd = new Audio("assets/sound/error.mp3");
+var BGMusic = new Audio("assets/sound/menu.mp3");
 
 function openTab(event, id) {
     playSound(clickSnd);
@@ -101,4 +102,10 @@ function keyDownHandler(e) {
             continueGame();
         }
     }
+}
+
+function startBGMusic(){
+    BGMusic.volume = .3;
+    BGMusic.loop = true;
+    playSound(BGMusic);
 }
