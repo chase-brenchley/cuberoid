@@ -18,7 +18,7 @@ Game.controls = function(){
                 return;
             }
             var charStr = String.fromCharCode(charCode);
-            button.innerText = charStr;
+            button.innerText = evt.key;
             // alert(charStr);
             controls[control] = button.innerText;
             localStorage.setItem('controls', JSON.stringify(controls)); 

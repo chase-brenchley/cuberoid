@@ -35,6 +35,7 @@ Game.game = (function(controls){
 
     function update(elapsedTime){
         seamus.update(elapsedTime)
+        
     }
 
     function render(){

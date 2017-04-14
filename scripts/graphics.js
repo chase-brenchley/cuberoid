@@ -4,7 +4,8 @@ Game.graphics = function(){
     function init(){
         canvas = document.getElementById('canvas-main');
         context = canvas.getContext('2d');
-        currentStage = Game.stage1;
+        // currentStage = Game.stage1;
+        currentStage = Game.stage2;        
         currentStage.init();
         console.log(canvas)
         console.log(currentStage);        
@@ -36,6 +37,5 @@ Game.graphics = function(){
         clear: clear,
         drawRect: drawRect,
         drawStage: drawStage,
-        canvas: canvas,
     }
 }()
