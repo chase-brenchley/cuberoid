@@ -113,7 +113,7 @@ function startBGMusic(){
 function alterBGMusic() {
     element = document.getElementById("musicToggle").checked;
     if (element) {
-        startBGMusic();
+        BGMusic.play();
     } else {
         BGMusic.pause();
     }
