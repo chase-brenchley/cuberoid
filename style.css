@@ -76,8 +76,8 @@ div.play-background {
 canvas {
     /*width: 1200;*/
     background: black;
-    /*display: none;*/
-    display: block;
+    display: none;
+    /*display: block;*/
     margin: 0 auto;
 }
 #highscores-list {

@@ -11,6 +11,7 @@ Game.controls = function(){
         var keynum;
 
         document.onkeydown = function(evt) {
+            console.log("Getting a new control");
             evt = evt || window.event;
             var charCode = evt.keyCode || evt.which;
             if (27 == charCode) {
@@ -22,9 +23,8 @@ Game.controls = function(){
             // alert(charStr);
             controls[control] = button.innerText;
             localStorage.setItem('controls', JSON.stringify(controls)); 
-            // break;
+            document["onkeydown"]=null;
         };
-        return;
     }; 
 
     function reset(){
