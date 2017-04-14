@@ -74,8 +74,10 @@ div.play-background {
     display: none;
 }*/
 canvas {
-    background: #eee;
-    display: none;
+    /*width: 1200;*/
+    background: black;
+    /*display: none;*/
+    display: block;
     margin: 0 auto;
 }
 #highscores-list {
@@ -87,6 +89,7 @@ canvas {
     text-align: center;
 }
 #page-mainmenu {
+    /*display: none;*/
     display: block;
 }
 table {
@@ -125,4 +128,10 @@ tr {
     background: linear-gradient(#152C55,#051738);
     color: #7789AA;
     cursor: pointer;
+} #reset-defaults {
+    align-content: center;
+    width: 900px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
 }
