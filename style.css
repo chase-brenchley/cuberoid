@@ -195,3 +195,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.control-button {
+    /*width: 40px;*/
+    height: 30px;
+    max-width: auto;
+    min-width: 40px;
+}
