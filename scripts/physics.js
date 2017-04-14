@@ -1,0 +1,123 @@
+Game.physics = function(){
+    // Takes two objects and detects if they are colliding. Assumes the first parameter is a moving object, and the other is 
+    // treated as being stationary, so when position is corrected to make sure they are not superimposed on each other the 
+    // moving object's position will be changed. Returns true if they are colliding, else returns false.
+    // Note: the collisions are referred to in terms of the moving object, i.e. bottom means that the bottom of the moving object
+    // hit a stationary object.
+    function collision(movingObj, obj){
+        var movingRightSide = movingObj.x + .5 * movingObj.width, movingLeftSide = movingObj.x - .5 * movingObj.width;
+        var movingTop = movingObj.y - .5 * movingObj.height, movingBottom = movingObj.y + .5 * movingObj.height;
+
+        var stationaryLeftside = obj.x - .5 * obj.width, stationaryRightSide = obj.x + .5 * obj.width;
+        var stationaryTop = obj.y - .5 * obj.height, stationaryBottom = obj.y + .5 * obj.height;
+
+        var collisionOverlap;
+
+        // keeps track of overlap relative to the moving object's corresponding side.
+        // the minimum overlap will decide which direction to push the moving object out of the 
+        // stationary object.
+        var topOverlap, bottomOverlap, leftOverlap, rightOverlap;
+        topOverlap = bottomOverlap = leftOverlap = rightOverlap = Infinity;
+        
+        // booleans that will turn true if the moving objects corresponding side overlaps the stationary obj
+        var right, left, top, bottom;
+        right = left = top = bottom = false;
+
+        // Detect case where the right side of the moving obj intersects the other obj
+        if(movingRightSide > stationaryLeftside && movingRightSide < stationaryRightSide){
+            //movingObj.x = stationaryLeftside - .5 * movingObj.width;
+            // if(stationaryLeftside - movingRightSide < collisionOverlap){
+            //     collisionOverlap = stationaryLeftside - movingRightSide;
+            //     collisionSide = "right";
+            // }
+            right = true;
+            rightOverlap = movingRightSide - stationaryLeftside;
+        }
+
+        // Detect case where the left side of the moving obj intersects stationary obj
+        if(movingLeftSide < stationaryRightSide && movingLeftSide > stationaryLeftside){
+            //movingObj.x = stationaryRightSide + .5 * movingObj.width; 
+            // if(movingLeftSide - stationaryRightSide < collisionOverlap){
+            //     collisionOverlap = stationaryLeftside - movingRightSide;
+            //     collisionSide = "right";
+            // }
+            left = true;
+            leftOverlap = stationaryRightSide - movingLeftSide;
+        }
+
+        // Detect case where the top side of the moving obj intersects stationary obj
+        if(movingTop < stationaryBottom && movingTop > stationaryTop){
+            top = true;
+            topOverlap = stationaryBottom - movingTop;
+        }
+        
+        // Detect case where the bottom side of the moving obj intersects stationary obj        
+        if(movingBottom < stationaryBottom && movingBottom > stationaryTop){
+            bottom  = true;
+            bottomOverlap = movingBottom - stationaryTop;
+        }
+
+        // If both top and bottom are intersecting it must have been a side collision
+        if(top && bottom){
+            top = bottom = false;
+            topOverlap = bottomOverlap = Infinity;
+        }
+
+        // If both left and right side are intersecting it must have been a top or bottom collision
+        if(left && right){
+            left = right = false;
+            leftOverlap = rightOverlap = Infinity;
+        }
+
+        if(left && leftOverlap <= topOverlap && leftOverlap <= bottomOverlap){
+            movingObj.x = stationaryRightSide + .5 * movingObj.width;
+            return true;
+        }
+        else if(right && rightOverlap <= topOverlap && rightOverlap <= bottomOverlap){
+            movingObj.x = stationaryLeftside - .5 * movingObj.width;
+            return true;
+        }
+        else if(top && topOverlap <= leftOverlap && topOverlap <= rightOverlap){
+            movingObj.y = stationaryBottom + .5 * movingObj.height;
+            return true;
+        }
+        else if(bottom && bottomOverlap <= leftOverlap && bottomOverlap <= rightOverlap){
+            movingObj.y = stationaryTop - .5 * movingObj.height;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    // function horizontalOverlap(obj, obj2){
+    //     var objRight = obj.x + .5 * obj.width, objLeft = obj.x + .5 * obj.width;
+    //     var obj2Right = obj2.x + .5 * obj2.width, obj2Left = obj2.x + .5 * obj2.width
+
+    //     if(objRight > obj2Left && objRight < obj2Right){
+    //         return true;
+    //     }
+    //     if(objLeft < obj2Left && objLeft > obj2Right){
+    //         return true;
+    //     }
+    //     if(obj2Left > objLeft && obj2Left < objRight){
+    //         return true;
+    //     }
+    //     if(obj2Right > objLeft && obj2Right < objRight){
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+    // function verticalOverlap(obj, obj2){
+    //     var objTop = obj.y - .5 * obj.height, objBottom = obj.y + .5 * obj.height;
+    //     var obj2Top = obj2.y - .5 * obj2.height, obj2Bottom = obj2.y + .5 * obj2.height;
+
+    //     if((objTop <= obj2Bottom && objTop >= obj2Top) || (objBottom < obj2Bottom && objBottom > obj2Top)){
+    //         return true;
+    //     }
+    // }
+    return{
+        collision: collision,
+    }
+}();
