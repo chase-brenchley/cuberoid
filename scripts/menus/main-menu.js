@@ -79,7 +79,7 @@ function playSound(sound){
 
 function continueGame() {
     if(gameInProgress){
-        playSound(gameStartSnd);
+        // playSound(gameStartSnd);
         Game.game.paused = false;
         document.getElementById('canvas-main').style.display = 'block';
         document.getElementById('page-mainmenu').style.display = "none";
@@ -91,9 +91,14 @@ function continueGame() {
 document.addEventListener("keydown", keyDownHandler, false);
 
 function keyDownHandler(e) {
+    console.log(e)
     if (e.keyCode == 27) {
-        Game.game.paused = true;
-        document.getElementById('canvas-main').style.display = "none";
-        document.getElementById('page-mainmenu').style.display = "block";
+        if(!Game.game.paused){
+            Game.game.paused = true;
+            document.getElementById('canvas-main').style.display = "none";
+            document.getElementById('page-mainmenu').style.display = "block";
+        } else {
+            continueGame();
+        }
     }
 }
