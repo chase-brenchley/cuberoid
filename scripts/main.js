@@ -12,6 +12,10 @@ Game.game = (function(controls){
     var paused;
 
     function init(){
+        BGMusic.pause();
+        BGMusic = new Audio("assets/sound/BGMusic.mp3");
+        BGMusic.loop = true;
+        playSound(BGMusic);
         curTime = prevTime = performance.now();
         seamus = Game.seamus.generateSeamus(); 
         graphics = Game.graphics;
