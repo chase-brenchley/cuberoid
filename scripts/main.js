@@ -38,8 +38,18 @@ Game.game = (function(controls){
     }
 
     function update(elapsedTime){
+        var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
         if(physics.collision(seamus, {x: 0, y: 400, width: 1000, height: 50, color: 'blue'})){
+            seamus.yVelocity = 0;
+        }
+        if(physics.collision(seamus, {
+            x: canvas.width/2, 
+            y: canvas.height -10,
+            width: canvas.width/2,
+            height: 50,
+            color: "grey",
+        })){
             seamus.yVelocity = 0;
         }
     }
