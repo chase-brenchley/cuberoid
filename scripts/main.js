@@ -32,6 +32,11 @@ Game.game = (function(controls){
         requestAnimationFrame(gameLoop);
     }
 
+    function reInit(){
+        console.log(Game.controls.controls);
+        seamus.updateControls(Game.controls.controls)
+    }
+
     function gameLoop(){
         prevTime = curTime;
 	    curTime = performance.now();
@@ -70,5 +75,6 @@ Game.game = (function(controls){
     return{
         init: init,
         paused: paused,
+        reInit: reInit,
     }
 }(Game.controls));

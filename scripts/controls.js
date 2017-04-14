@@ -4,8 +4,7 @@ Game.controls = function(){
     function changeControls(control){
         // prompt user to choose a new button or press esc to cancel
         button = document.getElementById(control);
-        document.getElementById('page-mainmenu').focus(); // Removes focus from button so space can be set as a control
-        button.blur(); // Look above
+
         current = button.innerText;
         button.innerText = "Press any key..."
         var keynum;
@@ -21,10 +20,12 @@ Game.controls = function(){
             var charStr = String.fromCharCode(charCode);
             button.innerText = evt.key;
             // alert(charStr);
-            controls[control] = button.innerText;
+            controls[control] = evt.key;
             localStorage.setItem('controls', JSON.stringify(controls)); 
             document["onkeydown"]=null;
         };
+        document.getElementById('page-mainmenu').focus(); // Removes focus from button so space can be set as a control
+        button.blur(); // Look above
     }; 
 
     function reset(){

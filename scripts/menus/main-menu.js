@@ -82,6 +82,7 @@ function continueGame() {
     if(gameInProgress){
         // playSound(gameStartSnd);
         Game.game.paused = false;
+        Game.game.reInit();
         document.getElementById('canvas-main').style.display = 'block';
         document.getElementById('page-mainmenu').style.display = "none";
     } else {

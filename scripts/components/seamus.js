@@ -61,6 +61,22 @@ Game.seamus = function(){
             }
         })
 
+        that.updateControls = function(controls){
+            that.upKey    = controls['up'];
+            that.downKey  = controls['down']
+            that.leftKey  = controls['left'];
+            that.rightKey = controls['right'];
+            that.jumpKey  = controls['jump'];
+            that.shootKey = controls['shoot'];
+
+            that.up = false;
+            that.down = false;
+            that.left = false;
+            that.right = false;
+            that.jump = false;
+            that.shoot = false;
+        }
+
         that.init = function(controls){
             that.health = 100;
 
