@@ -27,12 +27,12 @@ Game.controls = function(){
 
     function reset(){
         // Reset controls to default
-        document.getElementById('jump').innerHTML = "Space";
-        document.getElementById('shoot').innerHTML = "E";
-        document.getElementById('left').innerHTML = "A";
-        document.getElementById('right').innerHTML = "D";
-        document.getElementById('up').innerHTML = "W";
-        document.getElementById('down').innerHTML = "S";
+        document.getElementById('jump').innerHTML = " ";
+        document.getElementById('shoot').innerHTML = "e";
+        document.getElementById('left').innerHTML = "a";
+        document.getElementById('right').innerHTML = "d";
+        document.getElementById('up').innerHTML = "w";
+        document.getElementById('down').innerHTML = "s";
 
         // update controls object
         controlButtons = document.getElementsByClassName("control-button");
