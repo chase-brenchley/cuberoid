@@ -64,6 +64,8 @@ function displayGame() {
     canvas = document.getElementById("canvas-main");
     canvas.width = window.innerWidth-20; //document.width is obsolete
     canvas.height = window.innerHeight-20; //document.height is obsolete
+    console.log(canvas)
+    Game.game.init();
 }
 
 function playSound(sound){
