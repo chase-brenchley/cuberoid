@@ -1,6 +1,8 @@
 var buttonSnd = new Audio("assets\\sound\\button.wav");
 var gameStartSnd = new Audio("assets\\sound\\gamestart.wav");
 var clickSnd = new Audio("assets\\sound\\buttonclick.wav");
+let gameInProgress = false;
+var errorSnd = new Audio("assets/sound/error.mp3");
 
 function openTab(event, id) {
     playSound(clickSnd);
@@ -64,6 +66,7 @@ function displayGame() {
     canvas = document.getElementById("canvas-main");
     canvas.width = window.innerWidth-20; //document.width is obsolete
     canvas.height = window.innerHeight-20; //document.height is obsolete
+    gameInProgress = true;
     console.log(canvas)
     Game.game.init();
 }
@@ -74,3 +77,23 @@ function playSound(sound){
     sound.play();
 }
 
+function continueGame() {
+    if(gameInProgress){
+        playSound(gameStartSnd);
+        Game.game.paused = false;
+        document.getElementById('canvas-main').style.display = 'block';
+        document.getElementById('page-mainmenu').style.display = "none";
+    } else {
+        playSound(errorSnd);
+    }
+}
+
+document.addEventListener("keydown", keyDownHandler, false);
+
+function keyDownHandler(e) {
+    if (e.keyCode == 27) {
+        Game.game.paused = true;
+        document.getElementById('canvas-main').style.display = "none";
+        document.getElementById('page-mainmenu').style.display = "block";
+    }
+}

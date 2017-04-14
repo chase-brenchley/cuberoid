@@ -1,4 +1,4 @@
-Game.stage1 = function() {
+Game.stage2 = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas;
     var width, height;

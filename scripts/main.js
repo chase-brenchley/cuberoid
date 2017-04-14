@@ -8,6 +8,8 @@ Game.game = (function(controls){
     var floor = document.getElementById('canvas-main').height - 20;
     var curTime, prevTime;
     var seamus, graphics;
+    var currentStage;
+    var paused;
 
     function init(){
         curTime = prevTime = performance.now();
@@ -16,6 +18,7 @@ Game.game = (function(controls){
         graphics.init();
         Game.controls.init();
         seamus.init(Game.controls.controls);
+        Game.game.paused = false;
         requestAnimationFrame(gameLoop);
     }
 
@@ -23,9 +26,10 @@ Game.game = (function(controls){
         prevTime = curTime;
 	    curTime = performance.now();
         var elapsedTime = curTime - prevTime;
-        update(elapsedTime);
-        render();
-
+        if (!Game.game.paused) {
+            update(elapsedTime);
+            render();
+        }
         requestAnimationFrame(gameLoop);
     }
 
@@ -36,10 +40,11 @@ Game.game = (function(controls){
     function render(){
         graphics.clear();
         seamus.draw();
-        graphics.drawFloor();        
+        graphics.drawStage();        
     }
 
     return{
-        init: init
+        init: init,
+        paused: paused,
     }
 }(Game.controls));

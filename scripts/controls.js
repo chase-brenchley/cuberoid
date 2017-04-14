@@ -60,12 +60,12 @@ Game.controls = function(){
         }
         if(localStorage.getItem('controls') != null){
             var previousControls = JSON.parse(localStorage.getItem('controls'))
-            document.getElementById('jump').innerHTML = previousControls['jump']
-            document.getElementById('shoot').innerHTML = previousControls['shoot']
-            document.getElementById('left').innerHTML = previousControls['left']
-            document.getElementById('right').innerHTML = previousControls['right']
-            document.getElementById('up').innerHTML = previousControls['up']
-            document.getElementById('down').innerHTML = previousControls['down']
+            document.getElementById('jump').innerHTML = previousControls['jump'];
+            document.getElementById('shoot').innerHTML = previousControls['shoot'];
+            document.getElementById('left').innerHTML = previousControls['left'];
+            document.getElementById('right').innerHTML = previousControls['right'];
+            document.getElementById('up').innerHTML = previousControls['up'];
+            document.getElementById('down').innerHTML = previousControls['down'];
         }
     }
 

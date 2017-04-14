@@ -75,7 +75,7 @@ div.play-background {
 }*/
 canvas {
     /*width: 1200;*/
-    background: #eee;
+    background: black;
     /*display: none;*/
     display: block;
     margin: 0 auto;
