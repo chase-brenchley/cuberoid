@@ -36,7 +36,12 @@ Game.seamus = function(){
             that.jumping = false;
             that.jumpTime = 0;
             that.MAX_JUMP_TIME = 200;
+            jump = controls['jump'];
+            moveLeft = controls['left'];
+            moveRight = controls['right'];
+            fire = controls['shoot'];
         }
+
 
         that.update = function(elapsedTime){
             that.yVelocity += that.gravity;

@@ -4,7 +4,7 @@
 // game model is componsed.
 //
 //------------------------------------------------------------------
-Cuberoid.components = (function(){
+Game.components = (function(){
     // Dean puts things like constants and game components into this file.
     // For example, in brickout he puts the paddle, ball, the interesection function, and bricks in this file
 
