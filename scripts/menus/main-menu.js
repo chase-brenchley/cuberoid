@@ -109,3 +109,12 @@ function startBGMusic(){
     BGMusic.loop = true;
     playSound(BGMusic);
 }
+
+function alterBGMusic() {
+    element = document.getElementById("musicToggle").checked;
+    if (element) {
+        startBGMusic();
+    } else {
+        BGMusic.pause();
+    }
+}
