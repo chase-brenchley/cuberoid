@@ -51,6 +51,7 @@ Game.game = (function(controls){
     function update(elapsedTime){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
+        seamus.collision({x: 0, y: 400, width: 1000, height: 50, color: 'blue'})
         if(physics.collision(seamus, {x: 0, y: 400, width: 1000, height: 50, color: 'blue'})){
             seamus.yVelocity = 0;
         }

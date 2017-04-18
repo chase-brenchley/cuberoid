@@ -4,7 +4,8 @@ Game.seamus = function(){
 
     function generateSeamus(){
         var that = {};  
-        
+        var runSpeed = 5;
+
         that.keyDown = window.addEventListener('keydown', function(event){
             if(event.key == that.jumpKey){
                 that.jumping = true;
@@ -12,11 +13,11 @@ Game.seamus = function(){
             }
 
             if(event.key == that.leftKey){
-                that.left = true;
+                that.xVelocity = -runSpeed;
             }
 
             if(event.key == that.rightKey){
-                that.right = true;
+                that.xVelocity = runSpeed;
             }
 
             if(event.key == that.upKey){
@@ -41,11 +42,11 @@ Game.seamus = function(){
             }
 
             if(event.key == that.leftKey){
-                that.left = false;
+                that.xVelocity = 0;
             }
 
             if(event.key == that.rightKey){
-                that.right = false;
+                that.xVelocity = 0;
             }
 
             if(event.key == that.upKey){
@@ -103,11 +104,9 @@ Game.seamus = function(){
             that.shoot = false;
 
             // Motion relavent variables
-            that.xVelocity = 5; 
+            that.xVelocity = 0; 
             that.yVelocity = 0;
-            that.MAX_JUMP_TIME = 1000; // max jump time in ms
             that.MAX_Y_VELOCITY = document.getElementById('canvas-main').height;
-            that.MAX_JUMP_TIME = 200;
         }
 
 
@@ -132,20 +131,23 @@ Game.seamus = function(){
             // else{
             //     that.y += Game.physics.getGravity()*elapsedTime/1000;      
             // }
-
-            // Update horizontal motion
-            if(that.left){
-                that.x -= that.xVelocity;
-            }
-            if(that.right){
-                that.x += that.xVelocity;
-            }
+            that.x += that.xVelocity;
 
         }
 
         // for now just draw a colored rectangle, later do sprite animation.
         that.draw = function(){
             Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
+        }
+
+        that.collision = function(obj){
+            var collisionSide = Game.physics.collision(that, obj);
+            if(collisionSide == 'bottom' || collisionSide == 'top'){
+                that.yVelocity = 0;
+            }
+            if(collisionSide == 'left' || collisionSide == 'right'){
+                that.xVelocity = 0;
+            }
         }
 
         return that;
