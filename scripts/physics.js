@@ -38,7 +38,7 @@ Game.physics = function(){
         right = left = top = bottom = false;
 
         // Detect case where the right side of the moving obj intersects the other obj
-        if(movingRightSide > stationaryLeftside && movingRightSide < stationaryRightSide){
+        if(movingRightSide >= stationaryLeftside && movingRightSide <= stationaryRightSide){
             //movingObj.x = stationaryLeftside - .5 * movingObj.width;
             // if(stationaryLeftside - movingRightSide < collisionOverlap){
             //     collisionOverlap = stationaryLeftside - movingRightSide;
@@ -50,7 +50,7 @@ Game.physics = function(){
         }
 
         // Detect case where the left side of the moving obj intersects stationary obj
-        if(movingLeftSide < stationaryRightSide && movingLeftSide > stationaryLeftside){
+        if(movingLeftSide <= stationaryRightSide && movingLeftSide >= stationaryLeftside){
             //movingObj.x = stationaryRightSide + .5 * movingObj.width; 
             // if(movingLeftSide - stationaryRightSide < collisionOverlap){
             //     collisionOverlap = stationaryLeftside - movingRightSide;
@@ -62,14 +62,14 @@ Game.physics = function(){
         }
 
         // Detect case where the top side of the moving obj intersects stationary obj
-        if(movingTop < stationaryBottom && movingTop > stationaryTop){
+        if(movingTop <= stationaryBottom && movingTop >= stationaryTop){
             top = true;
             topOverlap = stationaryBottom - movingTop;
             count += 1;
         }
         
         // Detect case where the bottom side of the moving obj intersects stationary obj        
-        if(movingBottom < stationaryBottom && movingBottom > stationaryTop){
+        if(movingBottom <= stationaryBottom && movingBottom >= stationaryTop){
             bottom  = true;
             bottomOverlap = movingBottom - stationaryTop;
             count += 1;

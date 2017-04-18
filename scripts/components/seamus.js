@@ -8,16 +8,21 @@ Game.seamus = function(){
 
         that.keyDown = window.addEventListener('keydown', function(event){
             if(event.key == that.jumpKey){
-                that.jumping = true;
-                that.yVelocity = -5;
+                if(that.canJump){
+                    that.jumping = true;
+                    that.canJump = false;
+                    that.yVelocity = -5;
+                }     
             }
 
             if(event.key == that.leftKey){
-                that.xVelocity = -runSpeed;
+                that.left = true;
+                that.right = false;
             }
 
             if(event.key == that.rightKey){
-                that.xVelocity = runSpeed;
+                that.left = false;
+                that.right = true;
             }
 
             if(event.key == that.upKey){
@@ -42,11 +47,11 @@ Game.seamus = function(){
             }
 
             if(event.key == that.leftKey){
-                that.xVelocity = 0;
+                that.left = false;
             }
 
             if(event.key == that.rightKey){
-                that.xVelocity = 0;
+                that.right = false;
             }
 
             if(event.key == that.upKey){
@@ -100,7 +105,7 @@ Game.seamus = function(){
             that.down = false;
             that.left = false;
             that.right = false;
-            that.jump = false;
+            that.canJump = false;
             that.shoot = false;
 
             // Motion relavent variables
@@ -131,8 +136,12 @@ Game.seamus = function(){
             // else{
             //     that.y += Game.physics.getGravity()*elapsedTime/1000;      
             // }
-            that.x += that.xVelocity;
-
+            if(that.left){
+                that.x -= runSpeed;
+            }
+            else if(that.right){
+                that.x += runSpeed;
+            }
         }
 
         // for now just draw a colored rectangle, later do sprite animation.
@@ -142,7 +151,11 @@ Game.seamus = function(){
 
         that.collision = function(obj){
             var collisionSide = Game.physics.collision(that, obj);
-            if(collisionSide == 'bottom' || collisionSide == 'top'){
+            if(collisionSide == 'bottom'){
+                that.yVelocity = 0;
+                that.canJump = true;
+            } 
+            else if(collisionSide == 'top'){
                 that.yVelocity = 0;
             }
             if(collisionSide == 'left' || collisionSide == 'right'){
