@@ -19,8 +19,8 @@ Game.game = (function(controls){
             playSound(BGMusic);
         }
         curTime = prevTime = performance.now();
-        seamus = Game.seamus.generateSeamus(); 
         graphics = Game.graphics;
+        seamus = Game.seamus.generateSeamus(); 
         physics = Game.physics;
         
         physics.init();
@@ -51,22 +51,12 @@ Game.game = (function(controls){
     function update(elapsedTime){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
-        seamus.collision({x: 0, y: 400, width: 1000, height: 50, color: 'blue'})
-
-        if(physics.collision(seamus, {
-            x: canvas.width/2, 
-            y: canvas.height -10,
-            width: canvas.width/2,
-            height: 50,
-            color: "grey",
-        })){
-            seamus.yVelocity = 0;
-        }
+        seamus.collision({x: .4 * .5 + .02, y: .6, width: .4, height: .02, color: 'blue'})
     }
 
     function render(){
         graphics.clear();
-        graphics.drawRect({x: 0, y: 400, width: 1000, height: 50, color: 'blue'});        
+        graphics.drawRect({x: .4 * .5 + .02, y: .6, width: .4, height: .02, color: 'blue'});        
         seamus.draw();
         graphics.drawStage();        
     }

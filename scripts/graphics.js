@@ -1,11 +1,17 @@
 Game.graphics = function(){
     var canvas, context, currentStage;
-    
+
     function init(){
         canvas = document.getElementById('canvas-main');
         context = canvas.getContext('2d');
         // currentStage = Game.stage1;
-        currentStage = Game.stage2;        
+        currentStage = Game.stage2;     
+        canvas.height = window.innerHeight * .98;
+        canvas.width = canvas.height * 1.7;
+        while(canvas.width > window.innerWidth * .98){
+            canvas.height -= 1;
+            canvas.width = canvas.height * 1.7;
+        }
         currentStage.init();
         console.log(canvas)
         console.log(currentStage);        
@@ -21,7 +27,7 @@ Game.graphics = function(){
     //   let context = canvas.getContext("2d");
       context.save();
       context.beginPath();
-      context.rect(spec.x - .5 * spec.width, spec.y - .5 * spec.height, spec.width, spec.height);
+      context.rect((spec.x - .5 * spec.width) * canvas.width, (spec.y - .5 * spec.height) * canvas.height, spec.width * canvas.width, spec.height * canvas.height);
       context.fillStyle = spec.color;
       context.fill();
       context.closePath();
@@ -32,10 +38,20 @@ Game.graphics = function(){
         currentStage.draw();
     }
 
+    function getWidth(){
+        return canvas.width;
+    }
+
+    function getHeight(){
+        return canvas.height;
+    }
+
     return{
         init: init,
         clear: clear,
         drawRect: drawRect,
         drawStage: drawStage,
+        getWidth: getWidth,
+        getHeight: getHeight
     }
 }()

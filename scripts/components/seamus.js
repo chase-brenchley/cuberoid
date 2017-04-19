@@ -4,14 +4,14 @@ Game.seamus = function(){
 
     function generateSeamus(){
         var that = {};  
-        var runSpeed = 5;
+        var runSpeed = .5;
 
         that.keyDown = window.addEventListener('keydown', function(event){
             if(event.key == that.jumpKey){
                 if(that.canJump){
                     that.jumping = true;
                     that.canJump = false;
-                    that.yVelocity = -5;
+                    that.yVelocity = -Game.physics.getGravity();
                 }     
             }
 
@@ -87,8 +87,8 @@ Game.seamus = function(){
             that.health = 100;
 
             // Position/Dimension
-            that.width = 50;
-            that.height = 100;
+            that.width = .05
+            that.height = .15
             that.x = 0 + that.width/2;
             that.y = 0 + that.height/2;
 
@@ -137,10 +137,10 @@ Game.seamus = function(){
             //     that.y += Game.physics.getGravity()*elapsedTime/1000;      
             // }
             if(that.left){
-                that.x -= runSpeed;
+                that.x -= runSpeed * elapsedTime/1000;
             }
             else if(that.right){
-                that.x += runSpeed;
+                that.x += runSpeed * elapsedTime/1000;
             }
         }
 
@@ -155,8 +155,8 @@ Game.seamus = function(){
                 that.yVelocity = 0;
                 that.canJump = true;
             } 
-            else if(collisionSide == 'top'){
-                that.yVelocity = 0;
+            else{
+                that.canJump = false;
             }
             if(collisionSide == 'left' || collisionSide == 'right'){
                 that.xVelocity = 0;
