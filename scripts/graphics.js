@@ -34,6 +34,17 @@ Game.graphics = function(){
       context.restore();
     }
 
+    // spec = {
+        // image:
+        // dx:
+        // dy:
+        // dWidth:
+        // dHeight:
+    // }
+    function drawImage(spec){
+        context.drawImage(spec.image, spec.dx, spec.dy);
+    }
+
     function drawStage(){
         currentStage.draw();
     }
@@ -51,6 +62,7 @@ Game.graphics = function(){
         clear: clear,
         drawRect: drawRect,
         drawStage: drawStage,
+        drawImage: drawImage,
         getWidth: getWidth,
         getHeight: getHeight
     }
