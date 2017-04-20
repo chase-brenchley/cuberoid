@@ -4,14 +4,14 @@ Game.seamus = function(){
 
     function generateSeamus(){
         var that = {};  
-        var runSpeed = .5;
+        var runSpeed = .35;
 
         that.keyDown = window.addEventListener('keydown', function(event){
             if(event.key == that.jumpKey){
                 if(that.canJump){
                     that.jumping = true;
                     that.canJump = false;
-                    that.yVelocity = -Game.physics.getGravity();
+                    that.yVelocity = -1.3;
                 }     
             }
 
@@ -111,17 +111,20 @@ Game.seamus = function(){
             // Motion relavent variables
             that.xVelocity = 0; 
             that.yVelocity = 0;
-            that.MAX_Y_VELOCITY = document.getElementById('canvas-main').height;
+            that.MAX_Y_VELOCITY = 2;
         }
 
 
         that.update = function(elapsedTime){
             'use strict'
             // Update yVelocity and y position
-            that.yVelocity += Game.physics.getGravity() * elapsedTime/1000;
+
+            
+            that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
             if(that.yVelocity > that.MAX_Y_VELOCITY){
                 that.yVelocity = that.MAX_Y_VELOCITY;
             }
+            that.y += that.yVelocity  * elapsedTime/1000;
 
             // Update for jumping 
             if(that.jumping == true){
@@ -132,7 +135,6 @@ Game.seamus = function(){
                 }
             }
 
-            that.y += that.yVelocity;
             // else{
             //     that.y += Game.physics.getGravity()*elapsedTime/1000;      
             // }

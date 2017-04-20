@@ -4,7 +4,7 @@ Game.physics = function(){
     var gravity;
 
     function init(){
-        gravity = 9.8;
+        gravity = 2;
     }
 
     // Takes two objects and detects if they are colliding. Assumes the first parameter is a moving object, and the other is 
@@ -129,7 +129,7 @@ Game.physics = function(){
     }
 
     function getGravity(){
-        return gravity / Game.graphics.getHeight();
+        return gravity;
     }
 
     // function horizontalOverlap(obj, obj2){

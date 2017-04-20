@@ -68,7 +68,6 @@ function displayGame() {
     canvas.width = window.innerWidth-20; //document.width is obsolete
     canvas.height = window.innerHeight-20; //document.height is obsolete
     gameInProgress = true;
-    console.log(canvas)
     Game.game.init();
 }
 
