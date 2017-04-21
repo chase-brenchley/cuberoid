@@ -154,12 +154,12 @@ Game.seamus = function(){
         that.collision = function(obj){
             var collisionSide = Game.physics.collision(that, obj);
             if(collisionSide == 'bottom'){
-                that.yVelocity = 0;
-                that.canJump = true;
+                if(that.yVelocity > 0){
+                    that.yVelocity = 0;
+                    that.canJump = true;
+                }
             } 
-            else{
-                that.canJump = false;
-            }
+            
             if(collisionSide == 'left' || collisionSide == 'right'){
                 that.xVelocity = 0;
             }

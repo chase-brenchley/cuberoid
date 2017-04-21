@@ -22,6 +22,7 @@ Game.game = (function(controls){
         graphics = Game.graphics;
         seamus = Game.seamus.generateSeamus(); 
         physics = Game.physics;
+        currentStage = Game.stage1;
         
         physics.init();
         graphics.init();
@@ -58,6 +59,9 @@ Game.game = (function(controls){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
         seamus.collision({x: .4 * .5 + .02, y: .6, width: .4, height: .03, color: 'blue'})
+        for (i = 0; i < currentStage.Stage.length; i++){
+            seamus.collision(currentStage.Stage[i]);
+        }
     }
 
     function render(){

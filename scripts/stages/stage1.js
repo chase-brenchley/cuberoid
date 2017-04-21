@@ -3,6 +3,16 @@ Game.stage1 = function() {
     let canvas;
     var width, height;
 
+    var stage = [
+        {x: .5, y: .85, width: .5, height: .3, color: "grey",},
+        {x: .95, y: .85, width: .1, height: .3, color: "grey",},
+        {x: .825, y: 1-.05/2, width: .3, height: .05, color: "grey",},
+    ]
+
+    // var Constants = {
+    //     get stage() {return stage;}, //access with Game.stage1.Constants["stage"]
+    // }
+
     function init(){
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
@@ -10,33 +20,15 @@ Game.stage1 = function() {
     }
 
     function draw() {
-        Game.graphics.drawRect({
-            x: canvas.width/2, 
-            y: canvas.height -10,
-            width: canvas.width/2,
-            height: 50,
-            color: "grey",
-        })
-
-        Game.graphics.drawRect({
-            x: canvas.width-300/2,
-            y: 600,
-            width: 300,
-            height: 50,
-            color: "grey"
-        })
-
-        Game.graphics.drawRect({
-            x: canvas.width-25/2,
-            y: 600-100,
-            width: 25,
-            height: 150,
-            color: "red"
-        })
+        for (i = 0; i < stage.length; i++){
+            Game.graphics.drawRect(stage[i]);
+        }
     }
 
     return {
-        draw:draw,
+        Stage: stage,
+        // Constants: Constants,
+        draw: draw,
         init: init,
     }
 }();

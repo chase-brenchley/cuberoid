@@ -4,8 +4,8 @@ Game.graphics = function(){
     function init(){
         canvas = document.getElementById('canvas-main');
         context = canvas.getContext('2d');
-        // currentStage = Game.stage1;
-        currentStage = Game.stage2;     
+        currentStage = Game.stage1;
+        // currentStage = Game.stage2;     
         canvas.height = window.innerHeight * .98;
         canvas.width = canvas.height * 1.7;
         while(canvas.width > window.innerWidth * .98){
@@ -46,7 +46,7 @@ Game.graphics = function(){
     }
 
     function drawStage(){
-        currentStage.draw();
+        currentStage.draw();            
     }
 
     function getWidth(){
