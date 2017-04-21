@@ -165,6 +165,7 @@ Game.seamus = function(){
             if(collisionSide == 'left' || collisionSide == 'right'){
                 that.xVelocity = 0;
             }
+            return (collisionSide != null ?  true: false);
         }
 
         return that;

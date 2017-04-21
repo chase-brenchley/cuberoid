@@ -6,7 +6,7 @@ Game.graphics = function(){
     function init(){
         canvas = document.getElementById('canvas-main');
         context = canvas.getContext('2d');
-        currentStage = Game.stage1;
+        // currentStage = Game.stage1;
         // currentStage = Game.stage2;     
         canvas.height = window.innerHeight * .98;
         canvas.width = canvas.height * ratio;
@@ -14,9 +14,9 @@ Game.graphics = function(){
             canvas.height -= 1;
             canvas.width = canvas.height * ratio;
         }
-        currentStage.init();
+        // currentStage.init();
         console.log(canvas)
-        console.log(currentStage);        
+        // console.log(currentStage);        
     }
 
     function clear(){
@@ -37,7 +37,7 @@ Game.graphics = function(){
     }
 
     // spec = {
-        // image:d
+        // image:
         // dx:
         // dy:
         // dWidth:
@@ -50,8 +50,9 @@ Game.graphics = function(){
         else if (numArgs == 9) context.drawImage(spec.image, spec.sx, spec.sy, spec.sWidth, spec.sHeight, spec.dx, spec.dy, spec.dWidth, spec.dHeight);
     }
 
-    function drawStage(){
-        currentStage.draw();            
+    function drawStage(stage){
+        // currentStage.draw();     
+        stage.draw();       
     }
 
     function getWidth(){

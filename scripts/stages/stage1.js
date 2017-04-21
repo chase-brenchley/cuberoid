@@ -8,7 +8,7 @@ Game.stage1 = function() {
         {x: .95, y: .85, width: .1, height: .3, color: "grey",}, //Right platform
         {x: .825, y: 1-.05/2, width: .3, height: .05, color: "grey",}, // Dip
         {x: .01/2, y:.5, width: .01, height: 1, color: "grey"}, // left wall
-        {x: 1-.02/2, y: .85-.3/2-.2/2, width: .02, height: .2, color: "clear", collide: "no"}, //door
+        {x: 1-.02/2, y: .85-.3/2-.2/2, width: .02, height: .2, color: "clear", nextStage: Game.stage2}, //door
         {x: .5, y: 0+.01/2, width:1 , height: .01 , color: "grey"}, //ceiling
         {x: 1-.015/2, y: .5/2, width: .015, height: 1-(.3+.2), color: "grey"}, //right wall
         {x: .95+.05/2, y: .5, width: .05, height: .035, color: "grey"} // door overhang
@@ -22,6 +22,7 @@ Game.stage1 = function() {
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
+        stage[4].nextStage = Game.stage2;
     }
 
     function draw() {

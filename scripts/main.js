@@ -59,8 +59,14 @@ Game.game = (function(controls){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
         for (i = 0; i < currentStage.Stage.length; i++){
-            if (!currentStage.Stage[i].hasOwnProperty("collide")){
+            if (!currentStage.Stage[i].hasOwnProperty("nextStage")){
                 seamus.collision(currentStage.Stage[i]);
+            } else {
+                if(seamus.collision(currentStage.Stage[i]) == true){
+                    currentStage = currentStage.Stage[i].nextStage;
+                    console.log("Changing the level");
+                    return;
+                }
             }
         }
     }
@@ -68,7 +74,7 @@ Game.game = (function(controls){
     function render(){
         graphics.clear();
         seamus.draw();
-        graphics.drawStage();        
+        graphics.drawStage(currentStage);        
     }
 
     return{
