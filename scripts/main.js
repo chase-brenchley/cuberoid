@@ -58,15 +58,15 @@ Game.game = (function(controls){
     function update(elapsedTime){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
-        seamus.collision({x: .4 * .5 + .02, y: .6, width: .4, height: .03, color: 'blue'})
         for (i = 0; i < currentStage.Stage.length; i++){
-            seamus.collision(currentStage.Stage[i]);
+            if (!currentStage.Stage[i].hasOwnProperty("collide")){
+                seamus.collision(currentStage.Stage[i]);
+            }
         }
     }
 
     function render(){
         graphics.clear();
-        graphics.drawRect({x: .4 * .5 + .02, y: .6, width: .4, height: .03, color: 'blue'});        
         seamus.draw();
         graphics.drawStage();        
     }

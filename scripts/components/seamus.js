@@ -89,8 +89,10 @@ Game.seamus = function(){
             // Position/Dimension
             that.width = .05
             that.height = .15
-            that.x = 0 + that.width/2;
-            that.y = 0 + that.height/2;
+            // that.x = 0 + that.width/2;
+            // that.y = 0 + that.height/2;
+            that.x = .5;
+            that.y = .5;
 
             // Set controls
             that.upKey    = controls['up'];
