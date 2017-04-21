@@ -64,6 +64,8 @@ Game.game = (function(controls){
             } else {
                 if(seamus.collision(currentStage.Stage[i]) == true){
                     currentStage = currentStage.Stage[i].nextStage;
+                    currentStage.init({width: seamus.width, height: seamus.height});
+                    seamus.updateCoords(currentStage.Coords())
                     console.log("Changing the level");
                     return;
                 }

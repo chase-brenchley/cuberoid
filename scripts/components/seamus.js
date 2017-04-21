@@ -83,6 +83,11 @@ Game.seamus = function(){
             that.shoot = false;
         }
 
+        that.updateCoords = function(coords){
+            that.x = coords.x;
+            that.y = coords.y;
+        }
+
         that.init = function(controls){
             that.health = 100;
 

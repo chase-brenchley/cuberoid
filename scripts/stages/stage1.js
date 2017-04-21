@@ -32,8 +32,6 @@ Game.stage1 = function() {
 
         var image = new Image(); //h: 64 w: 31 R: 2.06
         image.src = "assets/textures/closeddoorleft.png";
-        console.log(image.width)
-        console.log(image.height)
         width = .045;
         height = width * 4;
         height = .185;

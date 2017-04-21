@@ -1,7 +1,9 @@
 Game.stage2 = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas;
-    var width, height;
+    var width, height, coords;
+
+
 
     var stage = [
         {x: .5, y: .85, width: .5, height: .3, color: "red",}, //Middle platform
@@ -18,10 +20,18 @@ Game.stage2 = function() {
     //     get stage() {return stage;}, //access with Game.stage1.Constants["stage"]
     // }
 
-    function init(){
+    function init(seamus){
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
+        coords = {
+            x: 0+seamus.width/2,
+            y: 0+seamus.height/2,
+        }
+    }
+
+    function getCoords(){
+        return coords;
     }
 
     function draw() {
@@ -60,6 +70,7 @@ Game.stage2 = function() {
 
     return {
         Stage: stage,
+        Coords: getCoords,
         // Constants: Constants,
         draw: draw,
         init: init,
