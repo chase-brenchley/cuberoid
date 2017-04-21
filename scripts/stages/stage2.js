@@ -24,6 +24,7 @@ Game.stage2 = function() {
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
+        stage[4].nextStage = Game.stage1;
     }
 
     function draw() {

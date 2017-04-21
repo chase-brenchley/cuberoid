@@ -48,10 +48,8 @@ Game.game = (function(controls){
         prevTime = curTime;
 	    curTime = performance.now();
         var elapsedTime = curTime - prevTime;
-        // if (!Game.game.paused) {
-            update(elapsedTime);
-            render();
-        // }
+        update(elapsedTime);
+        render();
         requestAnimationFrame(gameLoop);
     }
 
@@ -63,12 +61,11 @@ Game.game = (function(controls){
                 seamus.collision(currentStage.Stage[i]);
             } else {
                 if(seamus.collision(currentStage.Stage[i]) == true){
-                    coords = currentStage.Stage[i].coords;
+                    currentStage.Stage[i].hasOwnProperty("coords") ? coords = currentStage.Stage[i].coords: coords = {x:.5,y:.5};
                     currentStage = currentStage.Stage[i].nextStage;
                     currentStage.init();
                     seamus.updateCoords(coords)
-                    console.log("Changing the level");
-                    return;
+                    break;
                 }
             }
         }
