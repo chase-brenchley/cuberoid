@@ -1,20 +1,22 @@
 Game.graphics = function(){
     var canvas, context, currentStage;
 
+    var ratio = 1.7;
+
     function init(){
         canvas = document.getElementById('canvas-main');
         context = canvas.getContext('2d');
         // currentStage = Game.stage1;
-        currentStage = Game.stage2;     
+        // currentStage = Game.stage2;     
         canvas.height = window.innerHeight * .98;
-        canvas.width = canvas.height * 1.7;
+        canvas.width = canvas.height * ratio;
         while(canvas.width > window.innerWidth * .98){
             canvas.height -= 1;
-            canvas.width = canvas.height * 1.7;
+            canvas.width = canvas.height * ratio;
         }
-        currentStage.init();
+        // currentStage.init();
         console.log(canvas)
-        console.log(currentStage);        
+        // console.log(currentStage);        
     }
 
     function clear(){
@@ -56,8 +58,23 @@ Game.graphics = function(){
         context.drawImage(spec.spriteSheet, topLeft.x, topLeft.y, spec.spriteSheet.width/8, spec.spriteSheet.height/6, (spec.x - spec.width / 2) * canvas.width, (spec.y - spec.height / 2) * canvas.height, spec.width * canvas.width * 1.7, spec.height * canvas.height)
     }
 
-    function drawStage(){
-        currentStage.draw();
+    // spec = {
+        // image:
+        // dx:
+        // dy:
+        // dWidth:
+        // dHeight:
+    // }
+    function drawImage(spec){
+        numArgs = Object.keys(spec).length;
+        if (numArgs == 3) context.drawImage(spec.image, (spec.dx - .5 * spec.image.width) * canvas.width, (spec.dy - .5 * spec.image.height) * canvas.height);
+        else if (numArgs == 5) context.drawImage(spec.image, (spec.dx - .5 * spec.dWidth) * canvas.width, (spec.dy - .5 * spec.dHeight) * canvas.height, spec.dWidth * canvas.width, spec.dHeight * canvas.height);
+        else if (numArgs == 9) context.drawImage(spec.image, spec.sx, spec.sy, spec.sWidth, spec.sHeight, spec.dx, spec.dy, spec.dWidth, spec.dHeight);
+    }
+
+    function drawStage(stage){
+        // currentStage.draw();     
+        stage.draw();       
     }
 
     function getWidth(){
@@ -69,11 +86,13 @@ Game.graphics = function(){
     }
 
     return{
+        ratio: ratio,
         init: init,
         clear: clear,
         drawRect: drawRect,
         drawSprite: drawSprite,
         drawStage: drawStage,
+        drawImage: drawImage,
         getWidth: getWidth,
         getHeight: getHeight
     }

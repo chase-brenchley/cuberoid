@@ -22,6 +22,7 @@ Game.game = (function(controls){
         graphics = Game.graphics;
         seamus = Game.seamus.generateSeamus(); 
         physics = Game.physics;
+        currentStage = Game.stage1;
         
         physics.init();
         graphics.init();
@@ -47,24 +48,33 @@ Game.game = (function(controls){
         prevTime = curTime;
 	    curTime = performance.now();
         var elapsedTime = curTime - prevTime;
-        // if (!Game.game.paused) {
-            update(elapsedTime);
-            render();
-        // }
+        update(elapsedTime);
+        render();
         requestAnimationFrame(gameLoop);
     }
 
     function update(elapsedTime){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
-        seamus.collision({x: .4 * .5 + .02, y: .6, width: .4, height: .03, color: 'blue'})
+        for (i = 0; i < currentStage.Stage.length; i++){
+            if (!currentStage.Stage[i].hasOwnProperty("nextStage")){
+                seamus.collision(currentStage.Stage[i]);
+            } else {
+                if(seamus.collision(currentStage.Stage[i]) == true){
+                    currentStage.Stage[i].hasOwnProperty("coords") ? coords = currentStage.Stage[i].coords: coords = {x:.5,y:.5};
+                    currentStage = currentStage.Stage[i].nextStage;
+                    currentStage.init();
+                    seamus.updateCoords(coords)
+                    break;
+                }
+            }
+        }
     }
 
     function render(){
         graphics.clear();
-        graphics.drawRect({x: .4 * .5 + .02, y: .6, width: .4, height: .03, color: 'blue'});        
         seamus.draw();
-        graphics.drawStage();        
+        graphics.drawStage(currentStage);        
     }
 
     return{

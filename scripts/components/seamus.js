@@ -85,14 +85,21 @@ Game.seamus = function(){
             that.shoot = false;
         }
 
+        that.updateCoords = function(coords){
+            that.x = coords.x;
+            that.y = coords.y;
+        }
+
         that.init = function(controls){
             that.health = 100;
 
             // Position/Dimension
             that.width = .05
             that.height = .15
-            that.x = 0 + that.width/2;
-            that.y = 0 + that.height/2;
+            // that.x = 0 + that.width/2;
+            // that.y = 0 + that.height/2;
+            that.x = .5;
+            that.y = .5;
 
             // Set controls
             that.upKey    = controls['up'];
@@ -217,15 +224,16 @@ Game.seamus = function(){
         that.collision = function(obj){
             var collisionSide = Game.physics.collision(that, obj);
             if(collisionSide == 'bottom'){
-                that.yVelocity = 0;
-                that.canJump = true;
+                if(that.yVelocity > 0){
+                    that.yVelocity = 0;
+                    that.canJump = true;
+                }
             } 
-            else{
-                that.canJump = false;
-            }
+            
             if(collisionSide == 'left' || collisionSide == 'right'){
                 that.xVelocity = 0;
             }
+            return (collisionSide != null ?  true: false);
         }
 
         return that;
