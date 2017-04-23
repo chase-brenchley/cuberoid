@@ -36,26 +36,46 @@ Game.graphics = function(){
       context.restore();
     }
 
-    /**
-    *   spriteSheet: new Image(),
-        rows: 8,
-        cols: 6,
-        spriteTime: 250, // time to display each animation frame
-        counter: 0,
-        curAnimation{animationFrame, index}
-    */
-    function drawSprite(spec){
-        'use strict'
-        
-        var topLeft = {
-            x: spec.curAnimation.animationFrame[spec.curAnimation.index].col * spec.spriteSheet.width / spec.cols,
-            y: spec.curAnimation.animationFrame[spec.curAnimation.index].row * spec.spriteSheet.height / spec.rows
+    /*
+        curAnimation has the following relavent properties
+        curAnimation = {
+            animation: {
+                frames: (number of frames in image),
+                img: (image containing sprites),
+            },
+            index: (index of the image)
         }
-        var swidth = spec.spriteSheet.width / spec.cols;
-        var sheight = spec.spriteSheet.height / spec.rows;
+
+        character has the following relevent properties
+        character ={
+            x: (x position in world coordinates),
+            y: (y position in world coordinates),
+            width: (width in world coordinates),
+            height: (height in world coordinates)
+        }
+
+        animationHeight and animationWidth specifies how tall/wide the animation should be (in case the animation 
+        should be larger than the actual hitbox for example) in world coordinates
+    */
+    function drawSprite(curAnimation, character, animationHeight = character.height, animationWidth = character.width){
+        // x, y position in image of top left corner of sprite
+        let sx = curAnimation.animation.img.width / curAnimation.animation.frames * curAnimation.index;
+        let sy = 0;
+
+        // width and height in pixels of the sprite to grab from the image
+        var swidth = curAnimation.animation.img.width / curAnimation.animation.frames;
+        var sheight = curAnimation.animation.img.height;
+        
+        // x, y position in the canvas of the top left corner of the sprite
+        let x = (character.x - animationWidth/2) * canvas.width;
+        let y = (character.y - animationHeight/2) * canvas.height;
+
+        // with and height in the canvas of the animation
+        let width = animationWidth * canvas.width;
+        let height = animationHeight * canvas.height;
 
         //context.drawImage(spec.spriteSheet, topLeft.x, topLeft.y, swidth, sheight, spec.x - spec.width / 2, spec.y - spec.height / 2, spec.width, spec.height)
-        context.drawImage(spec.spriteSheet, topLeft.x, topLeft.y, spec.spriteSheet.width/8, spec.spriteSheet.height/6, (spec.x - spec.width / 2) * canvas.width, (spec.y - spec.height / 2) * canvas.height, spec.width * canvas.width * 1.7, spec.height * canvas.height)
+        context.drawImage(curAnimation.animation.img, sx, sy, swidth, sheight, x, y, width, height)
     }
 
     // spec = {

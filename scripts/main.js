@@ -34,7 +34,6 @@ Game.game = (function(controls){
     }
 
     function reInit(){
-        console.log(Game.controls.controls);
         seamus.updateControls(Game.controls.controls)
         Game.game.paused = false;
         curTime = prevTime = performance.now();        

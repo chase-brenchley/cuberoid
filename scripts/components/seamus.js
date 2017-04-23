@@ -5,8 +5,7 @@ Game.seamus = function(){
     function generateSeamus(){
         var that = {};  
         var runSpeed = .35;
-
-        that.sprite = {}
+        var animationPool = {};
 
         that.keyDown = window.addEventListener('keydown', function(event){
             if(event.key == that.jumpKey){
@@ -128,33 +127,61 @@ Game.seamus = function(){
             that.yVelocity = 0;
             that.MAX_Y_VELOCITY = 2;
 
-
-            that.sprite = {
-                spriteSheet: new Image(),
-                x: that.x,
-                y: that.y,
-                width: that.width,
-                height: that.height,
-                rows: 8,
-                cols: 6,
-                spriteTime: 250, // time to display each animation frame
-                counter: 0,     // count that indicates to move to next animation frame when it reaches spriteTime
-                isReady: false,
-                faceForward: [{row: 0, col: 0}],
-                faceLeft: [{row: 5, col: 1}],
-                faceRight: [{row: 5, col: 6}],
-                runLeft: [
-                        {row: 2, col: 3}, {row: 2, col: 2}, {row: 2, col: 1}, {row: 2, col: 0},
-                        {row: 1, col: 3}, {row: 1, col: 2}, {row: 1, col: 1}, {row: 1, col: 0}
-                    ],
-                runRight: [
-                        {row:2, col: 4}, {row:2, col: 5}, {row:2, col: 6}, {row:2, col: 7},
-                        {row:1, col: 4}, {row:1, col: 5}, {row:1, col: 6}, {row:1, col: 7} 
-                    ],    
+            // Each animation needs to know how many frames it contains and how long before transitioning
+            // the width of each sprite in the sheet is img.width/frames
+            animationPool.runLeft = {
+                frames: 8,
+                img: new Image(),
+                timePerFrame: 75,
+                counter: 0
             }
-            that.sprite.spriteSheet.src = 'assets/sprites/samus.jpeg';
+            animationPool.runLeft.img.src = 'assets/sprites/runLeft.png';
 
-            that.sprite.curAnimation = {animationFrame: that.sprite.faceForward, index: 0};
+            animationPool.runRight = {
+                frames: 8,
+                img: new Image(),
+                timePerFrame: 75,
+                counter: 0
+            }
+            animationPool.runRight.img.src = 'assets/sprites/runRight.png';
+
+            animationPool.faceForward = {
+                frames: 1,
+                img: new Image(),
+                timePerFrame: 1000,
+                counter: 0
+            }
+            animationPool.faceForward.img.src = 'assets/sprites/faceForward.png';
+
+            // that.sprite = {
+            //     spriteSheet: new Image(),
+            //     x: that.x,
+            //     y: that.y,
+            //     width: that.width,
+            //     height: that.height,
+            //     rows: 6,
+            //     cols: 8,
+            //     spriteTime: 100, // time to display each animation frame
+            //     counter: 0,     // count that indicates to move to next animation frame when it reaches spriteTime
+            //     isReady: false,
+            //     faceForward: [{row: 0, col: 0}],
+            //     faceLeft: [{row: 5, col: 1}],
+            //     faceRight: [{row: 5, col: 6}],
+            //     runLeft: [
+            //             {row: 2, col: 3}, {row: 2, col: 2}, {row: 2, col: 1}, {row: 2, col: 0},
+            //             {row: 1, col: 3}, {row: 1, col: 2}, {row: 1, col: 1}, {row: 1, col: 0}
+            //         ],
+            //     runRight: [
+            //             {row:2, col: 4}, {row:2, col: 5}, {row:2, col: 6}, {row:2, col: 7},
+            //             {row:1, col: 4}, {row:1, col: 5}, {row:1, col: 6}, {row:1, col: 7} 
+            //         ],    
+            // }
+            // that.sprite.spriteSheet.src = 'assets/sprites/samus1.png';
+
+            // curAnimation keeps track of the currently executing animation. index refers to which sprite in the current 
+            // sheet we are on. The horizontal position of that sprite is at animation.img.width/animation.frames * index 
+            // and has a width of animation.img.width/animation.frames
+            that.curAnimation = {animation: animationPool.faceForward, index: 0};
             // that.sprite.spriteSheet.onload = function(){
             //     that.sprite.isReady = true;
             // }
@@ -162,14 +189,32 @@ Game.seamus = function(){
 
         that.updateSprite = function(elapsedTime){
             'use strict'
-            that.sprite.counter += elapsedTime;
-
-            // If count has expired move to next 
-            if(that.sprite.counter >= that.sprite.spriteTime){
-                that.sprite.counter -= elapsedTime;
-                that.sprite.curAnimation.index = (that.sprite.curAnimation.index + 1) % that.sprite.curAnimation.animationFrame.length;
+            that.curAnimation.animation.counter += elapsedTime;
+            
+            if(that.left && that.curAnimation.animation != animationPool.runLeft){
+                that.curAnimation.animation = animationPool.runLeft;
+                that.curAnimation.index = 0;
+                that.curAnimation.animation.counter = 0;
+            }
+            else if(that.right && that.curAnimation.animation != animationPool.runRight){
+                that.curAnimation.animation = animationPool.runRight;
+                that.curAnimation.index = 0;
+                that.curAnimation.animation.counter = 0;
+            }
+            else if(!that.right && !that.left && that.curAnimation.animationFrame != animationPool.faceForward){
+                that.curAnimation.animation = animationPool.faceForward;
+                that.curAnimation.index = 0;
+                that.curAnimation.animation.counter = 0;
             }
 
+            // If count has expired move to next 
+            if(that.curAnimation.animation.counter >= that.curAnimation.animation.timePerFrame){
+                that.curAnimation.animation.counter -= that.curAnimation.animation.timePerFrame;
+                that.curAnimation.index = (that.curAnimation.index + 1) % that.curAnimation.animation.frames;
+            }
+            if(that.curAnimation.index > 8){
+                console.log('error')
+            }
         }
 
         that.update = function(elapsedTime){
@@ -202,23 +247,29 @@ Game.seamus = function(){
             //     that.y += Game.physics.getGravity()*elapsedTime/1000;      
             // }
             if(that.left){
-                that.x -= runSpeed * elapsedTime/1000;
+                that.facingLeft = true;
+                that.facingForward = that.facingRight = false;
+                that.xVelocity = -(runSpeed * elapsedTime / 1000);
+                that.x += that.xVelocity;
                 
             }
             else if(that.right){
-                that.x += runSpeed * elapsedTime/1000;
+                that.facingRight = true;
+                that.facingLeft = that.facingForward = false;
+                that.xVelocity = (runSpeed * elapsedTime / 1000);
+                that.x += that.xVelocity;
             }
-            that.sprite.x = that.x;
-            that.sprite.y = that.y;
+            else{
+                that.xVelocity = 0;
+            }
+
         }
 
         // for now just draw a colored rectangle, later do sprite animation.
         that.draw = function(){
-            if(that.width != that.sprite.width){
-                console.log("error");
-            }
             Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
-            Game.graphics.drawSprite(that.sprite);
+            Game.graphics.drawSprite(that.curAnimation, that)
+            //Game.graphics.drawSprite(that.curanimation, that);
         }
 
         that.collision = function(obj){
