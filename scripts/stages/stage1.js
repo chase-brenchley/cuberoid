@@ -1,17 +1,17 @@
 Game.stage1 = function() {
     // Spawn area. There's only a floor and a door to exit
-    let canvas;
+    let canvas, ctx;
     var width, height;
 
     var stage = [
-        {x: .5, y: .85, width: .5, height: .3, color: "grey",}, //Middle platform
-        {x: .95, y: .85, width: .1, height: .3, color: "grey",}, //Right platform
-        {x: .825, y: 1-.05/2, width: .3, height: .05, color: "grey",}, // Dip
-        {x: .01/2, y:.5, width: .01, height: 1, color: "grey"}, // left wall
+        {x: .5, y: 1, width: (.1/1.7)*8, height: .6, color: "grey",}, //Middle platform
+        {x: 1, y: 1, width: .2, height: .6, color: "grey",}, //Right platform
+        {x: .825, y: 1-.05/2, width: .05*4, height: .05, color: "grey",}, // Dip
+        {x: 0, y:.5, width: .1/1.7, height: 1, color: "grey"}, // left wall
         {x: 1-.02/2, y: .85-.3/2-.2/2, width: .02, height: .2, color: "clear", nextStage: Game.stage2, coords: {x:.1, y:.1}}, //door
-        {x: .5, y: 0+.01/2, width:1 , height: .01 , color: "grey"}, //ceiling
-        {x: 1-.015/2, y: .5/2, width: .015, height: 1-(.3+.2), color: "grey"}, //right wall
-        {x: .95+.05/2, y: .5, width: .05, height: .035, color: "grey"} // door overhang
+        {x: .5, y: 0, width:1 , height: .1 , color: "grey"}, //ceiling
+        {x: 1, y: .5/2, width: .1/1.7, height: .1*4, color: "grey"}, //right wall
+        {x: .95+.05/2, y: .5, width: (.05/1.7)*4, height: .05, color: "grey"} // door overhang
     ]
 
     // var Constants = {
@@ -22,12 +22,26 @@ Game.stage1 = function() {
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
+        ctx = canvas.getContext('2d');        
     }
 
     function draw() {
-        for (i = 0; i < stage.length; i++){
-            Game.graphics.drawRect(stage[i]);
-        }
+        // for (i = 0; i < stage.length; i++){
+        //     Game.graphics.drawRect(stage[i]);
+        // }
+
+        var stone = new Image();
+        stone.src = "assets/textures/texture.jpg";
+        ctx.save();
+        ctx.globalAlpha = 0.4;
+        Game.graphics.drawImage({
+                image: stone,
+                dx: .5,
+                dy: .5,
+                dWidth: 1,
+                dHeight: 1
+            })
+        ctx.restore();
 
         var image = new Image(); //h: 64 w: 31 R: 2.06
         image.src = "assets/textures/closeddoorleft.png";
@@ -45,15 +59,71 @@ Game.stage1 = function() {
         });
 
         var texture = new Image();
-        texture.src = "assets/textures/floor.jpg";
+        // texture.src = "assets/textures/floor.jpg";
+        texture.src = "assets/textures/stone1.jpg";
+        var verticle = new Image();
+        verticle.src = "assets/textures/stone1.jpg";
+        // Game.graphics.drawImage({
+        //     image: verticle,
+        //     dx: .5,
+        //     dy: .5,
+        //     dWidth: .1/1.7,
+        //     dHeight: .1
+        // })
 
-        Game.graphics.drawImage({
-            image: texture,
-            dx: .5,
-            dy: .75,
-            dWidth: .1/1.7,
-            dHeight: .1,
-        })
+
+        for (var i = 0; i < stage.length; i++){
+            if (!stage[i].hasOwnProperty("nextStage")){
+                Game.graphics.drawImage({
+                    image: stone,
+                    dx: stage[i].x,
+                    dy: stage[i].y,
+                    dWidth: stage[i].width,
+                    dHeight: stage[i].height
+                })
+                for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; y < stage[i].y+stage[i].height/2+.05/2; y += .05){
+                        Game.graphics.drawImage({
+                        image: verticle,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                }
+                for (x = stage[i].x+stage[i].width/2-(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; y < stage[i].y+stage[i].height/2+.05/2; y += .05){
+                        Game.graphics.drawImage({
+                        image: verticle,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                }
+                for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; x < stage[i].x+stage[i].width/2+(.05/1.7)/2; x += .05/1.7) {
+                    Game.graphics.drawImage({
+                        image: texture,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                    
+                }
+                for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y+stage[i].height/2-.05/2; x < stage[i].x+stage[i].width/2+(.05/1.7)/2; x += .05/1.7) {
+                    Game.graphics.drawImage({
+                        image: texture,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                    
+                }
+            }
+        }
+        // for (i = 0; i < stage.length; i++){
+        //     Game.graphics.drawRect(stage[i]);
+        // }
     }
 
     return {
