@@ -36,6 +36,48 @@ Game.graphics = function(){
       context.restore();
     }
 
+    /*
+        curAnimation has the following relavent properties
+        curAnimation = {
+            animation: {
+                frames: (number of frames in image),
+                img: (image containing sprites),
+            },
+            index: (index of the image)
+        }
+
+        spec has the following relevent properties
+        spec ={
+            x: (x position in world coordinates),
+            y: (y position in world coordinates),
+            width: (width in world coordinates),
+            height: (height in world coordinates)
+        }
+
+        spec.height and spec.width specifies how tall/wide the animation should be (in case the animation 
+        should be larger than the actual hitbox for example) in world coordinates
+    */
+    function drawSprite(curAnimation){
+        // x, y position in image of top left corner of sprite
+        let sx = curAnimation.animation.img.width / curAnimation.animation.frames * curAnimation.index;
+        let sy = 0;
+
+        // width and height in pixels of the sprite to grab from the image
+        var swidth = curAnimation.animation.img.width / curAnimation.animation.frames;
+        var sheight = curAnimation.animation.img.height;
+        
+        // x, y position in the canvas of the top left corner of the sprite
+        let x = (curAnimation.x - curAnimation.width/2) * canvas.width;
+        let y = (curAnimation.y - curAnimation.height/2) * canvas.height;
+
+        // with and height in the canvas of the animation
+        let width = curAnimation.width * canvas.width;
+        let height = curAnimation.height * canvas.height;
+
+        //context.drawImage(spec.spriteSheet, topLeft.x, topLeft.y, swidth, sheight, spec.x - spec.width / 2, spec.y - spec.height / 2, spec.width, spec.height)
+        context.drawImage(curAnimation.animation.img, sx, sy, swidth, sheight, x, y, width, height)
+    }
+
     // spec = {
         // image:
         // dx:
@@ -81,6 +123,7 @@ Game.graphics = function(){
         init: init,
         clear: clear,
         drawRect: drawRect,
+        drawSprite: drawSprite,
         drawStage: drawStage,
         drawImage: drawImage,
         drawBackground: drawBackground,

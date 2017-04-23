@@ -92,7 +92,6 @@ function continueGame() {
 document.addEventListener("keydown", keyDownHandler, false);
 
 function keyDownHandler(e) {
-    console.log(e)
     if (e.keyCode == 27) {
         if(!Game.game.paused){
             Game.game.paused = true;
