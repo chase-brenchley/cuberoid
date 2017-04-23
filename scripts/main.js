@@ -28,6 +28,7 @@ Game.game = (function(controls){
         graphics.init();
         Game.controls.init();
         seamus.init(Game.controls.controls);
+        currentStage.init();
         
         Game.game.paused = false;
         requestAnimationFrame(gameLoop);
@@ -72,8 +73,8 @@ Game.game = (function(controls){
 
     function render(){
         graphics.clear();
+        graphics.drawStage(currentStage);
         seamus.draw();
-        graphics.drawStage(currentStage);        
     }
 
     return{
