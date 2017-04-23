@@ -46,18 +46,18 @@ Game.graphics = function(){
             index: (index of the image)
         }
 
-        character has the following relevent properties
-        character ={
+        spec has the following relevent properties
+        spec ={
             x: (x position in world coordinates),
             y: (y position in world coordinates),
             width: (width in world coordinates),
             height: (height in world coordinates)
         }
 
-        animationHeight and animationWidth specifies how tall/wide the animation should be (in case the animation 
+        spec.height and spec.width specifies how tall/wide the animation should be (in case the animation 
         should be larger than the actual hitbox for example) in world coordinates
     */
-    function drawSprite(curAnimation, character, animationHeight = character.height, animationWidth = character.width){
+    function drawSprite(curAnimation){
         // x, y position in image of top left corner of sprite
         let sx = curAnimation.animation.img.width / curAnimation.animation.frames * curAnimation.index;
         let sy = 0;
@@ -67,12 +67,12 @@ Game.graphics = function(){
         var sheight = curAnimation.animation.img.height;
         
         // x, y position in the canvas of the top left corner of the sprite
-        let x = (character.x - animationWidth/2) * canvas.width;
-        let y = (character.y - animationHeight/2) * canvas.height;
+        let x = (curAnimation.x - curAnimation.width/2) * canvas.width;
+        let y = (curAnimation.y - curAnimation.height/2) * canvas.height;
 
         // with and height in the canvas of the animation
-        let width = animationWidth * canvas.width;
-        let height = animationHeight * canvas.height;
+        let width = curAnimation.width * canvas.width;
+        let height = curAnimation.height * canvas.height;
 
         //context.drawImage(spec.spriteSheet, topLeft.x, topLeft.y, swidth, sheight, spec.x - spec.width / 2, spec.y - spec.height / 2, spec.width, spec.height)
         context.drawImage(curAnimation.animation.img, sx, sy, swidth, sheight, x, y, width, height)
