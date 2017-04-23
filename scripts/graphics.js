@@ -55,6 +55,19 @@ Game.graphics = function(){
         stage.draw();       
     }
 
+    function drawBackground(img){
+        context.save();
+        context.globalAlpha = 0.4;
+        Game.graphics.drawImage({
+                image: img,
+                dx: .5,
+                dy: .5,
+                dWidth: 1,
+                dHeight: 1
+            })
+        context.restore();
+    }
+
     function getWidth(){
         return canvas.width;
     }
@@ -70,6 +83,7 @@ Game.graphics = function(){
         drawRect: drawRect,
         drawStage: drawStage,
         drawImage: drawImage,
+        drawBackground: drawBackground,
         getWidth: getWidth,
         getHeight: getHeight
     }

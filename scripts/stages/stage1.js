@@ -11,7 +11,8 @@ Game.stage1 = function() {
         {x: 1-.02/2, y: .85-.3/2-.2/2, width: .02, height: .2, color: "clear", nextStage: Game.stage2, coords: {x:.1, y:.1}}, //door
         {x: .5, y: 0, width:1 , height: .1 , color: "grey"}, //ceiling
         {x: 1, y: .5/2, width: .1/1.7, height: .1*4, color: "grey"}, //right wall
-        {x: .95+.05/2, y: .5, width: (.05/1.7)*4, height: .05, color: "grey"} // door overhang
+        {x: .95+.05/2, y: .5, width: (.05/1.7)*4, height: .05, color: "grey"}, // door overhang
+        {x:.5, y: .625, width:.1,height:.01, color:"red", noTexture: true}
     ]
 
     // var Constants = {
@@ -30,50 +31,44 @@ Game.stage1 = function() {
         //     Game.graphics.drawRect(stage[i]);
         // }
 
+        // Load images
         var stone = new Image();
         stone.src = "assets/textures/texture.jpg";
-        ctx.save();
-        ctx.globalAlpha = 0.4;
-        Game.graphics.drawImage({
-                image: stone,
-                dx: .5,
-                dy: .5,
-                dWidth: 1,
-                dHeight: 1
-            })
-        ctx.restore();
+        var texture = new Image();
+        texture.src = "assets/textures/stone1.jpg";
+        var verticle = new Image();
+        verticle.src = "assets/textures/stone1.jpg";
+        var platform  = new Image();
+        platform.src = "assets/textures/platform1.png";
 
-        var image = new Image(); //h: 64 w: 31 R: 2.06
-        image.src = "assets/textures/closeddoorleft.png";
-        // width = .045;
-        // height = width * 4;
+        // Draw the background
+        Game.graphics.drawBackground(stone);
+
+        // Freaking door shenanigans
+        var door = new Image(); //h: 64 w: 31 R: 2.06
+        door.src = "assets/textures/closeddoorleft.png";
         height = .185;
         width = height / 4;
 
         Game.graphics.drawImage({
-            image: image,
+            image: door,
             dx: 1-width/2,
             dy: .608,
             dWidth: width,
             dHeight: height
         });
 
-        var texture = new Image();
-        // texture.src = "assets/textures/floor.jpg";
-        texture.src = "assets/textures/stone1.jpg";
-        var verticle = new Image();
-        verticle.src = "assets/textures/stone1.jpg";
-        // Game.graphics.drawImage({
-        //     image: verticle,
-        //     dx: .5,
-        //     dy: .5,
-        //     dWidth: .1/1.7,
-        //     dHeight: .1
-        // })
+        Game.graphics.drawImage({
+            image: platform,
+            dx: .5,
+            dy: .65,
+            dWidth: .07*1.7,
+            dHeight: .07
+        })
 
-
+        // Draw the textures. This is magic as far as I'm concerned
         for (var i = 0; i < stage.length; i++){
-            if (!stage[i].hasOwnProperty("nextStage")){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
                 Game.graphics.drawImage({
                     image: stone,
                     dx: stage[i].x,
