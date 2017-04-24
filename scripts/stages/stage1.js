@@ -8,7 +8,7 @@ Game.stage1 = function() {
         {x: 1, y: 1, width: .2, height: .6, color: "grey",}, //Right platform
         {x: .825, y: 1-.05/2, width: .05*4, height: .05, color: "grey",}, // Dip
         {x: 0, y:.5, width: .1/1.7, height: 1, color: "grey"}, // left wall
-        {x: 1-.02/2, y: .85-.3/2-.2/2, width: .02, height: .2, color: "clear", nextStage: Game.stage2, coords: {x:.1, y:.1}}, //door
+        {x: 1-.02/2, y: .85-.3/2-.2/2, width: .02, height: .2, color: "clear", nextStage: Game.stage2, coords: {x:.1, y:.16}}, //door
         {x: .5, y: 0, width:1 , height: .1 , color: "grey"}, //ceiling
         {x: 1, y: .5/2, width: .1/1.7, height: .1*4, color: "grey"}, //right wall
         {x: .95+.05/2, y: .5, width: (.05/1.7)*4, height: .05, color: "grey"}, // door overhang

@@ -308,7 +308,7 @@ Game.seamus = function(){
 
         // for now just draw a colored rectangle, later do sprite animation.
         that.draw = function(){
-            //Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
+            // Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
             
             Game.graphics.drawSprite(that.curAnimation, that)
             //Game.graphics.drawSprite(that.curanimation, that);
