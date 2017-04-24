@@ -63,7 +63,6 @@ Game.stage2 = function() {
 
     return {
         Stage: stage,
-        // Constants: Constants,
         draw: draw,
         init: init,
     }
