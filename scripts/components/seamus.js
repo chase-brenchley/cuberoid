@@ -252,12 +252,8 @@ Game.seamus = function(){
 
         that.update = function(elapsedTime){
             'use strict'
-            // Update yVelocity and y position
-
-            if(elapsedTime > 100){
-                elapsedTime = 100;
-            }
             
+            // Update yVelocity and y position            
             that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
             if(that.yVelocity > that.MAX_Y_VELOCITY){
                 that.yVelocity = that.MAX_Y_VELOCITY;

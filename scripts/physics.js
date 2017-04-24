@@ -124,6 +124,24 @@ Game.physics = function(){
         }
     }
 
+    function basicCollision(obj1, obj2){
+        let obj1Left = obj1.x - .5*obj1.width, obj1Right = obj1.x + .5*obj1.width;
+        let obj1Top = obj1.y - .5*obj1.height, obj1Bottom = obj1.y + .5*obj1.height;
+
+        let objLeft = obj2.x - .5*obj2.width, obj2Right = obj2.x + .5*obj2.width;
+        let objTop = obj2.y - .5*obj2.height, obj2Bottom = obj2.y + .5*obj2.height;
+
+        if (obj1Left < obj2Right &&
+                obj1Right > obj2Left &&
+                obj1Top < obj2Bottom &&
+                obj1Bottom > obj2Top){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     function getGravity(){
         return gravity;
     }
@@ -158,6 +176,7 @@ Game.physics = function(){
     return{
         init: init,
         collision: collision,
-        getGravity: getGravity
+        basicCollision: basicCollision,
+        getGravity: getGravity,
     }
 }();
