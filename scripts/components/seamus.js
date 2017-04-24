@@ -308,7 +308,7 @@ Game.seamus = function(){
 
         // for now just draw a colored rectangle, later do sprite animation.
         that.draw = function(){
-            Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
+            //Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
             
             Game.graphics.drawSprite(that.curAnimation, that)
             //Game.graphics.drawSprite(that.curanimation, that);
@@ -316,12 +316,34 @@ Game.seamus = function(){
 
         that.collision = function(obj){
             var collisionSide = Game.physics.collision(that, obj);
+            if(collisionSide == null){
+                return false;
+            }
+            // If collision with seamus' left side, move him so his left side
+            // is not at the right side of obj
+            else if(collisionSide == 'left'){
+                that.x = obj.x + .5 * obj.width + .5 * that.width;
+                that.curAnimation.x = that.x;
+            }
+            else if(collisionSide == 'right'){
+                that.x = obj.x - .5 * obj.width - .5 * that.width;
+                that.curAnimation.x = that.x;
+            }
+            else if(collisionSide == 'top'){
+                if(that.yVelocity < 0){
+                    that.yVelocity = 0;
+                }
+                that.y = obj.y + .5 * obj.height + .5 * that.height;
+                that.curAnimation.y = that.y - (that.curAnimation.height - that.height)/2;
+            }
             if(collisionSide == 'bottom'){
                 if(that.yVelocity > 0){
                     that.yVelocity = 0;
                     that.canJump = true;
                     that.floor = obj;
                 }
+                that.y = obj.y - .5 * obj.height - .5 * that.height;
+                that.curAnimation.y = that.y - (that.curAnimation.height - that.height)/2;
             }
             
             if(collisionSide == 'left' || collisionSide == 'right'){

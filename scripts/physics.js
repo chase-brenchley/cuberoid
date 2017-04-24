@@ -105,22 +105,18 @@ Game.physics = function(){
 
         // Moving object's left side collided with the stationary object
         if(left && leftOverlap <= topOverlap && leftOverlap <= bottomOverlap){
-            movingObj.x = stationaryRightSide + .5 * movingObj.width;
             return 'left';
         }
         // Moving object's right side collided with the stationary object 
         else if(right && rightOverlap <= topOverlap && rightOverlap <= bottomOverlap){
-            movingObj.x = stationaryLeftside - .5 * movingObj.width;
             return 'right';
         }
         // Moving object's top side collided with the stationary object
         else if(top && topOverlap <= leftOverlap && topOverlap <= rightOverlap){
-            movingObj.y = stationaryBottom + .5 * movingObj.height;
             return 'top';
         }
         // Moving object's bottom side collided with the stationary object
         else if(bottom && bottomOverlap <= leftOverlap && bottomOverlap <= rightOverlap){
-            movingObj.y = stationaryTop - .5 * movingObj.height;
             return 'bottom';
         }
         else{
