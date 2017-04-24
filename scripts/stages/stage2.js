@@ -2,6 +2,8 @@ Game.stage2 = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas;
     var width, height;
+    var doorHeight = .18;
+    var doorWidth = doorHeight/1.7/2.06;
 
     var stage = [
         {x: .5, y: 0,width: 1, height: .1, color:"grey"}, // Ceiling
@@ -15,16 +17,18 @@ Game.stage2 = function() {
         {x: 1-(.2/1.7)/2-(.1/1.7)/2, y: .6, width: .2/1.7, height: .05, color: "red"}, // right platform
         {x: 1-(.2/1.7)/2-(.1/1.7)/2, y: .16+.1, width: .2/1.7, height: .05, color: "red"}, // right-top platform
         {x: .745, y: .45, width: .1/1.7, height: .05, color: "red"},
-        {}, // Bottom-right door
-        {}, // Top-right door
-        {}, // Top-left door
+        {x: 1-0.05, y: 1-.14, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x: null,y: null}}, // Bottom-right door
+        {x: 1-.05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-right door
+        {x: .05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
     ]
 
     function init(){
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
-        // stage[4].nextStage = Game.stage1;
+        stage[11].nextStage = Game.stage1; stage[11].coords = {x: 1-.05, y: .6};
+        stage[12].nextStage = Game.stage1; stage[12].coords = {x: 1-.05, y: .6};
+        stage[13].nextStage = Game.stage1; stage[13].coords = {x: 1-.05, y: .6};
     }
 
     function draw() {
@@ -36,62 +40,88 @@ Game.stage2 = function() {
         verticle.src = "assets/textures/stone1.jpg";
         var platform  = new Image();
         platform.src = "assets/textures/platform1.png";
+        var closedDoor = new Image();
+        closedDoor.src = "assets/textures/closeddoor.png";
+        var closedDoorLeft = new Image();
+        closedDoorLeft.src = "assets/textures/closeddoorleft.png";
 
         Game.graphics.drawBackground(background);
 
-        for (i = 0; i < stage.length; i++){
-            Game.graphics.drawRect(stage[i]);
-        }
+        Game.graphics.drawImage({
+            image: closedDoor,
+            dx: .05,
+            dy: .15,
+            dWidth: doorWidth,
+            dHeight: doorHeight
+        })
+        Game.graphics.drawImage({
+            image:closedDoorLeft,
+            dx: 1-.05,
+            dy: .15,
+            dWidth: doorWidth,
+            dHeight:doorHeight,
+        })
+        Game.graphics.drawImage({
+            image:closedDoorLeft,
+            dx: 1-.05,
+            dy: 1-.14,
+            dWidth: doorWidth,
+            dHeight:doorHeight,
+        })
 
-        // for (var i = 0; i < stage.length; i++){
-        //     if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
-        //         Game.graphics.drawImage({
-        //             image: background,
-        //             dx: stage[i].x,
-        //             dy: stage[i].y,
-        //             dWidth: stage[i].width,
-        //             dHeight: stage[i].height
-        //         })
-        //         for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; y < stage[i].y+stage[i].height/2+.05/2; y += .05){
-        //                 Game.graphics.drawImage({
-        //                 image: verticle,
-        //                 dx: x,
-        //                 dy: y,
-        //                 dWidth: .05/1.7,
-        //                 dHeight: .05,
-        //             })
-        //         }
-        //         for (x = stage[i].x+stage[i].width/2-(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; y < stage[i].y+stage[i].height/2+.05/2; y += .05){
-        //                 Game.graphics.drawImage({
-        //                 image: verticle,
-        //                 dx: x,
-        //                 dy: y,
-        //                 dWidth: .05/1.7,
-        //                 dHeight: .05,
-        //             })
-        //         }
-        //         for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; x < stage[i].x+stage[i].width/2+(.05/1.7)/2; x += .05/1.7) {
-        //             Game.graphics.drawImage({
-        //                 image: texture,
-        //                 dx: x,
-        //                 dy: y,
-        //                 dWidth: .05/1.7,
-        //                 dHeight: .05,
-        //             })
-                    
-        //         }
-        //         for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y+stage[i].height/2-.05/2; x < stage[i].x+stage[i].width/2+(.05/1.7)/2; x += .05/1.7) {
-        //             Game.graphics.drawImage({
-        //                 image: texture,
-        //                 dx: x,
-        //                 dy: y,
-        //                 dWidth: .05/1.7,
-        //                 dHeight: .05,
-        //             })
-                    
-        //         }
-        //     }
+        // for (i = 0; i < stage.length; i++){
+        //     Game.graphics.drawRect(stage[i]);
         // }
+
+        for (var i = 0; i < stage.length; i++){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
+                Game.graphics.drawImage({
+                    image: background,
+                    dx: stage[i].x,
+                    dy: stage[i].y,
+                    dWidth: stage[i].width,
+                    dHeight: stage[i].height
+                })
+                for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; y < stage[i].y+stage[i].height/2+.05/2; y += .05){
+                        Game.graphics.drawImage({
+                        image: verticle,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                }
+                for (x = stage[i].x+stage[i].width/2-(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; y < stage[i].y+stage[i].height/2+.05/2; y += .05){
+                        Game.graphics.drawImage({
+                        image: verticle,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                }
+                for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y-stage[i].height/2+.05/2; x < stage[i].x+stage[i].width/2+(.05/1.7)/2; x += .05/1.7) {
+                    Game.graphics.drawImage({
+                        image: texture,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                    
+                }
+                for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y+stage[i].height/2-.05/2; x < stage[i].x+stage[i].width/2+(.05/1.7)/2; x += .05/1.7) {
+                    Game.graphics.drawImage({
+                        image: texture,
+                        dx: x,
+                        dy: y,
+                        dWidth: .05/1.7,
+                        dHeight: .05,
+                    })
+                    
+                }
+            }
+        }
         
     }
 
