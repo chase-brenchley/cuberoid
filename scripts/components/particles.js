@@ -1,10 +1,7 @@
 Game.particles = function(){
-    // Collidable particles can be checked to see if they are colliding with other 
-    // objects, and thus any particle added to this list must have a collision(obj) function that takes
-    // the object you wish to check against. That function will determine what to do if you collide 
-    // (ex: impart damage and create explosion effect)
-    var collidableParticles = []; 
-    var nonCollidableParticles = [];
+    // List of active particle systems
+    var particleSystems = [];
+
 
     // Generates a generic particle. All particles must have 
     // at least the following properties.
@@ -119,69 +116,178 @@ Game.particles = function(){
         // Override the default die function
         that.die = function(){
             that.isAlive = false;
-
-            //TODO Generate explosion
-            for(let i = 0; i < 500; i++){
-                var img = new Image();
-                img.src = 'assets/sprites/fire2.png'
-                nonCollidableParticles.push(generateParticle({
-                    x: Math.random() * that.width + (that.x - that.width/2),
-                    y: Math.random() * that.height + (that.y - that.height/2),
-                    angle: Math.random() * (2 * Math.PI),
-                    width: that.width/2,
-                    height: that.width/2,
-                    speed: Math.random()/7,
-                    image: img,
-                    affectedByGravity: false,
-                    lifeTime: Math.random() * 250
-                }))
-            }
+            generateExplosionSystem({
+                x: that.x,    // Position of particle generator
+                y: that.y,
+                width: that.width,  // area to generate particles in
+                height: that.height, 
+                pwidth: that.width/3, // particle width
+                pheight: that.width/3, //particle height
+                numberOfParticles: 25,
+                angleRange: {start: 0, end: Math.PI * 2},  // range of valid angles for particles generated
+                speed: 1/15,  // max speed of a particle (speed given in world coordinates)
+                affectedByGravity: false, // boolean value indicating if bullet drop is a thing with this pewpew
+                lifeTime: 350, // Max lifetime of a particle in milliseconds
+            })
+            
+            // for(let i = 0; i < 50; i++){
+            //     nonCollidableParticles.push(generateParticle({
+            //         x: Math.random() * that.width + (that.x - that.width/2),
+            //         y: Math.random() * that.height + (that.y - that.height/2),
+            //         angle: Math.random() * (2 * Math.PI),
+            //         width: that.width/2,
+            //         height: that.width/2,
+            //         speed: Math.random()/8,
+            //         image: img,
+            //         affectedByGravity: false,
+            //         lifeTime: Math.random() * 350
+            //     }))
+            // }
         }
 
-        collidableParticles.push(that);
+        particleSystems.push(that);
     }
 
     /**
-     * 
-     *  
+        spec ={
+            x: ,    // Position of particle generator
+            y: ,
+            width: ,  // area to generate particles in
+            height: , 
+            pwidth: , // particle width
+            pheight: , //particle height
+            numberOfParticles: ,
+            angleRange: {start: , end: },  // range of valid angles for particles generated
+            speed: ,  // max speed of a particle (speed given in world coordinates)
+            image: ,  // image to use for this pewpew objecet
+            damage: , // damage it will deal when it hits something. set for splash damage, otherwise don't add this property
+            affectedByGravity: , // boolean value indicating if bullet drop is a thing with this pewpew
+            lifeTime: , // Max lifetime of a particle in milliseconds
+        }
      */
-    function makeNonCollidableParticleGenerator(spec){
+    function generateParticleSystem(spec){
+        var that = {}
+        that.particles = [];
+        that.isAlive = true;
 
+        for(let i = 0; i < spec.numberOfParticles; i++){
+            that.particles.push(generateParticle({
+                x: Math.random() * spec.width + (spec.x - spec.width / 2),
+                y: Math.random() * spec.height + (spec.y - spec.height/2),
+                angle: Math.random() * (spec.angleRange.end - spec.angleRange.start) + spec.angleRange.start,  // direction angle in radians
+                width: spec.pwidth,  // hitbox width
+                height: spec.pheight, // hitbox height
+                speed: Math.random() * spec.speed,  // a rate in world coordinates
+                image: spec.image,  // image to use for this pewpew object
+                affectedByGravity: spec.affectedByGravity, // Boolean value indicating if the particle should fall
+                lifeTime: Math.random() * spec.lifeTime, // Time in milliseconds it should be alive for
+            }))
+        }
+
+        that.update = function(elapsedTime){
+            for(let i = 0; i < that.particles.length; i++){
+                if(that.particles[i].isAlive == false){
+                    that.particles.splice(i, 1);
+                    i--;
+                    continue;
+                }
+                that.particles[i].update(elapsedTime);
+            }
+            if(that.particles.length == 0){
+                that.isAlive = false;
+            }
+        }
+
+        that.draw = function(){
+            for(let i = 0; i < that.particles.length; i++){
+                that.particles[i].draw();
+            }
+        }
+
+        return that;        
+    }
+
+    /**
+        spec ={
+            x: ,    // Position of particle generator
+            y: ,
+            width: ,  // area to generate particles in
+            height: , 
+            pwidth: , // particle width
+            pheight: , //particle height
+            numberOfParticles: ,
+            angleRange: {start: , end: },  // range of valid angles for particles generated
+            speed: ,  // max speed of a particle (speed given in world coordinates)
+            damage: , // damage it will deal when it hits something. set for splash damage, otherwise don't add this property
+            affectedByGravity: , // boolean value indicating if bullet drop is a thing with this pewpew
+            lifeTime: , // Max lifetime of a particle in milliseconds
+        }
+     */
+    function generateExplosionSystem(spec){
+        var that = {};
+        that.particleSystems = [];
+        that.isAlive = true;
+
+
+        // Create smoke system
+        var smokeImg = new Image();
+        smokeImg.src = "assets/sprites/smoke.png";
+        spec.image = smokeImg;
+        spec.numberOfParticles;
+        particleSystems.push(generateParticleSystem(spec));
+
+        // Create fire system
+        var fireImg = new Image();
+        fireImg.src = "assets/sprites/fire2.png";
+        spec.image = fireImg;
+        particleSystems.push(generateParticleSystem(spec));
+
+
+        that.update = function(elapsedTime){
+            for(let i = 0; i < that.particleSystems.length; i++){
+                that.particleSystems[i].update(elapsedTime);
+                if(!that.particleSystems[i].isAlive){
+                    that.particleSystems.splice(i, 1);
+                    i--;
+                    continue;
+                }
+            }
+            if(that.particleSystems.length == 0){
+                that.isAlive = false;
+            }
+        }
+
+        that.draw = function(){
+            for(let i = 0; i < that.particleSystems.length; i++){
+                that.particleSystems[i].draw();
+            }
+        }
     }
 
     function update(elapsedTime){
-        for(let i = 0; i < collidableParticles.length; i++){
-            if(collidableParticles[i].isAlive == false){
-                collidableParticles.splice(i, 1);
+        for(let i = 0; i < particleSystems.length; i++){
+            particleSystems[i].update(elapsedTime);
+            if(particleSystems[i].isAlive == false){
+                particleSystems.splice(i, 1);
                 i--;
                 continue;
             }
-            collidableParticles[i].update(elapsedTime);
-        }
-        for(let i = 0; i < nonCollidableParticles.length; i++){
-            if(nonCollidableParticles[i].isAlive == false){
-                nonCollidableParticles.splice(i, 1);
-                i--;
-                continue;
-            }
-            nonCollidableParticles[i].update(elapsedTime);
         }
     }
 
     function draw(){
-        for(let i = 0; i < collidableParticles.length; i++){
-            collidableParticles[i].draw();
-        }
-        for(let i = 0; i < nonCollidableParticles.length; i++){
-            nonCollidableParticles[i].draw();
+        for(let i = 0; i < particleSystems.length; i++){
+            particleSystems[i].draw();
         }
     }
 
     // Check each collidable particle against the object passed in. Each particle's collide function 
     // Should handle what happens when that particle collides with an object.
     function collision(obj){
-        for(let i = 0; i < collidableParticles.length; i++){
-            collidableParticles[i].collision(obj);
+        for(let i = 0; i < particleSystems.length; i++){
+            if(particleSystems[i].hasOwnProperty('collision')){
+                particleSystems[i].collision(obj);
+            }
         }
     }
 
