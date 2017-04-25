@@ -40,11 +40,13 @@ Game.seamus = function(){
 
             if(event.key == that.shootKey){
                 if(!that.shoot){
+                    that.shoot = true;
+                    
                     let spec = {
                         x: that.x,
                         y: that.y - that.height * .09,
                         angle: 0,
-                        width: that.height * .2,
+                        width: that.height * .2 / 1.7,
                         height: that.height * .2,
                         speed: runSpeed * 1.8,
                         image: new Image(),
