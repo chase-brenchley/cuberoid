@@ -51,7 +51,8 @@ Game.seamus = function(){
                         speed: runSpeed * 1.8,
                         image: new Image(),
                         damage: 10,
-                        affectedByGravity: false
+                        affectedByGravity: false,
+                        lifeTime: 10000
                     }
                     
                     // Offset the x from seamus' center
