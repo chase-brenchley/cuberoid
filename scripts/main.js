@@ -2,6 +2,7 @@ Game = {};
 // game contains gameloop, update, and render. Runs the heart of the game.
 Game.game = (function(controls){
     var curTime, prevTime;
+    var newGameTime = 0;
     var seamus, graphics, physics, HUD;
     var currentStage;
     var paused;
@@ -9,6 +10,7 @@ Game.game = (function(controls){
     function init(){
 
         toggleBGMusic();
+        newGameTime = performance.now();
         curTime = prevTime = performance.now();
         graphics = Game.graphics;
         seamus = Game.seamus.generateSeamus(); 
@@ -82,7 +84,7 @@ Game.game = (function(controls){
         graphics.clear();
         graphics.drawStage(currentStage);
         seamus.draw();
-        HUD.draw(seamus.health, seamus.missiles, curTime);
+        HUD.draw(seamus.health, seamus.missiles, curTime-newGameTime);
     }
 
     return{
