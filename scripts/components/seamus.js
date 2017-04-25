@@ -51,7 +51,8 @@ Game.seamus = function(){
                         speed: runSpeed * 1.8,
                         image: new Image(),
                         damage: 10,
-                        affectedByGravity: false
+                        affectedByGravity: false,
+                        lifeTime: 10000
                     }
                     
                     // Offset the x from seamus' center
@@ -127,6 +128,7 @@ Game.seamus = function(){
 
         that.init = function(controls){
             that.health = 100;
+            that.missiles = 0;
 
             // Position/Dimension
             that.width = .04

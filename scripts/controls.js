@@ -34,7 +34,7 @@ Game.controls = function(){
         document.getElementById('shoot').innerHTML = "e";
         document.getElementById('left').innerHTML = "a";
         document.getElementById('right').innerHTML = "d";
-        document.getElementById('up').innerHTML = "w";
+        document.getElementById('missile').innerHTML = "w";
         document.getElementById('down').innerHTML = "s";
 
         // update controls object
@@ -67,7 +67,7 @@ Game.controls = function(){
             document.getElementById('shoot').innerHTML = previousControls['shoot'];
             document.getElementById('left').innerHTML = previousControls['left'];
             document.getElementById('right').innerHTML = previousControls['right'];
-            document.getElementById('up').innerHTML = previousControls['up'];
+            document.getElementById('missile').innerHTML = previousControls['missile'];
             document.getElementById('down').innerHTML = previousControls['down'];
         }
     }

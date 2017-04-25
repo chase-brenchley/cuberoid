@@ -8,6 +8,10 @@
     font-weight: normal; 
     font-style: normal;
 }
+/*@font-face{
+    font-family: '8BITWONDERNominal';
+    src: url('https://fontlibrary.org/face/8bit-wonder/assets/fonts/8bit-wonder/810653eb446c8181b8ccc7bb6ad2e28b/47592b1b6b2db3fdf06d3cbbfe462ef4/8BITWONDERNominal.ttf');
+}*/
 body {
     background-color: #051738;
     color: #7789AA;
