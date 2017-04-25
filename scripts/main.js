@@ -1,11 +1,6 @@
 Game = {};
-Game.screens = {
-
-}
-
 // game contains gameloop, update, and render. Runs the heart of the game.
 Game.game = (function(controls){
-    var floor = document.getElementById('canvas-main').height - 20;
     var curTime, prevTime;
     var seamus, graphics, physics;
     var currentStage;
