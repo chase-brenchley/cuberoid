@@ -7,6 +7,9 @@ Game.game = (function(controls){
     var currentStage;
     var paused;
 
+    // Greatest amount of elapsed time to pass to an update function 
+    const MAX_ELAPSED_TIME = 200; 
+
     function init(){
 
         toggleBGMusic();
@@ -46,7 +49,9 @@ Game.game = (function(controls){
     }
 
     function updateCollisions(){
+        // Check collisions
         for (i = 0; i < currentStage.Stage.length; i++){
+            Game.particles.collision(currentStage.Stage[i]);
             if (!currentStage.Stage[i].hasOwnProperty("nextStage")){
                 seamus.collision(currentStage.Stage[i]);
             } else {
@@ -61,6 +66,19 @@ Game.game = (function(controls){
         }
     }
 
+
+    function update(elapsedTime){
+        if(elapsedTime > MAX_ELAPSED_TIME){
+            elapsedTime = MAX_ELAPSED_TIME;
+        }
+        
+        var canvas = document.getElementById('canvas-main');
+        seamus.update(elapsedTime)
+        Game.particles.update(elapsedTime);
+        HUD.update();
+        updateCollisions();
+    }
+
     function gameLoop(){
         if(Game.game.paused){
             return;
@@ -73,18 +91,12 @@ Game.game = (function(controls){
         requestAnimationFrame(gameLoop);
     }
 
-    function update(elapsedTime){
-        var canvas = document.getElementById('canvas-main');
-        seamus.update(elapsedTime)
-        updateCollisions();
-        HUD.update();
-    }
-
     function render(){
         graphics.clear();
         graphics.drawStage(currentStage);
         seamus.draw();
         HUD.draw(seamus.health, seamus.missiles, curTime-newGameTime);
+        Game.particles.draw();
     }
 
     return{
