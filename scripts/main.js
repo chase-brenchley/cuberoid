@@ -1,13 +1,9 @@
 Game = {};
-Game.screens = {
-
-}
-
 // game contains gameloop, update, and render. Runs the heart of the game.
 Game.game = (function(controls){
-    var floor = document.getElementById('canvas-main').height - 20;
     var curTime, prevTime;
-    var seamus, graphics, physics;
+    var newGameTime = 0;
+    var seamus, graphics, physics, HUD;
     var currentStage;
     var paused;
 
@@ -15,23 +11,22 @@ Game.game = (function(controls){
     const MAX_ELAPSED_TIME = 200; 
 
     function init(){
-        if(document.getElementById('musicToggle').checked){
-            BGMusic.pause();
-            BGMusic = new Audio("assets/sound/BGMusic.mp3");
-            BGMusic.loop = true;
-            playSound(BGMusic);
-        }
+
+        toggleBGMusic();
+        newGameTime = performance.now();
         curTime = prevTime = performance.now();
         graphics = Game.graphics;
         seamus = Game.seamus.generateSeamus(); 
         physics = Game.physics;
         currentStage = Game.stage1;
+        HUD = Game.HUD;
         
         physics.init();
         graphics.init();
         Game.controls.init();
         seamus.init(Game.controls.controls);
         currentStage.init();
+        HUD.init();
         
         Game.game.paused = false;
         requestAnimationFrame(gameLoop);
@@ -44,17 +39,15 @@ Game.game = (function(controls){
         requestAnimationFrame(gameLoop);
     }
 
-    function gameLoop(){
-        if(Game.game.paused){
-            return;
+    function toggleBGMusic(){
+        if(document.getElementById('musicToggle').checked){
+            BGMusic.pause();
+            BGMusic = new Audio("assets/sound/BGMusic.mp3");
+            BGMusic.loop = true;
+            playSound(BGMusic);
         }
-        prevTime = curTime;
-	    curTime = performance.now();
-        var elapsedTime = curTime - prevTime;
-        update(elapsedTime);
-        render();
-        requestAnimationFrame(gameLoop);
     }
+
 
     function update(elapsedTime){
         if(elapsedTime > MAX_ELAPSED_TIME){
@@ -64,8 +57,12 @@ Game.game = (function(controls){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
         Game.particles.update(elapsedTime);
+        updateCollisions();
+        HUD.update();
+    }
 
         // Check collisions
+    function updateCollisions(){
         for (i = 0; i < currentStage.Stage.length; i++){
             Game.particles.collision(currentStage.Stage[i]);
             if (!currentStage.Stage[i].hasOwnProperty("nextStage")){
@@ -82,11 +79,31 @@ Game.game = (function(controls){
         }
     }
 
+    function gameLoop(){
+        if(Game.game.paused){
+            return;
+        }
+        prevTime = curTime;
+	    curTime = performance.now();
+        var elapsedTime = curTime - prevTime;
+        update(elapsedTime);
+        render();
+        requestAnimationFrame(gameLoop);
+    }
+
+    function update(elapsedTime){
+        var canvas = document.getElementById('canvas-main');
+        seamus.update(elapsedTime)
+        updateCollisions();
+        HUD.update();
+    }
+
     function render(){
         graphics.clear();
         graphics.drawStage(currentStage);
         seamus.draw();
         Game.particles.draw();
+        HUD.draw(seamus.health, seamus.missiles, curTime-newGameTime);
     }
 
     return{

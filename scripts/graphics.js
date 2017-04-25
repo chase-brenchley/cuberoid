@@ -36,6 +36,24 @@ Game.graphics = function(){
       context.restore();
     }
 
+    function drawCornerRect(spec){
+        context.save();
+        context.beginPath();
+        context.rect((spec.x) * canvas.width, (spec.y) * canvas.height, spec.width * canvas.width, spec.height * canvas.height);
+        context.fillStyle = spec.color;
+        context.fill();
+        context.closePath();
+        context.restore();
+    }
+
+    function drawText(spec){
+        context.save();
+        context.font = spec.font;
+        context.fillStyle = spec.color;
+        context.fillText(spec.text, spec.x*canvas.width, spec.y*canvas.height);
+        context.restore();
+    }
+
     /*
         curAnimation has the following relavent properties
         curAnimation = {
@@ -93,7 +111,6 @@ Game.graphics = function(){
     }
 
     function drawStage(stage){
-        // currentStage.draw();     
         stage.draw();       
     }
 
@@ -128,6 +145,8 @@ Game.graphics = function(){
         drawImage: drawImage,
         drawBackground: drawBackground,
         getWidth: getWidth,
-        getHeight: getHeight
+        getHeight: getHeight,
+        drawCornerRect: drawCornerRect,
+        drawText: drawText,
     }
 }()

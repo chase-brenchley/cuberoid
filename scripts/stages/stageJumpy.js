@@ -6,12 +6,12 @@ Game.stageJumpy = function() {
     var doorWidth = doorHeight/1.7/2.06;
 
     var stage = [
-        {x: .5, y: 0,width: 1, height: .1, color:"grey"}, // Ceiling
+        {x: .85/2, y: 0,width: .85, height: .1, color:"grey"}, // Ceiling
         {x: 0, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Left Wall
         {x: 1, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Right Wall
         {x: .5, y: 1,width: 1, height: .1, color:"grey"}, // Floor
-        {x: .5/2+(.1/1.7)/2, y: .16+.1, width: .5, height: .05, color: "red"}, // top left platform
-        {x: 1-(.25/1.7)/2-(.1/1.7)/2, y: .6, width: .25/1.7, height: .05, color: "red"}, // right platform
+        {x: .5/2+(.1/1.7)/2, y: .16+.1, width: .5, height: .049, color: "red"}, // top left platform
+        {x: 1-(.25/1.7)/2-(.1/1.7)/2, y: .6, width: .25/1.7, height: .049, color: "red"}, // right platform
         {x: .05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
     ]
 

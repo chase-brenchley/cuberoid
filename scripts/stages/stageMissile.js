@@ -1,78 +1,61 @@
-Game.stage1 = function() {
+Game.stageMissile = function() {
     // Spawn area. There's only a floor and a door to exit
-    let canvas, ctx;
+    let canvas;
     var width, height;
+    var doorHeight = .18;
+    var doorWidth = doorHeight/1.7/2.06;
 
     var stage = [
-        {x: .5, y: 1, width: (.1/1.7)*8, height: .6, color: "grey",}, //Middle platform
-        {x: 1, y: 1, width: .2, height: .6, color: "grey",}, //Right platform
-        {x: .825, y: 1-.05/2, width: .05*4, height: .05, color: "grey",}, // Dip
-        {x: 0, y:.5, width: .1/1.7, height: 1, color: "grey"}, // left wall
-        {x: 1-.02/2, y: .85-.3/2-.2/2, width: .02, height: .2, color: "clear", nextStage: Game.stage2, coords: {x:.1, y:.16}}, //door
-        {x: .5, y: 0, width:1 , height: .1 , color: "grey"}, //ceiling
-        {x: 1, y: .5/2, width: .1/1.7, height: .1*4, color: "grey"}, //right wall
-        {x: .95+.05/2, y: .5, width: (.05/1.7)*4, height: .05, color: "grey"}, // door overhang
-        {x:.5, y: .625, width:.1,height:.01, color:"red", noTexture: true}, // Hover platform
-        {x: .05+.2/2, y: 1.17, width: .25, height: .05, color: "red", nextStage: null, coords: {x:.15,y:-.17}} // Falling hitbox to boss room
+        {x: .5, y: 0,width: 1, height: .1, color:"grey"}, // Ceiling
+        {x: 0, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Left Wall
+        {x: 1, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Right Wall
+        {x: .85/2, y: 1,width: .85, height: .1, color:"grey"}, // Floor
+        {x: .2, y: .16+.1, width: .4, height: .049, color: "red"}, // top left platform
+        {x: .8, y: .16+.1, width: .4, height: .049, color: "red"}, // top right platform
+        {x: .05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
+        {x: .85+.15/2, y: 1+.17, width: .15, height: .05, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
     ]
-
-    // var Constants = {
-    //     get stage() {return stage;}, //access with Game.stage1.Constants["stage"]
-    // }
 
     function init(){
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
-        ctx = canvas.getContext('2d');
-        stage[9].nextStage = Game.stageBoss;     
+        stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: .15};
+        stage[7].nextStage = Game.stageJumpy; stage[7].coords = {x:.85+.15/2, y: -.17};
     }
 
     function draw() {
-        // for (i = 0; i < stage.length; i++){
-        //     Game.graphics.drawRect(stage[i]);
-        // }
-
-        // Load images
-        var stone = new Image();
-        stone.src = "assets/textures/texture.jpg";
+        var background = new Image();
+        background.src = "assets/textures/texture.jpg";
         var texture = new Image();
         texture.src = "assets/textures/stone1.jpg";
         var verticle = new Image();
         verticle.src = "assets/textures/stone1.jpg";
         var platform  = new Image();
         platform.src = "assets/textures/platform1.png";
+        var closedDoor = new Image();
+        closedDoor.src = "assets/textures/closeddoor.png";
+        var closedDoorLeft = new Image();
+        closedDoorLeft.src = "assets/textures/closeddoorleft.png";
 
-        // Draw the background
-        Game.graphics.drawBackground(stone);
-
-        // Freaking door shenanigans
-        var door = new Image(); //h: 64 w: 31 R: 2.06
-        door.src = "assets/textures/closeddoorleft.png";
-        height = .185;
-        width = height / 4;
+        Game.graphics.drawBackground(background);
 
         Game.graphics.drawImage({
-            image: door,
-            dx: 1-width/2,
-            dy: .608,
-            dWidth: width,
-            dHeight: height
-        });
-
-        Game.graphics.drawImage({
-            image: platform,
-            dx: .5,
-            dy: .65,
-            dWidth: .07*1.7,
-            dHeight: .07
+            image: closedDoor,
+            dx: .05,
+            dy: .15,
+            dWidth: doorWidth,
+            dHeight: doorHeight
         })
 
-        // Draw the textures. This is magic as far as I'm concerned
+        // for (i = 0; i < stage.length; i++){
+        //     Game.graphics.drawRect(stage[i]);
+        // }
+
         for (var i = 0; i < stage.length; i++){
             if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
                 Game.graphics.drawImage({
-                    image: stone,
+                    image: background,
                     dx: stage[i].x,
                     dy: stage[i].y,
                     dWidth: stage[i].width,
@@ -103,8 +86,7 @@ Game.stage1 = function() {
                         dy: y,
                         dWidth: .05/1.7,
                         dHeight: .05,
-                    })
-                    
+                    }) 
                 }
                 for (x = stage[i].x-stage[i].width/2+(.05/1.7)/2, y = stage[i].y+stage[i].height/2-.05/2; x < stage[i].x+stage[i].width/2+(.05/1.7)/2; x += .05/1.7) {
                     Game.graphics.drawImage({
@@ -118,14 +100,11 @@ Game.stage1 = function() {
                 }
             }
         }
-        // for (i = 0; i < stage.length; i++){
-        //     Game.graphics.drawRect(stage[i]);
-        // }
+        
     }
 
     return {
         Stage: stage,
-        // Constants: Constants,
         draw: draw,
         init: init,
     }
