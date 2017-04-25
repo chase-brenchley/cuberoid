@@ -1,4 +1,4 @@
-Game.stageJumpy = function() {
+Game.stageBoss = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas;
     var width, height;
@@ -6,20 +6,16 @@ Game.stageJumpy = function() {
     var doorWidth = doorHeight/1.7/2.06;
 
     var stage = [
-        {x: .5, y: 0,width: 1, height: .1, color:"grey"}, // Ceiling
+        {x: .3+.7/2, y: 0,width: .7, height: .1, color:"grey"}, // Ceiling
         {x: 0, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Left Wall
         {x: 1, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Right Wall
-        {x: .5, y: 1,width: 1, height: .1, color:"grey"}, // Floor
-        {x: .5/2+(.1/1.7)/2, y: .16+.1, width: .5, height: .05, color: "red"}, // top left platform
-        {x: 1-(.25/1.7)/2-(.1/1.7)/2, y: .6, width: .25/1.7, height: .05, color: "red"}, // right platform
-        {x: .05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
+        {x: .5, y: 1, width: 1, height: .1, color:"grey"}, // Floor
     ]
 
     function init(){
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
-        stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: 1-.15};
     }
 
     function draw() {
@@ -37,14 +33,6 @@ Game.stageJumpy = function() {
         closedDoorLeft.src = "assets/textures/closeddoorleft.png";
 
         Game.graphics.drawBackground(background);
-
-        Game.graphics.drawImage({
-            image: closedDoor,
-            dx: .05,
-            dy: .15,
-            dWidth: doorWidth,
-            dHeight: doorHeight
-        })
 
         // for (i = 0; i < stage.length; i++){
         //     Game.graphics.drawRect(stage[i]);
