@@ -291,12 +291,17 @@ Game.particles = function(){
         }
     }
 
+    function clear(){
+        particleSystems.length = 0;
+    }
+
     return{
         generateParticle: generateParticle,
         generatePewpew: generatePewpew,
         update: update,
         draw: draw,
-        collision: collision
+        collision: collision,
+        clear: clear
 
     }
 }()

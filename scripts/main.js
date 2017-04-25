@@ -31,6 +31,8 @@ Game.game = (function(controls){
         currentStage.init();
         HUD.init();
         
+        Game.particles.clear();
+
         Game.game.paused = false;
         requestAnimationFrame(gameLoop);
     }
@@ -63,6 +65,7 @@ Game.game = (function(controls){
                     currentStage = currentStage.Stage[i].nextStage;
                     currentStage.init();
                     seamus.updateCoords(coords)
+                    Game.particles.clear();
                     break;
                 }
             }
