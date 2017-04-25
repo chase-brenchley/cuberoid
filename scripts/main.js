@@ -63,7 +63,11 @@ Game.game = (function(controls){
         
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
+        Game.particles.update(elapsedTime);
+
+        // Check collisions
         for (i = 0; i < currentStage.Stage.length; i++){
+            Game.particles.collision(currentStage.Stage[i]);
             if (!currentStage.Stage[i].hasOwnProperty("nextStage")){
                 seamus.collision(currentStage.Stage[i]);
             } else {
@@ -82,6 +86,7 @@ Game.game = (function(controls){
         graphics.clear();
         graphics.drawStage(currentStage);
         seamus.draw();
+        Game.particles.draw();
     }
 
     return{

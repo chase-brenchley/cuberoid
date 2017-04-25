@@ -38,8 +38,38 @@ Game.seamus = function(){
 
             }
 
-            if(event.key == that.shoot){
+            if(event.key == that.shootKey){
+                if(!that.shoot){
+                    let spec = {
+                        x: that.x,
+                        y: that.y - that.height * .09,
+                        angle: 0,
+                        width: that.height * .2,
+                        height: that.height * .2,
+                        speed: runSpeed * 1.8,
+                        image: new Image(),
+                        damage: 10,
+                        affectedByGravity: false
+                    }
+                    
+                    // Offset the x from seamus' center
+                    if(that.facingLeft){
+                        spec.x -= that.width/2;
+                        spec.angle = Math.PI;
+                    }
+                    else{
+                        spec.x += that.width/2;
+                    }
 
+                    if(that.facingLeft){
+                        spec.image.src = "assets/sprites/leftPewpew.png";
+                    }
+                    else{
+                        spec.image.src = "assets/sprites/rightPewpew.png";
+                    }
+
+                    Game.particles.generatePewpew(spec)
+                }
             }
         }) 
 
@@ -68,7 +98,7 @@ Game.seamus = function(){
             }
 
             if(event.key == that.shootKey){
-
+                that.shoot = false;
             }
         })
 
