@@ -95,6 +95,7 @@ Game.seamus = function(){
 
         that.init = function(controls){
             that.health = 100;
+            that.missiles = 0;
 
             // Position/Dimension
             that.width = .04

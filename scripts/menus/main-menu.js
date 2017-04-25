@@ -65,8 +65,8 @@ function displayGame() {
     document.getElementById('page-mainmenu').style.display = "none";
     document.getElementById('canvas-main').style.display = "block";
     canvas = document.getElementById("canvas-main");
-    canvas.width = window.innerWidth-20; //document.width is obsolete
-    canvas.height = window.innerHeight-20; //document.height is obsolete
+    // canvas.width = window.innerWidth-20; //document.width is obsolete
+    // canvas.height = window.innerHeight-20; //document.height is obsolete
     gameInProgress = true;
     Game.game.init();
 }
