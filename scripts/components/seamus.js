@@ -38,8 +38,40 @@ Game.seamus = function(){
 
             }
 
-            if(event.key == that.shoot){
+            if(event.key == that.shootKey){
+                if(!that.shoot){
+                    that.shoot = true;
+                    
+                    let spec = {
+                        x: that.x,
+                        y: that.y - that.height * .09,
+                        angle: 0,
+                        width: that.height * .2 / 1.7,
+                        height: that.height * .2,
+                        speed: runSpeed * 1.8,
+                        image: new Image(),
+                        damage: 10,
+                        affectedByGravity: false
+                    }
+                    
+                    // Offset the x from seamus' center
+                    if(that.facingLeft){
+                        spec.x -= that.width/2;
+                        spec.angle = Math.PI;
+                    }
+                    else{
+                        spec.x += that.width/2;
+                    }
 
+                    if(that.facingLeft){
+                        spec.image.src = "assets/sprites/leftPewpew.png";
+                    }
+                    else{
+                        spec.image.src = "assets/sprites/rightPewpew.png";
+                    }
+
+                    Game.particles.generatePewpew(spec)
+                }
             }
         }) 
 
@@ -68,7 +100,7 @@ Game.seamus = function(){
             }
 
             if(event.key == that.shootKey){
-
+                that.shoot = false;
             }
         })
 
@@ -253,12 +285,8 @@ Game.seamus = function(){
 
         that.update = function(elapsedTime){
             'use strict'
-            // Update yVelocity and y position
-
-            if(elapsedTime > 100){
-                elapsedTime = 100;
-            }
             
+            // Update yVelocity and y position            
             that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
             if(that.yVelocity > that.MAX_Y_VELOCITY){
                 that.yVelocity = that.MAX_Y_VELOCITY;
