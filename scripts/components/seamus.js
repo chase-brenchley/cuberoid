@@ -334,8 +334,6 @@ Game.seamus = function(){
             // Update yVelocity and y position            
             // that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
             that.yVelocity += that.gravity * elapsedTime / 1000;
-            console.log(that.gravity);
-            // that.yVelocity += 3 * elapsedTime / 1000;
             if(that.yVelocity > that.MAX_Y_VELOCITY){
                 that.yVelocity = that.MAX_Y_VELOCITY;
             }
