@@ -18,7 +18,7 @@ Game.game = (function(controls){
         graphics = Game.graphics;
         seamus = Game.seamus.generateSeamus(); 
         physics = Game.physics;
-        currentStage = Game.stage1;
+        currentStage = Game.stageJumpy;
         HUD = Game.HUD;
         
         physics.init();
@@ -75,7 +75,7 @@ Game.game = (function(controls){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
         Game.particles.update(elapsedTime);
-        if(currentStage.hasOwnProperty('update')) currentStage.update();
+        if(currentStage.hasOwnProperty('update')) currentStage.update(elapsedTime);
         HUD.update();
         updateCollisions();
     }

@@ -1,7 +1,7 @@
 Game.stageJumpy = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas;
-    var width, height;
+    var width, height, boss;
     var doorHeight = .18;
     var doorWidth = doorHeight/1.7/2.06;
 
@@ -20,6 +20,7 @@ Game.stageJumpy = function() {
         width = canvas.width;
         height = canvas.height;
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: 1-.15};
+        boss = Game.enemies.bossJump.generate({startLocation: {x: .05, y: 1-(.05+.17*2)}, leftLimit: .05, rightLimit: .7});
     }
 
     function draw() {
@@ -37,6 +38,8 @@ Game.stageJumpy = function() {
         closedDoorLeft.src = "assets/textures/closeddoorleft.png";
 
         Game.graphics.drawBackground(background);
+
+        boss.draw();
 
         Game.graphics.drawImage({
             image: closedDoor,
@@ -101,7 +104,12 @@ Game.stageJumpy = function() {
         
     }
 
+    function update(time){
+        boss.update(time);
+    }
+
     return {
+        update: update,
         Stage: stage,
         draw: draw,
         init: init,
