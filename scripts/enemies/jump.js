@@ -10,6 +10,8 @@ Game.enemies.bossJump = function(spec){
         that.rightLimit = spec.rightLimit;
         that.direction = Math.random() > .5 ? that.moveSpeed : -that.moveSpeed;
         that.position = spec.startLocation;
+        that.bossImage = new Image();
+        that.bossImage.src = "assets/sprites/jumpBoss.png";
 
 
         that.draw = function(){
@@ -19,6 +21,15 @@ Game.enemies.bossJump = function(spec){
                 width: .1,
                 height: .17*2,
                 color: "red",
+            })
+            Game.graphics.drawImage({
+                // dx: that.position.x,
+                dx: .5,
+                // dy: that.position.y,
+                dy: .5,
+                dwidth: .1,
+                dheight: .17*2,
+                image: that.bossImage,
             })
         }
 
