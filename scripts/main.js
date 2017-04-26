@@ -67,11 +67,11 @@ Game.game = (function(controls){
                 if(currentStage.Stage[i].hasOwnProperty("alive") && currentStage.Stage[i].alive == false){
                     collide = false;
                 }
-                else if (currentStage.Stage[i].hasOwnProperty("addMissiles") && currentStage.Stage[i].pickedUp == false){
-                    console.log(currentStage.Stage[i].pickedUp);
+                else if (currentStage.Stage[i].hasOwnProperty("pickedUp") && currentStage.Stage[i].pickedUp == false){
                     collide = seamus.collision(currentStage.Stage[i])
                     if(collide){
-                        seamus.missileCount = currentStage.Stage[i].addMissiles;
+                        if (currentStage.Stage[i].hasOwnProperty("addMissiles")) seamus.missileCount = currentStage.Stage[i].addMissiles;
+                        else if (currentStage.Stage[i].upgrade == "jump") seamus.updateGravity(2);
                         currentStage.Stage[i].pickedUp = true;
                     }
                 } 

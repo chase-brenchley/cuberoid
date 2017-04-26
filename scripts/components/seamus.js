@@ -164,9 +164,14 @@ Game.seamus = function(){
             that.x -= .05;
         }
 
+        that.updateGravity = function(g){
+            that.gravity = g;
+        }
+
         that.init = function(controls){
             that.health = 100;
             that.missileCount = 8;
+            that.gravity = 3;// Game.physics.getGravity();
 
             // Position/Dimension
             that.width = .04
@@ -327,7 +332,10 @@ Game.seamus = function(){
             'use strict'
             
             // Update yVelocity and y position            
-            that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
+            // that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
+            that.yVelocity += that.gravity * elapsedTime / 1000;
+            console.log(that.gravity);
+            // that.yVelocity += 3 * elapsedTime / 1000;
             if(that.yVelocity > that.MAX_Y_VELOCITY){
                 that.yVelocity = that.MAX_Y_VELOCITY;
             }

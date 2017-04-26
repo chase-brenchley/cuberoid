@@ -4,7 +4,7 @@ Game.physics = function(){
     var gravity;
 
     function init(){
-        gravity = 2;
+        gravity = 3;
     }
 
     // Takes two objects and detects if they are colliding. Assumes the first parameter is a moving object, and the other is 

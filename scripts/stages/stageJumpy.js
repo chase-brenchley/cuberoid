@@ -1,9 +1,12 @@
 Game.stageJumpy = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas;
-    var width, height, boss;
+    var width, height, boss, jumpPickup;
     var doorHeight = .18;
     var doorWidth = doorHeight/1.7/2.06;
+    var jumpPickedUp = false;
+
+    var jumpPickupImage = new Image();
 
     var stage = [
         {x: .85/2, y: 0,width: .85, height: .1, color:"grey"}, // Ceiling
@@ -13,7 +16,7 @@ Game.stageJumpy = function() {
         {x: .5/2+(.1/1.7)/2, y: .16+.1, width: .5, height: .049, color: "red"}, // top left platform
         {x: 1-(.25/1.7)/2-(.1/1.7)/2, y: .6, width: .25/1.7, height: .049, color: "red"}, // right platform
         {x: .05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
-    ]
+    ];
 
     function init(){
         canvas = document.getElementById('canvas-main');
@@ -22,6 +25,8 @@ Game.stageJumpy = function() {
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: 1-.15};
         boss = Game.enemies.bossJump.generate({startLocation: {x: .05, y: 1-(.05+.17*2)}, leftLimit: .05, rightLimit: .7});
         stage[7] = boss.getEverything();
+        stage[8] = jumpPickup = {x: .05, y: 1-.075, height: .05, width: .05/1.7, color: "blue", pickedUp: jumpPickedUp, upgrade: "jump"};
+        jumpPickupImage.src = "assets/sprites/jumpUpgrade.png";
     }
 
     function draw() {
@@ -41,6 +46,15 @@ Game.stageJumpy = function() {
         Game.graphics.drawBackground(background);
 
         if(boss.alive) boss.draw();
+        else if(stage[8].pickedUp == false){
+                Game.graphics.drawImage({
+                image: jumpPickupImage,
+                dx: jumpPickup.x,
+                dy: jumpPickup.y,
+                dWidth: jumpPickup.width,
+                dHeight: jumpPickup.height
+            })
+        }
 
         Game.graphics.drawImage({
             image: closedDoor,
@@ -55,7 +69,7 @@ Game.stageJumpy = function() {
         // }
 
         for (var i = 0; i < stage.length; i++){
-            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture") && !stage[i].hasOwnProperty("alive")){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture") && !stage[i].hasOwnProperty("alive") && !stage[i].hasOwnProperty("pickedUp")){
                 Game.graphics.drawImage({
                     image: background,
                     dx: stage[i].x,
@@ -106,6 +120,7 @@ Game.stageJumpy = function() {
     }
 
     function update(time){
+        stage[8].pickedUp ? jumpPickedUp = true: jumpPickedUp = false;
         boss.health = stage[7].health;
         boss.update(time);
         stage[7] = boss.getEverything();
