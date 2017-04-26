@@ -46,13 +46,13 @@ Game.enemies.bossJump = function(spec){
                 // }
             } 
             else if(that.position.y < 1-(.05+.17*2)) {
-                that.yVelocity += Game.physics.getGravity() * time/1000;
+                that.yVelocity += 3 * time/1000;
                 that.position.y += that.yVelocity * time/1000;
 
                 if(that.position.x + that.direction > that.rightLimit) that.direction = -that.moveSpeed;
                 else if(that.position.x - that.direction < that.leftLimit) that.direction = that.moveSpeed;
                 that.position.x += that.direction;
-            }
+            } else if(that.position.y > 1-(.05+.17*2)) that.position.y = 1-(.05+.17*2);
         }
 
         that.updateState = function(){
