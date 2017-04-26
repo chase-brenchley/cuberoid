@@ -22,7 +22,7 @@ Game.game = (function(controls){
         seamus.init(Game.controls.controls);
 
         physics = Game.physics;
-        currentStage = Game.stageJumpy;
+        currentStage = Game.stage1;
         HUD = Game.HUD;
         
         physics.init();
@@ -57,6 +57,7 @@ Game.game = (function(controls){
         // Check collisions
         for (i = 0; i < currentStage.Stage.length; i++){
             Game.particles.collision(currentStage.Stage[i]);
+            console.log(currentStage.Stage[i]);
             if (!currentStage.Stage[i].hasOwnProperty("nextStage")){
                 seamus.collision(currentStage.Stage[i]);
             } else {

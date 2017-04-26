@@ -1,6 +1,7 @@
-Game.enemies.bossJump = function(spec){
+Game.enemies.bossFinal = function(spec){
     function generate(spec){
         var that = {}
+        that.alive = true;
         that.moveSpeed = .002;
         that.health = 500;
         that.yVelocity = -1.5;

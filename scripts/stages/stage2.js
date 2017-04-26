@@ -83,7 +83,8 @@ Game.stage2 = function() {
         })
 
         for (var enemy in enemies) {
-            enemies[enemy].draw();
+            currentEnemy = enemies[enemy];
+            if(currentEnemy.alive) currentEnemy.draw();
         }
 
         // for (i = 0; i < stage.length; i++){
@@ -91,7 +92,7 @@ Game.stage2 = function() {
         // }
 
         for (var i = 0; i < stage.length; i++){
-            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture") && !stage[i].hasOwnProperty("alive")){
                 Game.graphics.drawImage({
                     image: background,
                     dx: stage[i].x,
@@ -144,6 +145,8 @@ Game.stage2 = function() {
 
     function update(){
         for (var enemy in enemies) {
+            //13
+            stage[14+parseInt(enemy)] = enemies[enemy].getEverything();
             enemies[enemy].update();
         }
     }

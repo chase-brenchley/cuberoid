@@ -1,13 +1,8 @@
-Game.enemies.bossJump = function(spec){
+Game.enemies.bossMissile = function(spec){
     function generate(spec){
         var that = {}
-        that.moveSpeed = .002;
-        that.health = 500;
-        that.yVelocity = -1.5;
-        that.timeUntilNextJump = 2000; // jumps every 2000 ms
-        that.leftLimit = spec.leftLimit;
-        that.rightLimit = spec.rightLimit;
-        that.direction = Math.random() > .5 ? that.moveSpeed : -that.moveSpeed;
+        that.alive = true;
+        that.health = 5000;
         that.position = spec.startLocation;
 
 
@@ -15,29 +10,14 @@ Game.enemies.bossJump = function(spec){
             Game.graphics.drawCornerRect({
                 x: that.position.x,
                 y: that.position.y,
-                width: .1,
+                width: .17*2/1.7,
                 height: .17*2,
                 color: "red",
             })
         }
 
         that.updatePosition = function(time){
-            that.timeUntilNextJump -= time;
-
-            if (that.timeUntilNextJump <= 0) {
-                that.timeUntilNextJump = 2000;
-                that.yVelocity = -1.4;
-                that.position.y += that.yVelocity * time/1000;
-            } 
-            else if(that.position.y < 1-(.05+.17*2)) {
-                that.yVelocity += 3 * time/1000;
-                that.position.y += that.yVelocity * time/1000;
-
-                if(that.position.x + that.direction > that.rightLimit) that.direction = -that.moveSpeed;
-                else if(that.position.x - that.direction < that.leftLimit) that.direction = that.moveSpeed;
-                that.position.x += that.direction;
-            } 
-            else if(that.position.y > 1-(.05+.17*2)) that.position.y = 1-(.05+.17*2);
+            // does nothing. He doesn't move
         }
 
         that.updateState = function(){
@@ -48,6 +28,7 @@ Game.enemies.bossJump = function(spec){
 
         that.update = function(time){
             that.updatePosition(time);
+            that.updateState();
         }
 
         that.takeDamage = function(dmg){

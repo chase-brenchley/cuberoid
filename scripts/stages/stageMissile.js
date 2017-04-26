@@ -1,7 +1,7 @@
 Game.stageMissile = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas;
-    var width, height;
+    var width, height, boss;
     var doorHeight = .18;
     var doorWidth = doorHeight/1.7/2.06;
 
@@ -22,6 +22,7 @@ Game.stageMissile = function() {
         height = canvas.height;
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: .15};
         stage[7].nextStage = Game.stageJumpy; stage[7].coords = {x:.85+.15/2, y: -.17};
+        boss = Game.enemies.bossMissile.generate({startLocation: {x:.03, y:1-(.05+.14*2)}})
     }
 
     function draw() {
@@ -39,6 +40,8 @@ Game.stageMissile = function() {
         closedDoorLeft.src = "assets/textures/closeddoorleft.png";
 
         Game.graphics.drawBackground(background);
+
+        if (boss.alive) boss.draw();
 
         Game.graphics.drawImage({
             image: closedDoor,
@@ -103,8 +106,13 @@ Game.stageMissile = function() {
         
     }
 
+    function update(time){
+        boss.update();
+    }
+
     return {
         Stage: stage,
+        update: update,
         draw: draw,
         init: init,
     }

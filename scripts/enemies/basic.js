@@ -2,6 +2,7 @@ Game.enemies = {};
 Game.enemies.basicEnemy = function(spec){
     function generate(spec){
         var that = {}
+        that.alive = true;
         that.moveSpeed = .00125;
         that.health = 20;
         // that.position;
@@ -36,15 +37,22 @@ Game.enemies.basicEnemy = function(spec){
         }
 
         that.updateState = function(){
-
+            if (that.health <= 0){
+                that.alive = false;
+            }
         }
 
         that.update = function(){
             that.updatePosition();
+            that.updateState();
         }
 
         that.takeDamage = function(dmg){
             that.health -= dmg;
+        }
+
+        that.getEverything= function(){
+            return {x: that.position.x+.05/2, y: that.position.y, width: .05, height: .17, alive: that.alive};
         }
 
         return that;
