@@ -1,0 +1,23 @@
+{
+  "name": "cuberoid",
+  "version": "1.0.0",
+  "description": "A javascript game that draws heavily from the original Metroid franchise as a final project for Game Development",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chase-brenchley/cuberoid.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chase-brenchley/cuberoid/issues"
+  },
+  "homepage": "https://github.com/chase-brenchley/cuberoid#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
