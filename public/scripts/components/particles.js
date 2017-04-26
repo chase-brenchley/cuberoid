@@ -2,6 +2,8 @@ Game.particles = function(){
     // List of active particle systems
     var particleSystems = [];
 
+    var explosionSound = new Audio('assets/sound/explosion.wav')
+
 
     // Generates a generic particle. All particles must have 
     // at least the following properties.
@@ -129,7 +131,7 @@ Game.particles = function(){
                 affectedByGravity: false, // boolean value indicating if bullet drop is a thing with this pewpew
                 lifeTime: 350, // Max lifetime of a particle in milliseconds
             })
-            
+            playSound(explosionSound)
             // for(let i = 0; i < 50; i++){
             //     nonCollidableParticles.push(generateParticle({
             //         x: Math.random() * that.width + (that.x - that.width/2),
