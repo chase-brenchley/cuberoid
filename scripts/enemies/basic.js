@@ -4,7 +4,7 @@ Game.enemies.basicEnemy = function(spec){
         var that = {}
         that.alive = true;
         that.moveSpeed = .00125;
-        that.health = 20;
+        that.health = 40;
         // that.position;
         // that.position = {};
         // var direction, leftLimit, rightLimit;
