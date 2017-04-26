@@ -2,6 +2,10 @@ Game.stage1 = function() {
     // Spawn area. There's only a floor and a door to exit
     let canvas, ctx;
     var width, height;
+    var stone = new Image();
+    var texture = new Image();
+    var verticle = new Image();
+    var platform  = new Image();
 
     var stage = [
         {x: .5, y: 1, width: (.1/1.7)*8, height: .6, color: "grey",}, //Middle platform
@@ -21,27 +25,25 @@ Game.stage1 = function() {
     // }
 
     function init(){
+        // Load images
+        
+        stone.src = "assets/textures/texture.jpg";
+        texture.src = "assets/textures/stone1.jpg";
+        verticle.src = "assets/textures/stone1.jpg";
+        platform.src = "assets/textures/platform1.png";
+
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
         ctx = canvas.getContext('2d');
-        stage[9].nextStage = Game.stageBoss;     
+        stage[9].nextStage = Game.stageBoss; 
+            
     }
 
     function draw() {
         // for (i = 0; i < stage.length; i++){
         //     Game.graphics.drawRect(stage[i]);
         // }
-
-        // Load images
-        var stone = new Image();
-        stone.src = "assets/textures/texture.jpg";
-        var texture = new Image();
-        texture.src = "assets/textures/stone1.jpg";
-        var verticle = new Image();
-        verticle.src = "assets/textures/stone1.jpg";
-        var platform  = new Image();
-        platform.src = "assets/textures/platform1.png";
 
         // Draw the background
         Game.graphics.drawBackground(stone);

@@ -4,6 +4,12 @@ Game.stageMissile = function() {
     var width, height;
     var doorHeight = .18;
     var doorWidth = doorHeight/1.7/2.06;
+    var background = new Image();
+    var texture = new Image();
+    var verticle = new Image();
+    var platform  = new Image();
+    var closedDoor = new Image();
+    var closedDoorLeft = new Image();
 
     var stage = [
         {x: .5, y: 0,width: 1, height: .1, color:"grey"}, // Ceiling
@@ -17,6 +23,13 @@ Game.stageMissile = function() {
     ]
 
     function init(){
+        background.src = "assets/textures/texture.jpg";
+        texture.src = "assets/textures/stone1.jpg";
+        verticle.src = "assets/textures/stone1.jpg";
+        platform.src = "assets/textures/platform1.png";
+        closedDoor.src = "assets/textures/closeddoor.png";
+        closedDoorLeft.src = "assets/textures/closeddoorleft.png";
+
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
@@ -25,19 +38,6 @@ Game.stageMissile = function() {
     }
 
     function draw() {
-        var background = new Image();
-        background.src = "assets/textures/texture.jpg";
-        var texture = new Image();
-        texture.src = "assets/textures/stone1.jpg";
-        var verticle = new Image();
-        verticle.src = "assets/textures/stone1.jpg";
-        var platform  = new Image();
-        platform.src = "assets/textures/platform1.png";
-        var closedDoor = new Image();
-        closedDoor.src = "assets/textures/closeddoor.png";
-        var closedDoorLeft = new Image();
-        closedDoorLeft.src = "assets/textures/closeddoorleft.png";
-
         Game.graphics.drawBackground(background);
 
         Game.graphics.drawImage({

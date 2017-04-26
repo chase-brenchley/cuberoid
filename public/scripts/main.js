@@ -8,7 +8,7 @@ Game.game = (function(controls){
     var paused;
 
     // Greatest amount of elapsed time to pass to an update function 
-    const MAX_ELAPSED_TIME = 200; 
+    const MAX_ELAPSED_TIME = 150; 
 
     function init(){
 

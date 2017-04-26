@@ -6,7 +6,12 @@ Game.seamus = function(){
         var that = {};  
         var runSpeed = .45;
         var animationPool = {};
-        var pewSound = new Audio('assets/sound/pew3.wav')
+        var pewSound = []
+        pewSound.push(new Audio('assets/sound/pew.wav'))
+        pewSound.push(new Audio('assets/sound/pew1.wav'))
+        pewSound.push(new Audio('assets/sound/pew2.wav'))        
+        pewSound.push(new Audio('assets/sound/pew3.wav'))
+        var pewIndex = 0;
 
         that.keyDown = window.addEventListener('keydown', function(event){
             if(event.key == that.jumpKey){
@@ -68,7 +73,7 @@ Game.seamus = function(){
                     }
 
                     Game.particles.generatePewpew(spec)
-                    playSound(pewSound)
+                    playSound(pewSound[Math.floor(Math.random() * pewSound.length)])
                 }
             }
 
