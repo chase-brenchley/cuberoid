@@ -4,6 +4,7 @@ Game.stageMissile = function() {
     var width, height, boss, missilePickup;
     var doorHeight = .18;
     var doorWidth = doorHeight/1.7/2.06;
+    var missilesPickedUp = false;
 
     var missilePickupImage = new Image();
 
@@ -26,7 +27,7 @@ Game.stageMissile = function() {
         stage[7].nextStage = Game.stageJumpy; stage[7].coords = {x:.85+.15/2, y: -.17};
         boss = Game.enemies.bossMissile.generate({startLocation: {x:.03, y:1-(.05+.14*2)}})
         stage[8] = boss.getEverything();
-        missilePickup = {x: .05, y: 1-.075, height: .05, width: .05/1.7, color: "blue", addMissiles: 50, pickedUp: false}
+        missilePickup = {x: .05, y: 1-.075, height: .05, width: .05/1.7, color: "blue", addMissiles: 50, pickedUp: missilesPickedUp}
         stage[9] = missilePickup;
         missilePickupImage.src = "assets/sprites/missilePickup.png";
     }
@@ -122,6 +123,7 @@ Game.stageMissile = function() {
     }
 
     function update(time){
+        stage[9].pickedUp ? missilesPickedUp = true: missilesPickedUp = false;
         boss.health = stage[8].health;
         stage[8] = boss.getEverything();
         boss.update();

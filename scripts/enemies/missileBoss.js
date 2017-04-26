@@ -2,7 +2,7 @@ Game.enemies.bossMissile = function(spec){
     function generate(spec){
         var that = {}
         that.alive = true;
-        that.health = 1500;
+        that.health = 15;
         that.position = spec.startLocation;
 
 
