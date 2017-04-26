@@ -75,6 +75,7 @@ Game.game = (function(controls){
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
         Game.particles.update(elapsedTime);
+        if(currentStage.hasOwnProperty('update')) currentStage.update();
         HUD.update();
         updateCollisions();
     }
@@ -95,7 +96,7 @@ Game.game = (function(controls){
         graphics.clear();
         graphics.drawStage(currentStage);
         seamus.draw();
-        HUD.draw(seamus.health, seamus.missiles, curTime-newGameTime);
+        HUD.draw(seamus.health, seamus.missileCount, curTime-newGameTime);
         Game.particles.draw();
     }
 

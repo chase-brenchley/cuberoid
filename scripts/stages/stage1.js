@@ -123,10 +123,15 @@ Game.stage1 = function() {
         // }
     }
 
+    function update(){
+
+    }
+
     return {
         Stage: stage,
         // Constants: Constants,
         draw: draw,
         init: init,
+        update, update,
     }
 }();

@@ -1,9 +1,9 @@
-Game.enemies = {};
-Game.enemies.basicEnemy = function(spec){
+Game.enemies.bossJump = function(spec){
     function generate(spec){
         var that = {}
-        that.moveSpeed = .00125;
-        that.health = 20;
+        that.moveSpeed = .002;
+        that.health = 500;
+        that.yVelocity = -2;
         // that.position;
         // that.position = {};
         // var direction, leftLimit, rightLimit;

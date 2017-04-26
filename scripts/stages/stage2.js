@@ -4,6 +4,8 @@ Game.stage2 = function() {
     var width, height;
     var doorHeight = .18;
     var doorWidth = doorHeight/1.7/2.06;
+    var enemies = [];
+    var enemieses = [];
 
     var stage = [
         {x: .5, y: 0,width: 1, height: .1, color:"grey"}, // Ceiling
@@ -29,6 +31,17 @@ Game.stage2 = function() {
         stage[11].nextStage = Game.stageJumpy; stage[11].coords = {x: .1, y: .16};
         stage[12].nextStage = Game.stageMissile; stage[12].coords = {x: .1, y: .16};
         stage[13].nextStage = Game.stage1; stage[13].coords = {x: 1-.05, y: .6};
+        enemieses = [
+            {startLocation: {x:.3, y:.065}, leftLimit: .2, rightLimit: .4}, //top left enemy
+            {startLocation: {x: .4, y: .325}, leftLimit: .2, rightLimit: .6}, //middle enemy
+            {startLocation: {x: .3, y: .585}, leftLimit: .05, rightLimit: .46} //bottom enemy
+            
+        ];
+        enemies = [];
+        enemieses.forEach(function(element) {
+            enemies.push(Game.enemies.basicEnemy.generate(element));
+        }, this);
+        // enemies.push(Game.enemies.basicEnemy.generate({startLocation: {x:.5, y:.5}, leftLimit: .2, rightLimit: .8}));
     }
 
     function draw() {
@@ -68,6 +81,10 @@ Game.stage2 = function() {
             dWidth: doorWidth,
             dHeight:doorHeight,
         })
+
+        for (var enemy in enemies) {
+            enemies[enemy].draw();
+        }
 
         // for (i = 0; i < stage.length; i++){
         //     Game.graphics.drawRect(stage[i]);
@@ -125,9 +142,16 @@ Game.stage2 = function() {
         
     }
 
+    function update(){
+        for (var enemy in enemies) {
+            enemies[enemy].update();
+        }
+    }
+
     return {
         Stage: stage,
         draw: draw,
         init: init,
+        update: update
     }
 }();
