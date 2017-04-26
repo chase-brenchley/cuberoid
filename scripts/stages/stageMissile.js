@@ -23,6 +23,7 @@ Game.stageMissile = function() {
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: .15};
         stage[7].nextStage = Game.stageJumpy; stage[7].coords = {x:.85+.15/2, y: -.17};
         boss = Game.enemies.bossMissile.generate({startLocation: {x:.03, y:1-(.05+.14*2)}})
+        stage[8] = boss.getEverything();
     }
 
     function draw() {
@@ -56,7 +57,7 @@ Game.stageMissile = function() {
         // }
 
         for (var i = 0; i < stage.length; i++){
-            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture") && !stage[i].hasOwnProperty("alive")){
                 Game.graphics.drawImage({
                     image: background,
                     dx: stage[i].x,
@@ -107,6 +108,8 @@ Game.stageMissile = function() {
     }
 
     function update(time){
+        boss.health = stage[8].health;
+        stage[8] = boss.getEverything();
         boss.update();
     }
 

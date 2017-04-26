@@ -35,6 +35,10 @@ Game.enemies.bossMissile = function(spec){
             that.health -= dmg;
         }
 
+        that.getEverything= function(){
+            return {x: that.position.x+(.17*2/1.7)/2, y: that.position.y+.17, width: .17*2/1.7, height: .17*2, alive: that.alive, health: that.health};
+        }
+
         return that;
     }
 

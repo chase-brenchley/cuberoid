@@ -107,9 +107,7 @@ Game.stageJumpy = function() {
 
     function update(time){
         boss.health = stage[7].health;
-        console.log(boss.health);
         boss.update(time);
-        console.log(boss.alive);
         stage[7] = boss.getEverything();
     }
 
