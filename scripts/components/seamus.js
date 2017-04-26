@@ -159,6 +159,11 @@ Game.seamus = function(){
             that.y = coords.y;
         }
 
+        that.takeDamage = function(dmg){
+            that.health -= dmg;
+            that.x -= .05;
+        }
+
         that.init = function(controls){
             that.health = 100;
             that.missileCount = 8;

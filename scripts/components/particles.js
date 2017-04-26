@@ -109,6 +109,7 @@ Game.particles = function(){
         that.collision = function(obj){
             if(Game.physics.basicCollision(that, obj)){
                 // obj.damaged(that) // call the objects damaged function indicating it has been damaged by the pewpew
+                obj.health -= that.damage;
                 that.die();
             }
         }

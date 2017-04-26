@@ -31,6 +31,7 @@ Game.stage2 = function() {
         stage[11].nextStage = Game.stageJumpy; stage[11].coords = {x: .1, y: .16};
         stage[12].nextStage = Game.stageMissile; stage[12].coords = {x: .1, y: .16};
         stage[13].nextStage = Game.stage1; stage[13].coords = {x: 1-.05, y: .6};
+        stage[14] = stage[15] = stage[16] = [];
         enemieses = [
             {startLocation: {x:.3, y:.065}, leftLimit: .2, rightLimit: .4}, //top left enemy
             {startLocation: {x: .4, y: .325}, leftLimit: .2, rightLimit: .6}, //middle enemy
@@ -146,6 +147,8 @@ Game.stage2 = function() {
     function update(){
         for (var enemy in enemies) {
             //13
+            if (stage[14+parseInt(enemy)].hasOwnProperty("health")) enemies[enemy].health = stage[14+parseInt(enemy)].health;
+            console.log(enemies[enemy].health);
             stage[14+parseInt(enemy)] = enemies[enemy].getEverything();
             enemies[enemy].update();
         }

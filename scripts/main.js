@@ -56,10 +56,18 @@ Game.game = (function(controls){
     function updateCollisions(){
         // Check collisions
         for (i = 0; i < currentStage.Stage.length; i++){
-            Game.particles.collision(currentStage.Stage[i]);
-            console.log(currentStage.Stage[i]);
+            if(currentStage.Stage[i].hasOwnProperty("alive")){
+                if(currentStage.Stage[i].alive) Game.particles.collision(currentStage.Stage[i]);
+            }
+            else {
+                Game.particles.collision(currentStage.Stage[i]);
+            }
+
             if (!currentStage.Stage[i].hasOwnProperty("nextStage")){
-                seamus.collision(currentStage.Stage[i]);
+                if(currentStage.Stage[i].hasOwnProperty("alive") && currentStage.Stage[i].alive == false){
+                    collide = false;
+                } else collide = seamus.collision(currentStage.Stage[i]);;
+                if (collide && currentStage.Stage[i].hasOwnProperty("alive")) seamus.takeDamage(5);
             } else {
                 if(seamus.collision(currentStage.Stage[i]) == true){
                     currentStage.Stage[i].hasOwnProperty("coords") ? coords = currentStage.Stage[i].coords: coords = {x:.5,y:.5};
