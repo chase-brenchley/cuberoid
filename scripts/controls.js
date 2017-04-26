@@ -56,11 +56,6 @@ Game.controls = function(){
     }
 
     function restore(){
-        controlButtons = document.getElementsByClassName("control-button");
-        for (var i = 0; i < controlButtons.length; i++) {
-            var element = controlButtons[i];
-			controls[element.id] = element.innerText;            
-        }
         if(localStorage.getItem('controls') != null){
             var previousControls = JSON.parse(localStorage.getItem('controls'))
             document.getElementById('jump').innerHTML = previousControls['jump'];
@@ -69,6 +64,11 @@ Game.controls = function(){
             document.getElementById('right').innerHTML = previousControls['right'];
             document.getElementById('missile').innerHTML = previousControls['missile'];
             document.getElementById('down').innerHTML = previousControls['down'];
+        }
+        controlButtons = document.getElementsByClassName("control-button");
+        for (var i = 0; i < controlButtons.length; i++) {
+            var element = controlButtons[i];
+			controls[element.id] = element.innerText;            
         }
     }
 

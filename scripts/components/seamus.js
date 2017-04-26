@@ -59,22 +59,50 @@ Game.seamus = function(){
                     if(that.facingLeft){
                         spec.x -= that.width/2;
                         spec.angle = Math.PI;
-                    }
-                    else{
-                        spec.x += that.width/2;
-                    }
-
-                    if(that.facingLeft){
                         spec.image.src = "assets/sprites/leftPewpew.png";
                     }
                     else{
+                        spec.x += that.width/2;
                         spec.image.src = "assets/sprites/rightPewpew.png";
                     }
 
                     Game.particles.generatePewpew(spec)
                 }
             }
-        }) 
+
+            if(event.key == that.missileKey){
+                if(!that.shoot && that.missileCount > 0){
+                    that.shoot = true;
+                    that.missileCount--;
+                    
+                    let spec = {
+                        x: that.x,
+                        y: that.y - that.height * .09,
+                        angle: 0,
+                        width: that.height  * .35/ 1.7,
+                        height: that.height * .15,
+                        speed: runSpeed * 1.8,
+                        image: new Image(),
+                        damage: 50,
+                        affectedByGravity: false,
+                        lifeTime: 10000
+                    }
+                    
+                    // Offset the x from seamus' center
+                    if(that.facingLeft){
+                        spec.x -= that.width/2;
+                        spec.angle = Math.PI;
+                        spec.image.src = "assets/sprites/leftMissile.png";
+                    }
+                    else{
+                        spec.x += that.width/2;
+                        spec.image.src = "assets/sprites/rightMissile.png";
+                    }
+
+                    Game.particles.generatePewpew(spec)
+                }
+            }
+        })
 
         that.keyUp = window.addEventListener('keyup', function(event){
             if(event.key == that.jumpKey){
@@ -103,22 +131,27 @@ Game.seamus = function(){
             if(event.key == that.shootKey){
                 that.shoot = false;
             }
+
+            if(event.key == that.missileKey){
+                that.shoot = false;
+            }
         })
 
         that.updateControls = function(controls){
-            that.upKey    = controls['up'];
-            that.downKey  = controls['down']
-            that.leftKey  = controls['left'];
-            that.rightKey = controls['right'];
-            that.jumpKey  = controls['jump'];
-            that.shootKey = controls['shoot'];
+            that.upKey      = controls['up'];
+            that.downKey    = controls['down']
+            that.leftKey    = controls['left'];
+            that.rightKey   = controls['right'];
+            that.jumpKey    = controls['jump'];
+            that.shootKey   = controls['shoot'];
+            that.missileKey = controls['missile'];
 
-            that.up = false;
-            that.down = false;
-            that.left = false;
-            that.right = false;
-            that.jump = false;
-            that.shoot = false;
+            that.up     = false;
+            that.down   = false;
+            that.left   = false;
+            that.right  = false;
+            that.jump   = false;
+            that.shoot  = false;
         }
 
         that.updateCoords = function(coords){
@@ -128,7 +161,7 @@ Game.seamus = function(){
 
         that.init = function(controls){
             that.health = 100;
-            that.missileCount = 0;
+            that.missileCount = 8;
 
             // Position/Dimension
             that.width = .04
@@ -138,12 +171,13 @@ Game.seamus = function(){
             that.y = .5;
 
             // Set controls
-            that.upKey    = controls['up'];
-            that.downKey  = controls['down']
-            that.leftKey  = controls['left'];
-            that.rightKey = controls['right'];
-            that.jumpKey  = controls['jump'];
-            that.shootKey = controls['shoot'];
+            that.upKey      = controls['up'];
+            that.downKey    = controls['down']
+            that.leftKey    = controls['left'];
+            that.rightKey   = controls['right'];
+            that.jumpKey    = controls['jump'];
+            that.shootKey   = controls['shoot'];
+            that.missileKey = controls['missile'];
 
             // States
             that.facingLeft = false;

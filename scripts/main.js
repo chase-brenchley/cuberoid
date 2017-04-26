@@ -16,7 +16,11 @@ Game.game = (function(controls){
         newGameTime = performance.now();
         curTime = prevTime = performance.now();
         graphics = Game.graphics;
-        seamus = Game.seamus.generateSeamus(); 
+        if(seamus == undefined){
+            seamus = Game.seamus.generateSeamus(); 
+        }
+        seamus.init(Game.controls.controls);
+
         physics = Game.physics;
         currentStage = Game.stageJumpy;
         HUD = Game.HUD;
@@ -24,10 +28,11 @@ Game.game = (function(controls){
         physics.init();
         graphics.init();
         Game.controls.init();
-        seamus.init(Game.controls.controls);
         currentStage.init();
         HUD.init();
         
+        Game.particles.clear();
+
         Game.game.paused = false;
         requestAnimationFrame(gameLoop);
     }
@@ -60,6 +65,7 @@ Game.game = (function(controls){
                     currentStage = currentStage.Stage[i].nextStage;
                     currentStage.init();
                     seamus.updateCoords(coords)
+                    Game.particles.clear();
                     break;
                 }
             }
