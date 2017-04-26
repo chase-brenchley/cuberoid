@@ -6,7 +6,7 @@ Game.seamus = function(){
         var that = {};  
         var runSpeed = .45;
         var animationPool = {};
-        var pewSound = new Audio('assets/sound/pew.wav')
+        var pewSound = new Audio('assets/sound/pew3.wav')
 
         that.keyDown = window.addEventListener('keydown', function(event){
             if(event.key == that.jumpKey){
