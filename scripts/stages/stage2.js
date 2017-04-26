@@ -148,7 +148,6 @@ Game.stage2 = function() {
         for (var enemy in enemies) {
             //13
             if (stage[14+parseInt(enemy)].hasOwnProperty("health")) enemies[enemy].health = stage[14+parseInt(enemy)].health;
-            console.log(enemies[enemy].health);
             stage[14+parseInt(enemy)] = enemies[enemy].getEverything();
             enemies[enemy].update();
         }

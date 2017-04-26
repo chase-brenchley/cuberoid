@@ -49,10 +49,15 @@ Game.enemies.bossJump = function(spec){
 
         that.update = function(time){
             that.updatePosition(time);
+            that.updateState();
         }
 
         that.takeDamage = function(dmg){
             that.health -= dmg;
+        }
+
+        that.getEverything= function(){
+            return {x: that.position.x+.1/2, y: that.position.y+.17, width: .1, height: .17*2, alive: that.alive, health: that.health};
         }
 
         return that;

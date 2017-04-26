@@ -21,6 +21,7 @@ Game.stageJumpy = function() {
         height = canvas.height;
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: 1-.15};
         boss = Game.enemies.bossJump.generate({startLocation: {x: .05, y: 1-(.05+.17*2)}, leftLimit: .05, rightLimit: .7});
+        stage[7] = boss.getEverything();
     }
 
     function draw() {
@@ -39,7 +40,7 @@ Game.stageJumpy = function() {
 
         Game.graphics.drawBackground(background);
 
-        boss.draw();
+        if(boss.alive) boss.draw();
 
         Game.graphics.drawImage({
             image: closedDoor,
@@ -54,7 +55,7 @@ Game.stageJumpy = function() {
         // }
 
         for (var i = 0; i < stage.length; i++){
-            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture") && !stage[i].hasOwnProperty("alive")){
                 Game.graphics.drawImage({
                     image: background,
                     dx: stage[i].x,
@@ -105,7 +106,11 @@ Game.stageJumpy = function() {
     }
 
     function update(time){
+        boss.health = stage[7].health;
+        console.log(boss.health);
         boss.update(time);
+        console.log(boss.alive);
+        stage[7] = boss.getEverything();
     }
 
     return {
