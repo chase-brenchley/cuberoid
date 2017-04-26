@@ -101,7 +101,7 @@ Game.game = (function(controls){
         graphics.clear();
         graphics.drawStage(currentStage);
         seamus.draw();
-        HUD.draw(seamus.health, seamus.missiles, curTime-newGameTime);
+        HUD.draw(seamus.health, seamus.missileCount, curTime-newGameTime);
         Game.particles.draw();
     }
 
