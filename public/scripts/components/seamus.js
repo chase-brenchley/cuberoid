@@ -58,7 +58,8 @@ Game.seamus = function(){
                         image: new Image(),
                         damage: 10,
                         affectedByGravity: false,
-                        lifeTime: 10000
+                        lifeTime: 10000,
+                        friendly: true
                     }
                     
                     // Offset the x from seamus' center
@@ -92,7 +93,8 @@ Game.seamus = function(){
                         image: new Image(),
                         damage: 50,
                         affectedByGravity: false,
-                        lifeTime: 10000
+                        lifeTime: 10000,
+                        friendly: true
                     }
                     
                     // Offset the x from seamus' center
@@ -166,9 +168,19 @@ Game.seamus = function(){
             that.y = coords.y;
         }
 
+        that.takeDamage = function(dmg){
+            that.health -= dmg;
+        }
+
+        that.updateGravity = function(g){
+            that.gravity = g;
+        }
+
         that.init = function(controls){
             that.health = 100;
             that.missileCount = 8;
+            that.gravity = 3;
+            that.alive = true;
 
             // Position/Dimension
             that.width = .04
@@ -327,9 +339,13 @@ Game.seamus = function(){
 
         that.update = function(elapsedTime){
             'use strict'
-            
+            if(!that.alive) {
+                that.x = -1;
+                that.y = -1;
+                return;
+            }
             // Update yVelocity and y position            
-            that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
+            that.yVelocity += that.gravity * elapsedTime / 1000;
             if(that.yVelocity > that.MAX_Y_VELOCITY){
                 that.yVelocity = that.MAX_Y_VELOCITY;
             }
@@ -373,6 +389,10 @@ Game.seamus = function(){
                 that.xVelocity = 0;
             }
 
+            if(that.health <= 0) {
+                that.alive = false;
+            }
+
             // Have to update the sprite after updating the hitbox's position
             that.updateSprite(elapsedTime);    
         }
@@ -380,7 +400,16 @@ Game.seamus = function(){
         // for now just draw a colored rectangle, later do sprite animation.
         that.draw = function(){
             // Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
-            
+            if(!that.alive){
+                Game.graphics.drawCenterText({
+                    font: "80px '8BITWONDERNominal'",
+                    text: "Game Over",
+                    x: .5,
+                    y: .5,
+                    color: "red"
+                })
+                return;
+            }            
             Game.graphics.drawSprite(that.curAnimation, that)
             //Game.graphics.drawSprite(that.curanimation, that);
         }

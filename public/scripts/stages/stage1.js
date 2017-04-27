@@ -126,11 +126,16 @@ Game.stage1 = function() {
         // }
     }
 
+    function update(){
+
+    }
+
     return {
         Stage: stage,
         // Constants: Constants,
         draw: draw,
         init: init,
-        stageID: stageID
+        stageID: stageID,
+        update: update,
     }
 }();

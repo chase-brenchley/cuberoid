@@ -12,6 +12,8 @@ Game.stage2 = function() {
     var closedDoor = new Image();
     var platform  = new Image();
     var closedDoorLeft = new Image();
+    var enemies = [];
+    var enemieses = [];
 
     var stage = [
         {x: .5, y: 0,width: 1, height: .1, color:"grey"}, // Ceiling
@@ -44,6 +46,18 @@ Game.stage2 = function() {
         stage[11].nextStage = Game.stageJumpy; stage[11].coords = {x: .1, y: .16};
         stage[12].nextStage = Game.stageMissile; stage[12].coords = {x: .1, y: .16};
         stage[13].nextStage = Game.stage1; stage[13].coords = {x: 1-.05, y: .6};
+        stage[14] = stage[15] = stage[16] = [];
+        enemieses = [
+            {startLocation: {x:.3, y:.065}, leftLimit: .2, rightLimit: .4}, //top left enemy
+            {startLocation: {x: .4, y: .325}, leftLimit: .2, rightLimit: .6}, //middle enemy
+            {startLocation: {x: .3, y: .585}, leftLimit: .05, rightLimit: .46} //bottom enemy
+            
+        ];
+        enemies = [];
+        enemieses.forEach(function(element) {
+            enemies.push(Game.enemies.basicEnemy.generate(element));
+        }, this);
+        // enemies.push(Game.enemies.basicEnemy.generate({startLocation: {x:.5, y:.5}, leftLimit: .2, rightLimit: .8}));
     }
 
     function draw() {
@@ -71,12 +85,17 @@ Game.stage2 = function() {
             dHeight:doorHeight,
         })
 
+        for (var enemy in enemies) {
+            currentEnemy = enemies[enemy];
+            if(currentEnemy.alive) currentEnemy.draw();
+        }
+
         // for (i = 0; i < stage.length; i++){
         //     Game.graphics.drawRect(stage[i]);
         // }
 
         for (var i = 0; i < stage.length; i++){
-            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture") && !stage[i].hasOwnProperty("alive")){
                 Game.graphics.drawImage({
                     image: background,
                     dx: stage[i].x,
@@ -127,11 +146,20 @@ Game.stage2 = function() {
         
     }
 
+    function update(){
+        for (var enemy in enemies) {
+            //13
+            if (stage[14+parseInt(enemy)].hasOwnProperty("health")) enemies[enemy].health = stage[14+parseInt(enemy)].health;
+            stage[14+parseInt(enemy)] = enemies[enemy].getEverything();
+            enemies[enemy].update();
+        }
+    }
+
     return {
         Stage: stage,
         draw: draw,
         init: init,
-        stageID: stageID
-
+        stageID: stageID,
+        update: update
     }
 }();

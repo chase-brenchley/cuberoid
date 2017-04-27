@@ -3,15 +3,12 @@ Game.stageJumpy = function() {
 
     // Spawn area. There's only a floor and a door to exit
     let canvas;
-    var width, height;
+    var width, height, boss, jumpPickup;
     var doorHeight = .18;
     var doorWidth = doorHeight/1.7/2.06;
-    var background = new Image();
-    var texture = new Image();
-    var verticle = new Image();
-    var platform  = new Image();
-    var closedDoor = new Image();
-    var closedDoorLeft = new Image();
+    var jumpPickedUp = false;
+
+    var jumpPickupImage = new Image();
 
     var stage = [
         {x: .85/2, y: 0,width: .85, height: .1, color:"grey"}, // Ceiling
@@ -19,26 +16,48 @@ Game.stageJumpy = function() {
         {x: 1, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Right Wall
         {x: .5, y: 1,width: 1, height: .1, color:"grey"}, // Floor
         {x: .5/2+(.1/1.7)/2, y: .16+.1, width: .5, height: .049, color: "red"}, // top left platform
-        {x: 1-(.25/1.7)/2-(.1/1.7)/2, y: .6, width: .25/1.7, height: .049, color: "red"}, // right platform
+        {x: 1-(.2/1.7)/2-(.1/1.7)/2, y: 1-.425/2, width: .3/1.7, height: .425, color: "red"}, // right platform
         {x: .05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
-    ]
+    ];
 
     function init(){
-        background.src = "assets/textures/texture.jpg";
-        texture.src = "assets/textures/stone1.jpg";
-        verticle.src = "assets/textures/stone1.jpg";
-        platform.src = "assets/textures/platform1.png";
-        closedDoor.src = "assets/textures/closeddoor.png";
-        closedDoorLeft.src = "assets/textures/closeddoorleft.png";
-
         canvas = document.getElementById('canvas-main');
         width = canvas.width;
         height = canvas.height;
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: 1-.15};
+        boss = Game.enemies.bossJump.generate({startLocation: {x: .05, y: 1-(.05+.17*2)}, leftLimit: .05, rightLimit: 1-(.2/1.7)/2-(.1/1.7)/2-(.3/1.7)/2-.1/2});
+        stage[7] = boss.getEverything();
+        stage[8] = jumpPickup = {x: .05, y: 1-.075, height: .05, width: .05/1.7, color: "blue", pickedUp: jumpPickedUp, upgrade: "jump", canCollide: false,};
+        jumpPickupImage.src = "assets/sprites/jumpUpgrade.png";
     }
 
     function draw() {
+        var background = new Image();
+        background.src = "assets/textures/texture.jpg";
+        var texture = new Image();
+        texture.src = "assets/textures/stone1.jpg";
+        var verticle = new Image();
+        verticle.src = "assets/textures/stone1.jpg";
+        var platform  = new Image();
+        platform.src = "assets/textures/platform1.png";
+        var closedDoor = new Image();
+        closedDoor.src = "assets/textures/closeddoor.png";
+        var closedDoorLeft = new Image();
+        closedDoorLeft.src = "assets/textures/closeddoorleft.png";
+
         Game.graphics.drawBackground(background);
+
+        if(boss.alive) boss.draw();
+        else if(stage[8].pickedUp == false){
+            stage[8].canCollide = true;
+            Game.graphics.drawImage({
+                image: jumpPickupImage,
+                dx: jumpPickup.x,
+                dy: jumpPickup.y,
+                dWidth: jumpPickup.width,
+                dHeight: jumpPickup.height
+            })
+        }
 
         Game.graphics.drawImage({
             image: closedDoor,
@@ -53,7 +72,7 @@ Game.stageJumpy = function() {
         // }
 
         for (var i = 0; i < stage.length; i++){
-            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture")){
+            if (!stage[i].hasOwnProperty("nextStage") && !stage[i].hasOwnProperty("noTexture") && !stage[i].hasOwnProperty("alive") && !stage[i].hasOwnProperty("pickedUp")){
                 Game.graphics.drawImage({
                     image: background,
                     dx: stage[i].x,
@@ -103,11 +122,18 @@ Game.stageJumpy = function() {
         
     }
 
+    function update(time){
+        stage[8].pickedUp ? jumpPickedUp = true: jumpPickedUp = false;
+        boss.health = stage[7].health;
+        boss.update(time);
+        stage[7] = boss.getEverything();
+    }
+
     return {
+        update: update,
         Stage: stage,
         draw: draw,
         init: init,
         stageID: stageID
-
     }
 }();
