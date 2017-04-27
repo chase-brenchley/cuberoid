@@ -22,7 +22,7 @@ Game.game = (function(controls){
         seamus.init(Game.controls.controls);
 
         physics = Game.physics;
-        currentStage = Game.stageMissile;
+        currentStage = Game.stage2;
         HUD = Game.HUD;
         
         physics.init();
