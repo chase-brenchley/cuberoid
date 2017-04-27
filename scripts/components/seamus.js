@@ -52,7 +52,8 @@ Game.seamus = function(){
                         image: new Image(),
                         damage: 10,
                         affectedByGravity: false,
-                        lifeTime: 10000
+                        lifeTime: 10000,
+                        friendly: true,
                     }
                     
                     // Offset the x from seamus' center
@@ -85,17 +86,18 @@ Game.seamus = function(){
                         image: new Image(),
                         damage: 50,
                         affectedByGravity: false,
-                        lifeTime: 10000
+                        lifeTime: 10000,
+                        friendly: true,
                     }
                     
                     // Offset the x from seamus' center
                     if(that.facingLeft){
-                        spec.x -= that.width/2;
+                        spec.x -= that.width/2+.01;
                         spec.angle = Math.PI;
                         spec.image.src = "assets/sprites/leftMissile.png";
                     }
                     else{
-                        spec.x += that.width/2;
+                        spec.x += that.width/2+.01;
                         spec.image.src = "assets/sprites/rightMissile.png";
                     }
 

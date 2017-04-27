@@ -32,8 +32,10 @@ Game.particles = function(){
             image: spec.image,
             isAlive: true, 
             affectedByGravity: spec.affectedByGravity,
-            lifeTime: spec.lifeTime
+            lifeTime: spec.lifeTime,
+            friendly: spec.friendly
         }
+
 
         // Initialize the xVelocity and yVelocity based on speed and angle
         that.xVelocity = Math.cos(that.angle) * that.speed;
@@ -108,6 +110,7 @@ Game.particles = function(){
         // Add a collision function since pewpew's are collidable objects
         that.collision = function(obj){
             if(Game.physics.basicCollision(that, obj)){
+                if (that.friendly && obj.hasOwnProperty("missileCount")) return;
                 // obj.damaged(that) // call the objects damaged function indicating it has been damaged by the pewpew
                 obj.health -= that.damage;
                 that.die();

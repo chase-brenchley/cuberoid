@@ -4,9 +4,14 @@ Game.enemies.bossMissile = function(spec){
         that.alive = true;
         that.health = 1500;
         that.position = spec.startLocation;
+        that.reloadTimeConstant = 25;
+        that.reloadTime = that.reloadTimeConstant;
 
         that.bossImage = new Image();
         that.bossImage.src = "assets/sprites/missileBoss.png";
+
+        that.missileImage = new Image();
+        that.missileImage.src = "assets/sprites/rightMissile.png";
 
 
         that.draw = function(){
@@ -37,8 +42,27 @@ Game.enemies.bossMissile = function(spec){
         }
 
         that.update = function(time){
+            if(!that.alive) return;
+            that.reloadTime -= time;
             that.updatePosition(time);
             that.updateState();
+            if(that.reloadTime <=0 && (Game.game.getSeamus().y >= .87)){
+                that.reloadTime = (Math.random() * that.reloadTimeConstant) + that.reloadTimeConstant;
+                // Throw a missile that.heigh = .16, that.width = .04 runSpeed = .45
+                Game.particles.generatePewpew({
+                    x: .2,
+                    y: .845,
+                    angle: 0,
+                    width: .16 * .35/1.7,
+                    height: .16 * .15,
+                    speed: .45*1.8,
+                    image: that.missileImage,
+                    damage: 50,
+                    affectedByGravity: false,
+                    lifeTime: 10000,
+                    friendly: false,
+                })
+            }
         }
 
         that.takeDamage = function(dmg){

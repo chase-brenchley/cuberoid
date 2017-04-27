@@ -127,7 +127,7 @@ Game.stageMissile = function() {
         stage[9].pickedUp ? missilesPickedUp = true: missilesPickedUp = false;
         boss.health = stage[8].health;
         stage[8] = boss.getEverything();
-        boss.update();
+        boss.update(time);
     }
 
     return {

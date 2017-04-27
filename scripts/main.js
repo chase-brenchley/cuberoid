@@ -54,6 +54,7 @@ Game.game = (function(controls){
     }
 
     function updateCollisions(){
+        Game.particles.collision(seamus);
         // Check collisions
         for (i = 0; i < currentStage.Stage.length; i++){
             if(currentStage.Stage[i].hasOwnProperty("alive")){
