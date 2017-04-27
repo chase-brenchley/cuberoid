@@ -1,4 +1,6 @@
 Game.stageJumpy = function() {
+    var stageID = 'stageJumpy';
+
     // Spawn area. There's only a floor and a door to exit
     let canvas;
     var width, height;
@@ -105,5 +107,7 @@ Game.stageJumpy = function() {
         Stage: stage,
         draw: draw,
         init: init,
+        stageID: stageID
+
     }
 }();

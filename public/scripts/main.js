@@ -6,6 +6,8 @@ Game.game = (function(controls){
     var seamus, graphics, physics, HUD;
     var currentStage;
     var paused;
+    var HUD;
+    var runningTime = 0;
 
     // Greatest amount of elapsed time to pass to an update function 
     const MAX_ELAPSED_TIME = 150; 
@@ -13,6 +15,7 @@ Game.game = (function(controls){
     function init(){
 
         toggleBGMusic();
+        runningTime = 0;
         newGameTime = performance.now();
         curTime = prevTime = performance.now();
         graphics = Game.graphics;
@@ -44,6 +47,85 @@ Game.game = (function(controls){
         requestAnimationFrame(gameLoop);
     }
 
+    function getSaveData(){
+        return{
+            seamus: seamus,
+            stageID: currentStage.stageID,
+            runningTime: runningTime,
+        }
+    }
+
+    function loadGame(data){
+        // make data an object again
+        if(data == undefined || data == ""){
+            alert('Failed to load game');
+            return;
+        }
+
+        data = JSON.parse(data);
+        alert('Load successfull')
+        console.log(data);
+        
+        playSound(gameStartSnd);
+        // Make page-mainmenu be gone and display canvas
+        document.getElementById('page-mainmenu').style.display = "none";
+        document.getElementById('canvas-main').style.display = "block";
+        canvas = document.getElementById("canvas-main");
+        // canvas.width = window.innerWidth-20; //document.width is obsolete
+        // canvas.height = window.innerHeight-20; //document.height is obsolete
+        gameInProgress = true;
+
+        toggleBGMusic();
+        runningTime = data.runningTime;
+        newGameTime = performance.now();
+        curTime = prevTime = performance.now();
+        graphics = Game.graphics;
+        if(seamus == undefined){
+            seamus = Game.seamus.generateSeamus(); 
+        }
+        seamus.init(Game.controls.controls);
+
+        seamus.health = data.seamus.health;
+        seamus.x = data.seamus.x;
+        seamus.y = data.seamus.y;
+        seamus.canJump = data.seamus.canJump;
+        seamus.missileCount = data.seamus.missileCount;
+        
+        physics = Game.physics;
+
+        if(data.stageID == 'stage1'){
+            currentStage = Game.stage1;
+        }
+        else if(data.stageID == 'stage2'){
+            currentStage = Game.stage2;
+        }
+        else if(data.stageID == 'stageBoss'){
+            currentStage = Game.stageBoss;
+        }
+        else if(data.stageID == 'stageJumpy'){
+            currentStage = Game.stageJumpy;
+        }
+        else if(data.stageID == 'stageMissile'){
+            currentStage = Game.stageMissile;
+        }
+        else{
+            alert("Error loading stage");
+        }
+
+        HUD = Game.HUD;
+        
+        physics.init();
+        graphics.init();
+        Game.controls.init();
+        currentStage.init();
+        HUD.init();
+        
+        Game.particles.clear();
+
+        Game.game.paused = false;
+        requestAnimationFrame(gameLoop);
+    }
+
     function toggleBGMusic(){
         if(document.getElementById('musicToggle').checked){
             BGMusic.pause();
@@ -72,11 +154,11 @@ Game.game = (function(controls){
         }
     }
 
-
     function update(elapsedTime){
         if(elapsedTime > MAX_ELAPSED_TIME){
             elapsedTime = MAX_ELAPSED_TIME;
         }
+        runningTime += elapsedTime;
         
         var canvas = document.getElementById('canvas-main');
         seamus.update(elapsedTime)
@@ -101,7 +183,7 @@ Game.game = (function(controls){
         graphics.clear();
         graphics.drawStage(currentStage);
         seamus.draw();
-        HUD.draw(seamus.health, seamus.missileCount, curTime-newGameTime);
+        HUD.draw(seamus.health, seamus.missileCount, runningTime);
         Game.particles.draw();
     }
 
@@ -109,5 +191,7 @@ Game.game = (function(controls){
         init: init,
         paused: paused,
         reInit: reInit,
+        getSaveData: getSaveData,
+        loadGame: loadGame
     }
 }(Game.controls));

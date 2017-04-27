@@ -1,4 +1,5 @@
 Game.stage2 = function() {
+    var stageID = 'stage2';
     // Spawn area. There's only a floor and a door to exit
     let canvas;
     var width, height;
@@ -130,5 +131,7 @@ Game.stage2 = function() {
         Stage: stage,
         draw: draw,
         init: init,
+        stageID: stageID
+
     }
 }();

@@ -1,5 +1,4 @@
 Game.HUD = function() {
-
     var missileImage;
 
     function init(){

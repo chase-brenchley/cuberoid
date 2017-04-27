@@ -1,4 +1,5 @@
 Game.stageMissile = function() {
+    var stageID = 'stageMissile';
     // Spawn area. There's only a floor and a door to exit
     let canvas;
     var width, height;
@@ -107,5 +108,7 @@ Game.stageMissile = function() {
         Stage: stage,
         draw: draw,
         init: init,
+        stageID: stageID
+
     }
 }();

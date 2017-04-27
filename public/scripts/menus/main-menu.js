@@ -117,3 +117,50 @@ function alterBGMusic() {
         BGMusic.pause();
     }
 }
+
+function saveGame(){
+    if(!gameInProgress){
+        playSound(errorSnd);
+        return;
+    }
+
+    console.log("Geting save game data");
+    
+    var person = prompt("Please enter your name:", "");
+    if (person == null || person == "") {
+        console.log("User cancelled the save action");
+        return;
+    } 
+
+    var savedGame = Game.game.getSaveData();
+
+    $.ajax({
+        url: 'http://localhost:3000/saveGame?person=' + person + '&savedGame=' + JSON.stringify(savedGame),
+        type: 'POST',
+        error: function(){alert('POST failed')},
+        success: function(){
+            alert('save successful');
+        }
+    })
+}
+
+function loadGame(){
+    // prompt for name
+    var person = prompt("Please enter your name: \n");
+    if(person == null || person == ""){
+        return;
+    }
+
+    $.ajax({
+		url: 'http://localhost:3000/load?person=' + person,
+		cache: false,
+		type: 'GET',
+		error: function() { alert('GET failed'); },
+		success: function(data) {
+            // Data will be stringified json object with data if loaded,
+            // else it will be undefined
+            console.log("game again: " + data);
+            Game.game.loadGame(data);
+		}
+	});
+}
