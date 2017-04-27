@@ -2,9 +2,9 @@ Game.enemies.bossMissile = function(spec){
     function generate(spec){
         var that = {}
         that.alive = true;
-        that.health = 1500;
+        that.health = 350;
         that.position = spec.startLocation;
-        that.reloadTimeConstant = 25;
+        that.reloadTimeConstant = 150;
         that.reloadTime = that.reloadTimeConstant;
 
         that.bossImage = new Image();
@@ -57,7 +57,7 @@ Game.enemies.bossMissile = function(spec){
                     height: .16 * .15,
                     speed: .45*1.8,
                     image: that.missileImage,
-                    damage: 50,
+                    damage: 25,
                     affectedByGravity: false,
                     lifeTime: 10000,
                     friendly: false,
