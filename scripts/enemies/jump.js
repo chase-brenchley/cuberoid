@@ -15,21 +15,21 @@ Game.enemies.bossJump = function(spec){
 
 
         that.draw = function(){
-            Game.graphics.drawCornerRect({
-                x: that.position.x,
-                y: that.position.y,
-                width: .1,
-                height: .17*2,
-                color: "red",
-            })
+            // Game.graphics.drawCornerRect({
+            //     x: that.position.x,
+            //     y: that.position.y,
+            //     width: .1/2,
+            //     height: .17*2,
+            //     color: "red",
+            // })
             Game.graphics.drawImage({
-                // dx: that.position.x,
-                dx: .5,
-                // dy: that.position.y,
-                dy: .5,
-                dwidth: .1,
-                dheight: .17*2,
                 image: that.bossImage,
+                dx: that.position.x+.05/2,
+                // dx: .5,
+                dy: that.position.y+.17,
+                // dy: .5,
+                dWidth: .1,
+                dHeight: .17*2,
             })
         }
 
@@ -70,7 +70,7 @@ Game.enemies.bossJump = function(spec){
         }
 
         that.getEverything= function(){
-            return {x: that.position.x+.1/2, y: that.position.y+.17, width: .1, height: .17*2, alive: that.alive, health: that.health};
+            return {x: that.position.x+.05/2, y: that.position.y+.17, width: .1/2, height: .17*2, alive: that.alive, health: that.health};
         }
 
         return that;

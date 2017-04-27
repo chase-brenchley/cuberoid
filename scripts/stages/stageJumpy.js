@@ -14,7 +14,7 @@ Game.stageJumpy = function() {
         {x: 1, y: .5, width: .1/1.7, height: 1, color: "greY"}, // Right Wall
         {x: .5, y: 1,width: 1, height: .1, color:"grey"}, // Floor
         {x: .5/2+(.1/1.7)/2, y: .16+.1, width: .5, height: .049, color: "red"}, // top left platform
-        {x: 1-(.25/1.7)/2-(.1/1.7)/2, y: .6, width: .25/1.7, height: .049, color: "red"}, // right platform
+        {x: 1-(.2/1.7)/2-(.1/1.7)/2, y: 1-.425/2, width: .3/1.7, height: .425, color: "red"}, // right platform
         {x: .05, y: .15, width: doorWidth, height: doorHeight, color: "red", nextStage: null, coords: {x:null,y:null}}, // Top-left door
     ];
 
@@ -23,7 +23,7 @@ Game.stageJumpy = function() {
         width = canvas.width;
         height = canvas.height;
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: 1-.15};
-        boss = Game.enemies.bossJump.generate({startLocation: {x: .05, y: 1-(.05+.17*2)}, leftLimit: .05, rightLimit: .7});
+        boss = Game.enemies.bossJump.generate({startLocation: {x: .05, y: 1-(.05+.17*2)}, leftLimit: .05, rightLimit: 1-(.2/1.7)/2-(.1/1.7)/2-(.3/1.7)/2-.1/2});
         stage[7] = boss.getEverything();
         stage[8] = jumpPickup = {x: .05, y: 1-.075, height: .05, width: .05/1.7, color: "blue", pickedUp: jumpPickedUp, upgrade: "jump"};
         jumpPickupImage.src = "assets/sprites/jumpUpgrade.png";
