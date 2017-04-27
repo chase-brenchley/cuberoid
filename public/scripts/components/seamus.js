@@ -423,11 +423,9 @@ Game.seamus = function(){
             // is not at the right side of obj
             else if(collisionSide == 'left'){
                 that.x = obj.x + .5 * obj.width + .5 * that.width;
-                that.curAnimation.x = that.x;
             }
             else if(collisionSide == 'right'){
                 that.x = obj.x - .5 * obj.width - .5 * that.width;
-                that.curAnimation.x = that.x;
             }
             else if(collisionSide == 'top'){
                 if(that.yVelocity < 0){
@@ -449,6 +447,16 @@ Game.seamus = function(){
             if(collisionSide == 'left' || collisionSide == 'right'){
                 that.xVelocity = 0;
             }
+
+            if(obj.hasOwnProperty('alive')){
+                if(that.x < obj.x){
+                    that.x -= .05;
+                }
+                else{
+                    that.x += .05;
+                }
+            }
+            that.curAnimation.x = that.x;
             return (collisionSide != null ?  true: false);
         }
 
