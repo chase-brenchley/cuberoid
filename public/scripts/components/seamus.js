@@ -178,7 +178,7 @@ Game.seamus = function(){
 
         that.init = function(controls){
             that.health = 100;
-            that.missileCount = 8;
+            that.missileCount = 0;
             that.gravity = 3;
             that.alive = true;
 
