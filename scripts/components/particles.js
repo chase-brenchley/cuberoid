@@ -135,7 +135,8 @@ Game.particles = function(){
                 affectedByGravity: false, // boolean value indicating if bullet drop is a thing with this pewpew
                 lifeTime: 350, // Max lifetime of a particle in milliseconds
             })
-            playSound(explosionSound)
+            // playSound(explosionSound)
+            new Audio(explosionSound.src).play();
             // for(let i = 0; i < 50; i++){
             //     nonCollidableParticles.push(generateParticle({
             //         x: Math.random() * that.width + (that.x - that.width/2),

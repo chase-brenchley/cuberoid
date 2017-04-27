@@ -130,13 +130,18 @@ Game.stageMissile = function() {
         stage[8] = boss.getEverything();
         boss.update(time);
     }
+    
+    function updatePickup(bool){
+        missilesPickedUp = bool;
+    }
 
     return {
         Stage: stage,
         update: update,
         draw: draw,
         init: init,
-        stageID: stageID
+        stageID: stageID,
+        updatePickup: updatePickup,
 
     }
 }();

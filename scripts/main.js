@@ -33,6 +33,8 @@ Game.game = (function(controls){
         Game.controls.init();
         currentStage.init();
         HUD.init();
+        Game.stageJumpy.updatePickup(false);
+        Game.stageMissile.updatePickup(false);
         
         Game.particles.clear();
 

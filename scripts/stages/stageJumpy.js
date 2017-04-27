@@ -129,11 +129,16 @@ Game.stageJumpy = function() {
         stage[7] = boss.getEverything();
     }
 
+    function updatePickup(bool){
+        jumpPickedUp = bool;
+    }
+
     return {
         update: update,
         Stage: stage,
         draw: draw,
         init: init,
-        stageID: stageID
+        stageID: stageID,
+        updatePickup: updatePickup,
     }
 }();

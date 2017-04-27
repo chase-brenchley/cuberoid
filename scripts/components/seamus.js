@@ -74,7 +74,8 @@ Game.seamus = function(){
                     }
 
                     Game.particles.generatePewpew(spec)
-                    playSound(pewSound[Math.floor(Math.random() * pewSound.length)])
+                    // playSound(pewSound[Math.floor(Math.random() * pewSound.length)])
+                    new Audio(pewSound[Math.floor(Math.random() * pewSound.length)].src).play();
                 }
             }
 
