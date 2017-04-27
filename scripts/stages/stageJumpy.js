@@ -25,7 +25,7 @@ Game.stageJumpy = function() {
         stage[6].nextStage = Game.stage2; stage[6].coords = {x:1-.1, y: 1-.15};
         boss = Game.enemies.bossJump.generate({startLocation: {x: .05, y: 1-(.05+.17*2)}, leftLimit: .05, rightLimit: 1-(.2/1.7)/2-(.1/1.7)/2-(.3/1.7)/2-.1/2});
         stage[7] = boss.getEverything();
-        stage[8] = jumpPickup = {x: .05, y: 1-.075, height: .05, width: .05/1.7, color: "blue", pickedUp: jumpPickedUp, upgrade: "jump"};
+        stage[8] = jumpPickup = {x: .05, y: 1-.075, height: .05, width: .05/1.7, color: "blue", pickedUp: jumpPickedUp, upgrade: "jump", canCollide: false,};
         jumpPickupImage.src = "assets/sprites/jumpUpgrade.png";
     }
 
@@ -47,7 +47,8 @@ Game.stageJumpy = function() {
 
         if(boss.alive) boss.draw();
         else if(stage[8].pickedUp == false){
-                Game.graphics.drawImage({
+            stage[8].canCollide = true;
+            Game.graphics.drawImage({
                 image: jumpPickupImage,
                 dx: jumpPickup.x,
                 dy: jumpPickup.y,

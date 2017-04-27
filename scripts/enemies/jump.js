@@ -45,7 +45,7 @@ Game.enemies.bossJump = function(spec){
                 that.yVelocity += 3 * time/1000;
                 that.position.y += that.yVelocity * time/1000;
 
-                Game.game.getSeamus().x > that.position.x+.1/2 ? that.direction = that.moveSpeed: that.direction = -that.moveSpeed; // Seamus is to the right
+                Game.game.getSeamus().x > that.position.x+.05/2 ? that.direction = that.moveSpeed: that.direction = -that.moveSpeed; // Seamus is to the right
 
                 if(that.position.x + that.direction > that.rightLimit) that.direction = -that.moveSpeed;
                 else if(that.position.x - that.direction < that.leftLimit) that.direction = that.moveSpeed;

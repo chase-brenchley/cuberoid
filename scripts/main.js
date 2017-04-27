@@ -22,7 +22,7 @@ Game.game = (function(controls){
         seamus.init(Game.controls.controls);
 
         physics = Game.physics;
-        currentStage = Game.stageJumpy;
+        currentStage = Game.stage1;
         HUD = Game.HUD;
         
         physics.init();
@@ -67,7 +67,7 @@ Game.game = (function(controls){
                 if(currentStage.Stage[i].hasOwnProperty("alive") && currentStage.Stage[i].alive == false){
                     collide = false;
                 }
-                else if (currentStage.Stage[i].hasOwnProperty("pickedUp") && currentStage.Stage[i].pickedUp == false){
+                else if (currentStage.Stage[i].hasOwnProperty("pickedUp") && currentStage.Stage[i].pickedUp == false && currentStage.Stage[i].canCollide){
                     collide = seamus.collision(currentStage.Stage[i])
                     if(collide){
                         if (currentStage.Stage[i].hasOwnProperty("addMissiles")) seamus.missileCount = currentStage.Stage[i].addMissiles;
@@ -75,7 +75,7 @@ Game.game = (function(controls){
                         currentStage.Stage[i].pickedUp = true;
                     }
                 } 
-                else if (currentStage.Stage[i].pickedUp == true) collide = false;
+                else if (currentStage.Stage[i].pickedUp == true || (currentStage.Stage[i].hasOwnProperty("canCollide") && !currentStage.Stage[i].canCollide)) collide = false;
 
                 else collide = seamus.collision(currentStage.Stage[i]);;
 
