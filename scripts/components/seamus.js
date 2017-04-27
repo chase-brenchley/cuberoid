@@ -170,6 +170,7 @@ Game.seamus = function(){
 
         that.init = function(controls){
             that.health = 100;
+            that.alive = true;
             that.missileCount = 8;
             that.gravity = 3;// Game.physics.getGravity();
 
@@ -330,6 +331,11 @@ Game.seamus = function(){
 
         that.update = function(elapsedTime){
             'use strict'
+            if(!that.alive) {
+                that.x = -1;
+                that.y = -1;
+                return;
+            }
             
             // Update yVelocity and y position            
             // that.yVelocity += Game.physics.getGravity() * elapsedTime / 1000;
@@ -377,6 +383,10 @@ Game.seamus = function(){
                 that.xVelocity = 0;
             }
 
+            if(that.health <= 0) {
+                that.alive = false;
+            }
+
             // Have to update the sprite after updating the hitbox's position
             that.updateSprite(elapsedTime);    
         }
@@ -384,6 +394,16 @@ Game.seamus = function(){
         // for now just draw a colored rectangle, later do sprite animation.
         that.draw = function(){
             // Game.graphics.drawRect({x: that.x, y: that.y, width: that.width, height: that.height, color: 'pink'});
+            if(!that.alive){
+                Game.graphics.drawCenterText({
+                    font: "80px '8BITWONDERNominal'",
+                    text: "Game Over",
+                    x: .5,
+                    y: .5,
+                    color: "red"
+                })
+                return;
+            }
             
             Game.graphics.drawSprite(that.curAnimation, that)
             //Game.graphics.drawSprite(that.curanimation, that);

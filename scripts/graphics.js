@@ -54,6 +54,14 @@ Game.graphics = function(){
         context.restore();
     }
 
+    function drawCenterText(spec){
+        context.save();
+        context.font = spec.font;
+        context.fillStyle = spec.color;
+        context.fillText(spec.text, (spec.x - .5 *.5)*canvas.width, (spec.y-.5*.1)*canvas.height);
+        context.restore();
+    }
+
     /*
         curAnimation has the following relavent properties
         curAnimation = {
@@ -148,5 +156,6 @@ Game.graphics = function(){
         getHeight: getHeight,
         drawCornerRect: drawCornerRect,
         drawText: drawText,
+        drawCenterText: drawCenterText,
     }
 }()
