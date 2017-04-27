@@ -5,14 +5,24 @@ Game.enemies.bossMissile = function(spec){
         that.health = 1500;
         that.position = spec.startLocation;
 
+        that.bossImage = new Image();
+        that.bossImage.src = "assets/sprites/missileBoss.png";
+
 
         that.draw = function(){
-            Game.graphics.drawCornerRect({
-                x: that.position.x,
-                y: that.position.y,
-                width: .17*2/1.7,
-                height: .17*2,
-                color: "red",
+            // Game.graphics.drawCornerRect({
+            //     x: that.position.x,
+            //     y: that.position.y,
+            //     width: .15, //.2
+            //     height: .17*2,
+            //     color: "red",
+            // })
+            Game.graphics.drawImage({
+                image: that.bossImage,
+                dx: that.position.x+(.17*2/1.7)/2,
+                dy: that.position.y+.11,
+                dWidth: .17*2/1.7,
+                dHeight: .17*2,
             })
         }
 
@@ -36,7 +46,7 @@ Game.enemies.bossMissile = function(spec){
         }
 
         that.getEverything= function(){
-            return {x: that.position.x+(.17*2/1.7)/2, y: that.position.y+.17, width: .17*2/1.7, height: .17*2, alive: that.alive, health: that.health};
+            return {x: that.position.x+(.15)/2, y: that.position.y+.17, width: .15, height: .17*2, alive: that.alive, health: that.health};
         }
 
         return that;
