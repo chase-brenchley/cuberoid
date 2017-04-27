@@ -173,7 +173,7 @@ Game.seamus = function(){
         that.init = function(controls){
             that.health = 100;
             that.alive = true;
-            that.missileCount = 8;
+            that.missileCount = 0;
             that.gravity = 3;// Game.physics.getGravity();
 
             // Position/Dimension
