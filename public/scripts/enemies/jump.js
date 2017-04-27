@@ -33,13 +33,15 @@ Game.enemies.bossJump = function(spec){
             })
         }
 
+        var jumpSound = new Audio('assets/sound/boing.m4a')
         that.updatePosition = function(time){
             that.timeUntilNextJump -= time;
-
+            
             if (that.timeUntilNextJump <= 0) {
                 that.timeUntilNextJump = 2000;
                 that.yVelocity = -1.4;
                 that.position.y += that.yVelocity * time/1000;
+                playSound(jumpSound);
             } 
             else if(that.position.y < 1-(.05+.17*2)) {
                 that.yVelocity += 3 * time/1000;
@@ -54,16 +56,28 @@ Game.enemies.bossJump = function(spec){
             else if(that.position.y > 1-(.05+.17*2)) that.position.y = 1-(.05+.17*2);
         }
 
+        var deathSound = new Audio('assets/sound/Voice 019-1.m4a');
         that.updateState = function(){
             if(that.health <= 0){
                 that.alive = false;
+                playSound(deathSound);
             }
         }
 
+        var previousHealth = that.health;
+        var damageSound = new Audio('assets/sound/Voice 003-1.m4a');
         that.update = function(time){
+            if(that.alive == false){
+                return;
+            }
+            if(that.health < previousHealth){
+                damageSound.play();
+                previousHealth = that.health;
+            }
             that.updatePosition(time);
             that.updateState();
         }
+
 
         that.takeDamage = function(dmg){
             that.health -= dmg;
